@@ -10,6 +10,18 @@
  * a sample YAML configuration file for non-production environments  - `test-config.yml`
  * a sample YAML configuration file for the production environment  - `prod-config.yml`
 
+1. Verify the shasum of the zipfile:
+
+        # On mac and linux:
+        shasum -a 256 ida-msa-561.zip
+
+        # On windows (powershell):
+        Get-FileHash ida-msa-561.zip -Algorithm SHA256
+
+    The sha256 for `ida-msa-561.zip` should be:
+
+    > 381450a90fea16f4f179b02f5175ce43df5418c604838a1341ac801ada8bf27f
+
 
 1. To extract the files, run the following command:
 
