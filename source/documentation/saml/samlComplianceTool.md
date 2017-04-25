@@ -47,21 +47,21 @@ Generate a new set of configuration data for every test run.
     ```
         Content-Type: application/json
         {
-            "rpEntityId":"[entityID for your service]",
+            "serviceEntityId":"[entityID for your service]",
             "assertionConsumerServiceUrl":"[assertion consumer service URL: this is the URL that will consume responses from the GOV.UK Verify hub]",
-            "signingPublicCert":"[Base64-encoded X509 signing certificate for your service]",
-            "encryptionPublicCert":"[Base64-encoded X509 encryption certificate for your service]",
+            "signingCertificate":"[Base64-encoded X509 signing certificate for your service]",
+            "encryptionCertificate":"[Base64-encoded X509 encryption certificate for your service]",
             "expectedPID":"[expected persistent identifier: this is the user id that the Matching Service Adapter returns in an assertion]",
             "matchingServiceEntityId":"[entityID for your Matching Service Adapter]",
-            "matchingServiceSigningPrivateCert":"[Base64-encoded private signing key for the Matching Service Adapter, see below]",
-            "userAccountCreationAttributes":"[optional list of attributes the government service requires for new user account creation, see below]",
+            "matchingServiceSigningPrivateKey":"[Base64-encoded private signing key for the Matching Service Adapter, see below]",
+            "userAccountCreationAttributes":["optional", "list", "of", "attributes", "the", "government", "service", "requires", "for", "new", "user", "account", "creation", "see", "below"],
             "useSimpleProfile":"[optional, to use a simpler SAML profile that works with Shibboleth - defaults to false]"
         }
     ``` 
 
     Replace the square brackets and their contents with your configuration data, taking account of the following:
      * the keys and certificates in the configuration data must be single-line strings of Base64-encoded data without the header and footer `BEGIN CERTIFICATE` and `END CERTIFICATE`
-     * `matchingServiceSigningPrivateCert`: this is required because the compliance tool sends a response to your service which contains an assertion signed by the Matching Service Adapter
+     * `matchingServiceSigningPrivateKey`: this is required because the compliance tool sends a response to your service which contains an assertion signed by the Matching Service Adapter
 
         This key must be a Base-64 encoded version of your PKCS#8 signing key. To convert a key named `test_primary_signing.pk8`, run:
         
@@ -128,16 +128,16 @@ Generate a new set of configuration data for every test run.
 ### Test your matching service with the SAML compliance tool
 
 
-1. To set up the SAML compliance tool for matching service tests, POST the following JSON (via curl or Postman, for example) to the SAML compliance tool URL ([https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk/rp-test-data](https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk/rp-test-data)):
+1. To set up the SAML compliance tool for matching service tests, POST the following JSON (via curl or Postman, for example) to the SAML compliance tool URL ([https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk/ms-test-run](https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk/ms-test-run)):
     
     ```
      Content-Type: application/json
        {
        "matchingServiceEntityId": "[entityID of the matching service]",
-       "transactionEntityId": "[entityID of the transaction (service)]",
+       "serviceEntityId": "[entityID of the transaction (service)]",
        "matchingServiceEndpoint": "[the matching service's endpoint]",
-       "matchingServicePublicSigningCert": "[signing certificate to verify the response]",
-       "matchingServicePublicEncryptionCert": "[encryption certificate to encrypt the assertions]"
+       "matchingServiceSigningCertificate": "[signing certificate to verify the response]",
+       "matchingServiceEncryptionCertificate": "[encryption certificate to encrypt the assertions]"
        }
     ```
 
