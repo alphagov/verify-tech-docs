@@ -54,8 +54,7 @@ Generate a new set of configuration data for every test run.
             "expectedPID":"[expected persistent identifier: this is the user id that the Matching Service Adapter returns in an assertion]",
             "matchingServiceEntityId":"[entityID for your Matching Service Adapter]",
             "matchingServiceSigningPrivateKey":"[Base64-encoded private signing key for the Matching Service Adapter, see below]",
-            "userAccountCreationAttributes":["optional", "list", "of", "attributes", "the", "government", "service", "requires", "for", "new", "user", "account", "creation", "see", "below"],
-            "useSimpleProfile":"[optional, to use a simpler SAML profile that works with Shibboleth - defaults to false]"
+            "userAccountCreationAttributes":["optional", "list", "of", "attributes", "the", "government", "service", "requires", "for", "new", "user", "account", "creation", "see", "below"]
         }
     ``` 
 
