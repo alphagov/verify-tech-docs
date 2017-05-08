@@ -1,5 +1,17 @@
 # Technical Documentation
 
+## NOTE:
+
+We stopped maintaining this guide at the same version as the old one in this revision:
+
+```
+commit 177c0b2ba6c6b5ca18c8001604518bfe5160bb4a
+Author: Richard Towers <richard.towers@digital.cabinet-office.gov.uk>
+Date:   Mon May 8 17:53:19 2017 +0100
+
+TT-369: Document the user account creation tests
+```
+
 ## Getting started
 
 To preview or build the website, we need to use the terminal.
