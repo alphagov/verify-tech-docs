@@ -13,14 +13,14 @@
 1. Verify the shasum of the zipfile:
 
         # On mac and linux:
-        shasum -a 256 ida-msa-561.zip
+        shasum -a 256 ida-msa-2.0.0-580
 
         # On windows (powershell):
-        Get-FileHash ida-msa-561.zip -Algorithm SHA256
+        Get-FileHash ida-msa-2.0.0-580 -Algorithm SHA256
 
     The sha256 for `ida-msa-561.zip` should be:
 
-    > 381450a90fea16f4f179b02f5175ce43df5418c604838a1341ac801ada8bf27f
+    > 50b8d91286ab5d6a5a4bde8844a8569c6e20ecdabe39e5df8d284c73b9b3b415
 
 
 1. To extract the files, run the following command:
