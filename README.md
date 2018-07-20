@@ -1,3 +1,7 @@
+
+**This repo is a work in progress as we migrate the [GOV.UK Verify documentation](http://alphagov.github.io/rp-onboarding-tech-docs/index.html) to the [GOV.UK tech doc tool format](https://github.com/alphagov/tech-docs-template).**
+
+
 # Technical Documentation
 
 ## Getting started
