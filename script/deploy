@@ -50,5 +50,5 @@ echo "OK!"
 
 bundle exec middleman build
 cp Staticfile.auth build
-cf target -o govuk-service-manual -s integration
+cf target -o govuk-verify -s docs
 cf push
