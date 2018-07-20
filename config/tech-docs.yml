@@ -1,18 +1,18 @@
 # Host to use for canonical URL generation (without trailing slash)
-host: y
+host: verify-tech-docs.cloudapps.digital
 
 # Header-related options
 show_govuk_logo: true
 service_name: Verify
-service_link: https://www.larry-the-cat.service.gov.uk
+service_link: https://www.gov.uk/verify
 phase: Beta
 
 # Links to show on right-hand-side of header
 header_links:
-  About: https://www.larry-the-cat.service.gov.uk
-  Get Started: https://www.larry-the-cat.service.gov.uk/get-started
+  About: https://www.gov.uk/verify
+  Get Started: https://www.gov.uk/verify
   Documentation: /
-  Support: https://www.larry-the-cat.service.gov.uk/support
+  Support: https://www.signin.service.gov.uk/feedback
 
 # Tracking ID from Google Analytics (e.g. UA-XXXX-Y)
 ga_tracking_id:
