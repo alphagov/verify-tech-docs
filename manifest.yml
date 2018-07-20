@@ -1,6 +1,6 @@
 ---
 applications:
-- name: y
+- name: verify-tech-docs
   memory: 64M
   path: ./build
   buildpack: staticfile_buildpack
