@@ -1,0 +1,22 @@
+---
+title: SAML
+weight: 15
+---
+
+# SAML
+
+Security Assertion Markup Language (SAML) is an open standard for securely exchanging information about identities. All exchanges between the entities in the GOV.UK Verify federation use SAML.
+
+## How SAML works with GOV.UK Verify
+
+SAML messages take the form of requests and responses. Messages can contain assertions about the user's identity. GOV.UK Verify uses the following types of assertion:
+
+* identity assertions – contain information about the user
+* authentication context assertions – contain information related to how authentication was carried out, for example, the level of assurance
+* fraud event assertions – contain identifiers related to an identified fraud detected by the identity provider
+
+The SAML profile defines these assertions:
+
+* the [Identity Assurance Hub Service SAML 2.0 Profile](https://www.gov.uk/government/publications/identity-assurance-hub-service-saml-20-profile)
+* [Identity Assurance Hub Service Profile – Authentication Contexts](https://www.gov.uk/government/publications/identity-assurance-hub-service-profile-authentication-contexts)
+* [Identity Assurance Hub Service Profile – SAML Attributes](https://www.gov.uk/government/publications/identity-assurance-hub-service-profile-saml-attributes)
