@@ -10,3 +10,7 @@ gem 'tzinfo-data', platforms: [:mswin, :mingw, :jruby]
 
 # Include the tech docs gem
 gem 'govuk_tech_docs'
+
+# The search functionality requires the `middleman-search` gem
+
+gem 'middleman-search', git: 'git://github.com/alphagov/middleman-search.git'
