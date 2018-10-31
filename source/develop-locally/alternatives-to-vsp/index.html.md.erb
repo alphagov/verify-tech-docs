@@ -1,0 +1,28 @@
+---
+title: Alternatives to the Verify Service Provider
+weight: 20
+---
+
+# Alternatives to the Verify Service Provider
+
+If you choose to configure an off-the-shelf product or build your own Service Provider, you should [contact Verify](LINK) before starting any development work.
+
+You must:
+
+- understand [how SAML works with GOV.UK Verify](LINK)
+- decide how to [add the SAML functionality to your service](LINK)
+- implement certain functionality to ensure smooth interoperability with Verify
+
+This means you must:
+
+- consume Verify Hub signing certificates directly from the Verify Hub metadata
+- consume MSA signing certificates metadata from your [Matching Service Adapter (MSA)](LINK) metadata, or support multiple MSA signing certificates directly in your service
+- support multiple encryption keys for your service
+
+You must also follow:
+
+- '[Identity Assurance Hub Service SAML 2.0 Profile](https://www.gov.uk/government/publications/identity-assurance-hub-service-saml-20-profile)' – describes the SAML specifications you must respect to connect to the GOV.UK Verify hub
+- '[Identity Assurance Hub Service Profile – Authentication Contexts](https://www.gov.uk/government/publications/identity-assurance-hub-service-profile-authentication-contexts)' – describes how the level of assurance is specified
+- '[Identity Assurance Hub Service Profile – SAML Attributes](https://www.gov.uk/government/publications/identity-assurance-hub-service-profile-saml-attributes)' – describes the matching dataset attributes and fraud event assertion attributes
+
+The SAML profile used by GOV.UK Verify builds on the [OASIS documentation for the SAML 2.0 standard ](https://www.oasis-open.org/standards#samlv2.0).

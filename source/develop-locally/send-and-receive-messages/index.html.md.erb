@@ -1,0 +1,16 @@
+---
+title: Send and receive messages from Verify
+weight: 05
+---
+
+# Send and receive messages from Verify
+
+Your service must use a system to send SAML messages to the Verify Hub and receive SAML responses in return. This system is known as a Service Provider.
+
+You can either:
+
+- use the Service Provider built by Verify, known as the [Verify Service Provider](https://github.com/alphagov/verify-service-provider) (recommended)
+- configure an off-the-shelf product to use as a Service Provider
+- build your own Service Provider
+
+Whichever option you choose, you must [run compliance tests](LINK) to check you can send and receive SAML messages successfully in all possible scenarios.
