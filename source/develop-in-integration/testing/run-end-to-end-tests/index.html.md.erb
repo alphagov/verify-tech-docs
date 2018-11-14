@@ -1,0 +1,18 @@
+---
+title: Run end-to-end tests
+weight: 20
+---
+
+# Run end-to-end tests
+
+As a minimum, test the following end-to-end user scenarios:
+
+* authentication success and authentication failure
+* match and no-match
+* all the possible outcomes of your matching service, including [Cycle 3](LINK) and [user account creation](LINK), if implemented
+
+## Tear down
+
+After each integration test run, we recommend that you [delete the test users](LINK). Set up each integration test run with newly created test users.
+
+When you've successfully completed testing in the integration environment, you must provide a full demonstration of all user journeys. This is one of the [outputs required at this stage](http://alphagov.github.io/identity-assurance-documentation/stage4/Stage4.html#stage-4) before moving on to [Stage 5 Production Onboarding](http://alphagov.github.io/identity-assurance-documentation/stage5/Stage5.html).
