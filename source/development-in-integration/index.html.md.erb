@@ -1,0 +1,22 @@
+---
+title: Development in Integration
+weight: 40
+---
+
+# Development in Integration
+
+The Integration environment is a production-sized deployment of the GOV.UK Verify hub. It's a restricted environment for security reasons.
+
+The purpose of the integration environment is to make sure that your service operates with the GOV.UK Verify hub. The Integration environment is designed to test full end-to-end flows and to showcase a working system. Each service usually has a single connection to the Integration environment.
+
+## What do you need to do?
+
+Before you access the Integration environment, you should make sure your service passes [compliance tool tests](LINK).
+
+To access the Integration environment:
+
+1. Obtain [signed certificates](LINK) for the Integration environment from the appropriate IDAP certificate authority.
+
+2. Provide additional details of your service in the '[Request access to an environment](LINK)' form.
+
+In the Integration environment, you'll run [end-to-end testing](LINK). On successful completion of end-to-end testing you'll access the production environment. To access the production environment use the same procedure as above.
