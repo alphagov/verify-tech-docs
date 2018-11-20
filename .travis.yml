@@ -16,4 +16,4 @@ deploy:
     - cf login -a api.cloud.service.gov.uk -u "$CF_USER" -p "$CF_PASS" -o "$CF_ORG" -s "$CF_SPACE"
     - cf push
   on:
-    repo: alphagov/verify-tech-docs
+    branch: master
