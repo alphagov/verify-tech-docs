@@ -1,13 +1,19 @@
 language: ruby
 cache: bundler
+
+env:
+  global:
+    - CF_USER=ida-operations+paas-build-bot@digital.cabinet-office.gov.uk
+    - CF_ORG=govuk-verify
+    - CF_SPACE=docs
+    - secure: "m1JmLtXVSmg1Y9nB/yM5ieo9+R4+ZNxCAFMi7vhVp+7lvscwyMUKxs8O8ZWTQG8o5i/xKBy6eh7kZkFlRW3mqLqRwtUdpSgvhkOwrOp6YWNS1Pz1tYnkYFzhQr8pV40CVnGOHI2iBTiVAuwcvnBnIUMi55VbUxcsW/B2gnF2PdpRyTFM2OzAE0rluCs7Zb9pVhGqpbSdFo1XQ+bywyS5RGQdAtQGVO+9X+CbTTUGZ4p9zz7rjgeqEJTGMemZF2vmSKw89XjuuEATL62ozpmk/nryvyXMa027F08gx5SPTEWS5p5RkhLL/9k3J8idFSU6PcA7Z+lYHTnQxb7azPSn86d8g5Z/JL0TCKIEeITwQdnu9CE+ZrBmc3+nuImUxWQCVGJFL2FAEqZ2HkcQD4384/UFSNBZnQ43bDvw9wISWMcwt+v0FQMt9/WWIbZrt7/kEV744cDrvKjaia+5C9nm8L0wk2fOBP+EnyuO1juRV5oJWUKYLHR3942qZjZKX/JDSfIJHZPVtcqWcxTFMVFQfNhw3bkq68Epax6UhtfBwOSe1x0Z7h2hRDUwq5u5LLIs2FswCNXGdAx1Ljk99ieCqS0jwsUfE4NKNIj5IVvcAfYk86vQqa7xE21QW3jzPg569864gkjCKfInVFLmFvitgltUKU2+bbn9g0Fjh6Y66/k="
+
 script: bundle exec middleman build
+
 deploy:
-  provider: cloudfoundry
-  api: https://api.cloud.service.gov.uk
-  username: ida-operations+paas-build-bot@digital.cabinet-office.gov.uk
-  password:
-    secure: g0vkgqF5SYENYG+fSEaeZzHRLWMBvhQefyjs2xWy708Nh5eO+3+Wyg2GCMltZHnFfhiasbGBtn3bwgOfuV1JLFwWkuOi5SdpUoEEXrZ5DcOXuwaInBnO8I6bSvSQpqjfYAhmuRA2Z4NuV6xDZI08wRZRphccccyuCRf6WFXAkSEEJzKMOD/7JNlv6TS9491BK0Hx4x16ZWk0l3JdMLt7y+vYyrm02t9+VauOntYfJcfeLO6NX0J6YU6vJzb1C0RcfrOSgyI73MgK5m9gHYqUVIV8AzwMBEiGzsbNGMQBK/qYgO4ETCLDBxqftgULbB3KT8t6G+CuecOgVRlJQZk/dkDuoodfP4u4hZa3nM9ZnM7KAa51KXkfmoMUXwyjs0qcDTCiBI8VMaNcMIIU45BWdF4ND1b3qLYs+BPuoxKM5EgMzCFh8Dn5NyjNA/zOZbUZdgekWKSqdf8932nWQsVGxZGn1wVs7Jrx04d5J2cckYz2j88LGLUQayLcLuODhFVS8q0JwxxRLJ27i6/C/8wU6D150OkywoivlmtTzJ1fcvSdwQverzGYgk2RN+GWQJ3gABZv5hXVjvMTs/5TZD4Lr7BZrNJw+dvYqBiwCkNFlwDIYx0k0FikRe7ZAk16X6zWwo1digcP3d1grbFHXKZ7nP6F7JcKXb8atBBroCPDpvE=
-  organization: govuk-verify
-  space: docs
+  provider: script
+  script:
+    - cf login -a api.cloud.service.gov.uk -u "$CF_USER" -p "$CF_PASS" -o "$CF_ORG" -s "$CF_SPACE"
+    - cf push
   on:
     repo: alphagov/verify-tech-docs
