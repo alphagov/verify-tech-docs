@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -36,6 +36,5 @@ if [[ $BEHIND_ORIGIN != "" ]]; then
 fi
 echo "OK!"
 
-bundle exec middleman build
-cf target -o govuk-verify -s docs
+cf login -a api.cloud.service.gov.uk -u "$CF_USER" -p "$CF_PASS" -o "$CF_ORG" -s "$CF_SPACE"
 cf push
