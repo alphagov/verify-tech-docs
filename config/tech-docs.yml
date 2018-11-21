@@ -21,6 +21,11 @@ ga_tracking_id:
 # headings.
 max_toc_heading_level: 1
 
+# Show a block at the bottom of the page that links to the page source, so readers can easily contribute back to the documentation.
+
+show_contribution_banner: true
+github_repo: alphagov/verify-tech-docs/
+
 # Prevent robots from indexing (e.g. whilst in development)
 prevent_indexing: false
 
