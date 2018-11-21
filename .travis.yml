@@ -6,7 +6,7 @@ env:
     - CF_USER=ida-operations+paas-build-bot@digital.cabinet-office.gov.uk
     - CF_ORG=govuk-verify
     - CF_SPACE=docs
-    - SKIP_CHECKS=true
+    - RUNNING_ON_TRAVIS=true
     - secure: "m1JmLtXVSmg1Y9nB/yM5ieo9+R4+ZNxCAFMi7vhVp+7lvscwyMUKxs8O8ZWTQG8o5i/xKBy6eh7kZkFlRW3mqLqRwtUdpSgvhkOwrOp6YWNS1Pz1tYnkYFzhQr8pV40CVnGOHI2iBTiVAuwcvnBnIUMi55VbUxcsW/B2gnF2PdpRyTFM2OzAE0rluCs7Zb9pVhGqpbSdFo1XQ+bywyS5RGQdAtQGVO+9X+CbTTUGZ4p9zz7rjgeqEJTGMemZF2vmSKw89XjuuEATL62ozpmk/nryvyXMa027F08gx5SPTEWS5p5RkhLL/9k3J8idFSU6PcA7Z+lYHTnQxb7azPSn86d8g5Z/JL0TCKIEeITwQdnu9CE+ZrBmc3+nuImUxWQCVGJFL2FAEqZ2HkcQD4384/UFSNBZnQ43bDvw9wISWMcwt+v0FQMt9/WWIbZrt7/kEV744cDrvKjaia+5C9nm8L0wk2fOBP+EnyuO1juRV5oJWUKYLHR3942qZjZKX/JDSfIJHZPVtcqWcxTFMVFQfNhw3bkq68Epax6UhtfBwOSe1x0Z7h2hRDUwq5u5LLIs2FswCNXGdAx1Ljk99ieCqS0jwsUfE4NKNIj5IVvcAfYk86vQqa7xE21QW3jzPg569864gkjCKfInVFLmFvitgltUKU2+bbn9g0Fjh6Y66/k="
 
 before_script:

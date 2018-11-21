@@ -6,10 +6,19 @@ error() {
   echo " ! $1"
 }
 
+: ${CF_USER:?"Need to set CF_USER environment variable to your cloudfoundry username"}
+: ${CF_ORG:?"Need to set CF_ORG environment variable to your cloudfoundry organisation"}
+: ${CF_SPACE:?"Need to set CF_SPACE environment variable to your cloudfoundry space"}
+
+if [[ $RUNNING_ON_TRAVIS == "true" ]]; then
+  echo "Running on Travis, checking CF_PASS is set"
+  : ${CF_PASS:?"Need to set CF_PASS environment variable to your cloudfoundry password"}
+fi
+
 # Check that we're on master, or there's an environment variable set to override
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
-if [[ $SKIP_CHECKS != "true" ]]; then
+if [[ $RUNNING_ON_TRAVIS != "true" ]]; then
   echo "Checking branch..."
   if [[ $BRANCH != "master" ]] && [[ $I_REALISE_I_AM_NOT_ON_MASTER != "y" ]]; then
     error "Current branch is not master, cowardly refusing to deploy"
