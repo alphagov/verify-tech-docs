@@ -12,7 +12,7 @@ You can test your matching service with 2 tools provided by GOV.UK Verify:
 
 ## Using the Matching Service Test Tool
 
-The [Matching Service Test Tool ](https://github.com/alphagov/verify-matching-service-adapter/tree/master/verify-matching-service-test-tool)_ is a lightweight tool you can add to your existing testing workflow.
+The [Matching Service Test Tool ](https://github.com/alphagov/verify-matching-service-adapter/tree/master/verify-matching-service-test-tool) is a lightweight tool you can add to your existing testing workflow.
 
 The tool makes sure your Local Matching Service can:
 
@@ -20,7 +20,7 @@ The tool makes sure your Local Matching Service can:
 * find and match records correctly
 * handle matching failures
 
-You can also add or amend test scenarios to the tool. Refer to the [Matching Service Test Tool documentation on GitHub ](https://github.com/alphagov/verify-matching-service-adapter/tree/master/verify-matching-service-test-tool)_ to install and configure the tool.
+You can also add or amend test scenarios to the tool. Refer to the [Matching Service Test Tool documentation on GitHub ](https://github.com/alphagov/verify-matching-service-adapter/tree/master/verify-matching-service-test-tool) to install and configure the tool.
 
 ## Using the Compliance Tool
 
@@ -42,7 +42,7 @@ The Compliance Tool is hosted by GOV.UK Verify. To test the matching service usi
        }
       ```
 
-If your service [creates new user accounts ](LINK) then you will need to provide a value for `"userAccountCreationEndpoint"`.
+      If your service [creates new user accounts ](LINK) then you will need to provide a value for `"userAccountCreationEndpoint"`.
 
 2. You receive a response similar to the following:
 
@@ -129,17 +129,15 @@ If your service [creates new user accounts ](LINK) then you will need to provide
       You only need to test the user account creation requests if your service [creates new user accounts ](LINK).
 
       where:
-
-  * `persistentId` is mandatory
-  * you must supply at least one other value in addition to `persistentId`
-  * the values of `addresses`
-  and `surnames` are arrays
-  * fields have optional `from` and `to` attributes in which you can capture historical values – for example, if the user has changed their surname, there's an additional entry for the old surname with the `from` and `to` values defining the period for which the name was valid; the new surname only has the `from` attribute, containing the date from which it was valid
-  * the `addresses` field that holds the current address contains a `fromDate` attribute for the date from which the address is valid; past addresses also contain the `toDate` attribute
-  * the `cycle3Dataset` field is only present for a cycle 3 matching attempt
-  * the `uprn` (Unique Property Reference Number) is a unique reference for each property in Great Britain, ensuring accuracy of address data. This is an optional attribute that can contain up to 12 characters and should not have any leading zeros
-  * `userAccountCreationAttributes`: provide this only if you want to test [new user account creation ](LINK) – select from the full [list of attributes ](LINK)
-
+      * `persistentId` is mandatory
+      * you must supply at least one other value in addition to `persistentId`
+      * the values of `addresses`
+      and `surnames` are arrays
+      * fields have optional `from` and `to` attributes in which you can capture historical values – for example, if the user has changed their surname, there's an additional entry for the old surname with the `from` and `to` values defining the period for which the name was valid; the new surname only has the `from` attribute, containing the date from which it was valid
+      * the `addresses` field that holds the current address contains a `fromDate` attribute for the date from which the address is valid; past addresses also contain the `toDate` attribute
+      * the `cycle3Dataset` field is only present for a cycle 3 matching attempt
+      * the `uprn` (Unique Property Reference Number) is a unique reference for each property in Great Britain, ensuring accuracy of address data. This is an optional attribute that can contain up to 12 characters and should not have any leading zeros
+      * `userAccountCreationAttributes`: provide this only if you want to test [new user account creation ](LINK) – select from the full [list of attributes ](LINK)
 
 4. When the SAML Compliance Tool receives your test matching dataset, it will POST an attribute query to your MSA. This corresponds to step 4 in the [SAML message flow ](LINK).
 

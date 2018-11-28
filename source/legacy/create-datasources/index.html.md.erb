@@ -13,15 +13,13 @@ Create new user accounts using the hashed persistent identifier (PID) and a subs
 
 ## Prerequisites
 
-1.	Configure your MSA to create user accounts.
-
-  - In the [YAML configuration file ](LINK), enter your local matching service '`accountCreationUrl:`'
+1. Configure your MSA to create user accounts.
+      In the [YAML configuration file ](LINK), enter your local matching service '`accountCreationUrl:`'
 
 2. On the [Request access to an environment ](LINK) form:
 
-  - Enter the fully qualified URL that will receive your *Unknown User Attribute* requests from the environment
-
-  - Select any of the following user attributes you require for your service
+      - Enter the fully qualified URL that will receive your *Unknown User Attribute* requests from the environment
+      - Select any of the following user attributes you require for your service
 
       ```
       FIRST_NAME
@@ -50,12 +48,10 @@ In this example, all 3 [matching cycles ](LINK) previously failed to find a matc
 
 1. Your local matching service sends a `no-match` response to the hub via the MSA.
 1. The GOV.UK Verify hub:
-
     * checks that your matching service supports the creation of user accounts
     * identifies the attributes you previously said your service needs to create a user account
 
 1. If your service supports the creation of user accounts, the hub sends a query to the MSA. It contains the:
-
     * matching dataset
     * hashed PID
     * level of assurance
@@ -91,22 +87,19 @@ In this example, all 3 [matching cycles ](LINK) previously failed to find a matc
       A user account isn't created at this point. The final response the hub sends to your service will contain the attributes you need to create a user account.
 
       The local matching service may return `{ "result": "failure" }` if:
-
-        * the level of assurance in the JSON request sent by the MSA is lower than the level of assurance required by the service
-        * there are exceptional circumstances, such as maintenance, when you want to suspend user account creation
+      * the level of assurance in the JSON request sent by the MSA is lower than the level of assurance required by the service
+      * there are exceptional circumstances, such as maintenance, when you want to suspend user account creation
 
 7. The MSA extracts the required attributes from the matching dataset.
 
 8. The MSA sends the extracted attributes, the hashed PID and the level of assurance to your service via the GOV.UK Verify hub.
 
       The MSA must send this data via the GOV.UK Verify hub, to respect the following identity assurance principles:
-
       * user control - users must give informed consent for their information to be used to create an account; they must also be allowed to check their information before you create the account
       * data minimisation – the service receives only the restricted set of attributes it needs, not the full matching dataset.
 
       For more information see the [Identity Assurance Principles ](https://www.gov.uk/government/consultations/draft-identity-assurance-principles/privacy-and-consumer-advisory-group-draft-identity-assurance-principles#the-nine-identity-assurance-principles).
 
 9. The government service:
-
       * creates a user account using the attributes extracted from the matching dataset
       * sets up a correlation between the user account and the user's hashed PID

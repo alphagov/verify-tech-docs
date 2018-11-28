@@ -175,9 +175,9 @@ Edit the `url` value and specify the location where the MSA accesses the SAML me
 
 In `trustStore.path`, specify the path to your metadata truststore file for the appropriate environment:
 
-    * for the SAML compliance tool and the integration environment, use the provided `test_ida_metadata.ts` file (this is the default setting in the `test-config.yml` file)
+  * for the SAML compliance tool and the integration environment, use the provided `test_ida_metadata.ts` file (this is the default setting in the `test-config.yml` file)
 
-    * for the production environment, use the provided `prod_ida_metadata.ts` file (this is the default setting in the `prod-config.yml` file)
+  * for the production environment, use the provided `prod_ida_metadata.ts` file (this is the default setting in the `prod-config.yml` file)
 
 Optionally, if you need to override the `hub` and `idp` truststore path for testing in Integration, uncomment the `hubTrustStore` and `idpTrustStore` sections in `test-config.yml`.
 
