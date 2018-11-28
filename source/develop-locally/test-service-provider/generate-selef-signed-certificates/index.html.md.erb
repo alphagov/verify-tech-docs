@@ -1,0 +1,49 @@
+---
+title: Generate self-signed certificates
+weight: 20
+---
+
+# Generate self-signed certificates
+
+
+To communicate with GOV.UK Verify you need to use keys and certificates. To communicate with the compliance tool, generate self-signed certificates as described here.
+
+## Generate self-signed certificates with OpenSSL
+
+
+You can generate keys and self-signed certificates in whatever way is most convenient and familiar for you. There are many different formats of keys and certificates. The Matching Service Adapter (MSA) uses PKCS#8 formatted keys (.pk8) and PEM encoded X509 certificates (.crt).
+
+The GOV.UK Verify team generally use the OpenSSL tool to do this using the guidance from the [Heroku Dev Center](https://devcenter.heroku.com/articles/ssl-certificate-self#prerequisites).
+
+
+Install OpenSSL if it isn't already installed:
+
+* OS X (with homebrew) - `brew install openssl`
+* Windows - download the 'Complete package, except sources' from http://gnuwin32.sourceforge.net/packages/openssl.htm
+* Ubuntu Linux - `apt-get install openssl`
+
+Run the following commands in order, replacing:
+
+* `$name` with the filename of the key or certificate you're generating - see [Keys and certificates for your MSA](LINK)
+and [Keys and certificates for your service](LINK)
+* `$commonName` with a description of how the certificate will be used - for example 'My Service MSA Signing Primary'
+
+```sh
+# Generate a private key:
+openssl genrsa -des3 -passout pass:x -out "$name.pass.key" 2048
+openssl rsa -passin pass:x -in "$name.pass.key" -out "$name.key"
+
+# Generate a certificate signing request (CSR):
+openssl req -batch -new -subj "/CN=$commonName" -key "$name.key" -out "$name.csr"
+
+# Generate a self signed certificate:
+openssl x509 -req -sha256 -in "$name.csr" -signkey "$name.key" -out "$name.crt"
+
+# Convert the private key to .pk8 format:
+openssl pkcs8 -topk8 -inform PEM -outform DER -in "$name.key" -out "$name.pk8" -nocrypt
+
+# Clean up the files you don’t need anymore:
+rm "$name.pass.key"
+rm "$name.csr"
+rm "$name.key"
+```
