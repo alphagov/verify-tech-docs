@@ -1,6 +1,7 @@
 
 # Get environment access
 
+An environment is a fully-working deployment of the GOV.UK Verify hub. GOV.UK Verify maintains a number of environments for development, testing, and operational purposes. As a government service you need to work in the integration and production environments.
 
 GOV.UK Verify provides two identical, secure environments:
 
@@ -12,7 +13,7 @@ Integration allows you to test your prototype service with dummy user data.
 <% end %>
 
 <% if env == "Production" %>
-Production allows you to host your fully-developed beta or live service with real user data.
+Production allows you to host your fully-developed beta or live service with real user data. The production environment is where you deploy your live end-to-end service. It's a restricted environment for security reasons.
 <% end %>
 
 You must complete a short form with information about your service so GOV.UK Verify can set up each environment for you. This can take up to 5 working days.
