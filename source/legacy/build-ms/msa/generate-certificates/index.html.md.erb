@@ -1,0 +1,15 @@
+---
+title: Keys and certificates for your MSA
+weight: 40
+---
+
+# Keys and certificates for your MSA
+
+With the default configuration in `test-config.yml` the MSA needs the following keys and certificates:
+
+* `test_primary_signing{.pk8,.crt}` - primary signing private key and certificate
+* `test_secondary_signing{.pk8,.crt}` - secondary signing private key and certificate
+* `test_msa_encryption_1{.pk8,.crt}` - primary encryption private key and certificate
+* `test_msa_encryption_2{.pk8,.crt}` - secondary encryption private key and certificate
+
+The MSA needs primary and secondary keys to support [key rotations](LINK) without causing service downtime for users.
