@@ -4,6 +4,8 @@
 
 # Technical Documentation
 
+[![Build Status](https://travis-ci.com/alphagov/verify-tech-docs.svg?branch=master)](https://travis-ci.com/alphagov/verify-tech-docs)
+
 ## Getting started
 
 To preview or build the website, we need to use the terminal.

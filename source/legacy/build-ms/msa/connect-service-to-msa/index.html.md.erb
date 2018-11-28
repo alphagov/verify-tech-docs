@@ -1,0 +1,22 @@
+---
+title: Connect to the MSA metadata
+weight: 30
+---
+
+# Connect to the MSA metadata
+
+To integrate GOV.UK Verify into your service, you need to connect your service provider to the Matching Service Adapter (MSA) metadata.
+
+
+The MSA metadata:
+
+* indicates the URL where your service will send users with their authentication requests - this is the GOV.UK Verify hub
+
+* lists one or more MSA signing certificates, so your service can validate messages that are sent by your MSA
+
+* describes the MSA as an identity provider
+
+
+The MSA metadata is located in your MSA at `/matching-service/SAML2/metadata`
+
+Your service must poll the MSA metadata every 10 minutes.

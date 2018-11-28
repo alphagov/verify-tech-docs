@@ -1,0 +1,34 @@
+---
+title: Respond to matching requests
+weight: 30
+---
+
+# Respond to matching requests
+
+Your service must respond to JSON matching requests from the Matching Service Adapter (MSA). The MSA makes requests to the URLs specified in the [YAML configuration file](LINK):
+
+* `localMatchingService:` `matchUrl:`
+* `localMatchingService:` `accountCreationUrl:` (if you're [creating new user accounts](LINK) when a match is not found)
+
+
+The MSA sends one matching request for both Cycle 0 and Cycle 1 to your local matching service. Below is a formatted example for a GOV.UK Verify identity using the [universal JSON schema].
+
+The matching request for a [European identity](LINK), will be formatted according to the [universal JSON schema](LINK). If you haven't enabled European identities in your MSA configuration, the matching request will be formatted using [the legacy JSON schema](LINK).
+
+Your local matching service first runs cycle 0. If no match is found, it runs cycle 1. It then sends either a `match` or a `no-match` response to the MSA. This response corresponds to step 6 in the [SAML message flow](LINK).
+
+Below is a match response (it should have the status code 200 OK):
+
+```sh
+{"result":"match"}
+```
+
+Below is a no-match response (it should have the status code 200 OK):
+
+```sh
+{"result":"no-match"}
+```
+
+If you’re using cycle 3 and your local matching service returned a `no-match` response to the MSA, the MSA sends a cycle 3 matching request. Below is a formatted example for a GOV.UK Verify identity using the [universal JSON schema](LINK).
+
+If no match is found on cycles 0, 1 and 3, you can [create a new account](LINK) for the user.
