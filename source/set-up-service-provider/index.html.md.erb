@@ -1,0 +1,34 @@
+---
+title: Set up service provider
+weight: 30
+---
+
+# Set up service provider
+
+The first step in connecting to GOV.UK Verify is setting up a service provider locally.
+
+The service provider allows you to send SAML messages to the Verify Hub and receive SAML responses in return.
+
+The service provider allows you to send and receive messages from the GOV.UK Verify hub.
+
+To set up the VSP locally, you should configure it and make sure it can correctly send and receive messages from the GOV.UK Verify Hub in all the [required scenarios][scenarios].
+
+You can test your VSP works properly using the Compliance Tool.
+
+The GOV.UK Verify team will ask about Compliance Tool testing results ahead of connecting to the Integration environment.
+
+## VSP
+
+Your service must use a system to send  This system is known as a Service Provider.
+
+You can either:
+
+- use the Service Provider built by Verify, known as the [Verify Service Provider](https://github.com/alphagov/verify-service-provider) (recommended)
+- configure an off-the-shelf product to use as a Service Provider
+- build your own Service Provider
+
+Whichever option you choose, you must [run compliance tests](LINK) to check you can send and receive SAML messages successfully in all possible scenarios.
+
+## hmmm
+
+If you're thinking of building your own service provider, you should [contact the GOV.UK Verify team] before starting any development work.
