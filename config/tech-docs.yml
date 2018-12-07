@@ -38,5 +38,7 @@ collapsible_nav: true
 # Enable search functionality
 enable_search: true
 
-api_path: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/master/examples/v3.0/petstore.yaml
-#https://github.com/alphagov/verify-service-provider/blob/master/docs/api/verify-service-provider-api.swagger.yml
+# Enable API reference genration from OpenAPI v3 spec
+# For example: https://raw.githubusercontent.com/alphagov/verify-service-provider/53d28ebec44b7ca99f0b9675bab5fb60e0145e60/docs/api/verify-service-provider-api.swagger-v2.yml
+
+api_path:
