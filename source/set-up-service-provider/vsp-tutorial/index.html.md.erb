@@ -20,32 +20,28 @@ To be able to follow this tutorial you must:
 
 Your installation of Verify Service Provider must also pass its health check.
 
-## Generate a SAML request (AuthnRequest)
+## Send a request to GOV.UK Verify Hub
 
-When a user indicates they want to use Verify, your service must send a request to the Verify Hub to start the identity
-verification process. That request must be in SAML and is known as an AuthnRequest.
+When a user indicates they want to use Verify, your service must send a request to the GOV.UK Verify Hub to start the identity
+verification process. That request is known as an `AuthnRequest` and must be in SAML.
 
 You'll need to:
 
-1. Generate an AuthnRequest
-2. Securely store `requestId` from the response
+1. Generate a SAML `AuthnRequest` using the VSP.
+2. Store the `requestId` from the response.
+3. Send the SAML `AuthnRequest`to GOV.UK Verify Hub
 
-### Step 1: Generate an AuthnRequest
+### Step 1: Generate a SAML `AuthnRequest`
 
-You can create an AuthnRequest using the Verify Service Provider API.
-
-You'll need to use the `/generate-request` endpoint and state the level of assurance you want to confirm for that user.
+Use the VSP's `/generate-request` endpoint to create a SAML `AuthnRequest`. Your request to this endpoint must also contain the level of assurance you want to confirm for that user.
 
 <details>
 <summary>
 Example call
 </summary>
 
-```
-> POST /generate-request HTTP/1.1
-> Content-Type: application/json
->
-> { "levelOfAssurance": "LEVEL_2" }
+```sh
+curl -H 'Content-Type: application/json' --data '{ "levelOfAssurance": "LEVEL_2" }' localhost:50400/generate-request
 ```
 
 </details>
@@ -67,20 +63,15 @@ Example response
 
 <br>The response contains:
 
-* `samlRequest` - your base64 encoded AuthnRequest
-* `requestId` - a token that identifies the AuthnRequest. Used to connect the user's browser with a specific request.
+* `samlRequest` - your base64 encoded SAML `AuthnRequest`
+* `requestId` - a token that identifies the `AuthnRequest`. It is used to connect the user's browser with a specific request.
 * `ssoLocation` - a URL for Verify Hub single sign on
 
 **HTTP response codes**
 
-Common [response codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) include:
+[HTTP status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) apply.
 
-| Code | Description |
-| --- | --- |
-| 200 | Contains an object with a valid SAML Authentication request that can be consumed by the Verify service.|
-| 400 | Bad request. |
-| 422 | An error due to a JSON request in an invalid format (e.g. missing mandatory parameters). |
-| 500 | An error due to an internal server error. |
+A successful request (response code 200) contains an object with a valid SAML Authentication request that can be consumed by the VSP.
 
 ### Step 2: Securely store `requestId` from the response
 
@@ -93,6 +84,7 @@ You must securely store the `requestId` and save it to the user's session. We re
 Next, you need to send your newly-generated AuthnRequest to the Verify Hub. This is done through the user's browser. You can do this by submitting an HTML form via their browser, as per the [SAML HTTP Post Binding](https://en.wikipedia.org/wiki/SAML_2.0#HTTP_Post_Binding).
 
 The HTML form should include:
+
 * escape HTML - to make sure no symbols or special characters are processed
 * auto-post - to automatically send the user onto the next stage of their Verify journey
 * page styling to display if JavaScript is disabled - to prompt users to turn on JavaScript. This should look like your service
