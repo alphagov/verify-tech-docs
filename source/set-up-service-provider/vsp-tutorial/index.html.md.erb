@@ -257,29 +257,21 @@ Example successful response
 
 <br>
 
+### Step 6: Handle the JSON response
 
-## How to handle 200 responses
-
-When you receive an HTTP 200 response, it will contain one of 6 SAML scenarios with:
-
-* `pid` - a unique identifier that can identify a user against a record in your internal database(s)
-* `levelOfAssurance` - the user's minimum level of assurance
-* `attributes` - name, date of birth, and other information you can use to create a new user account, if required
+When you receive an HTTP 200 response, with one of 4 scenarios:
 
 | Scenario | Description |
 | --- | --- |
-| SUCCESS_MATCH | The user was successfully matched by your matching service. Will include `pid` and `levelOfAssurance`. |
-| ACCOUNT_CREATION | User was successfully verified, but has not yet been matched. Will include full list of attributes so you can create a new user account. |
-| NO_MATCH | User successfully verified, but could not be matched. Used by services that do not want to create new user accounts. |
+| IDENTITY_VERIFIED | The user successfully completed the Verify journey. |
 | CANCELLATION | User opted to cancel verification at some point in their journey. Response will be empty. |
 | AUTHENTICATION_FAILED | User could not be identified by identity provider. |
-| REQUEST_ERROR | Internal error. Contact  idasupport+onboarding@digital.cabinet-office.gov.uk. |
+| REQUEST_ERROR | Internal error. Contact  idasupport@digital.cabinet-office.gov.uk. |
 
-## Returning users
-If a user has previously verified their identity with an identity provider, the API should return a recognised `pid` or unique identifier for that user. Your Matching Service Adapter should follow the [matching cycle 0](http://alphagov.github.io/rp-onboarding-tech-docs/pages/ms/msWorks.html?highlight=matching%20cycle#ms-mc0) to find the `pid` in your database(s).
+In the `IDENTITY_VERIFIED` scenario, the response will also contain:
 
-If you receive `ACCOUNT_CREATION` when you expect `SUCCESS_MATCH`, there may be an issue with your Matching Service Adapter.
+* `pid` - a unique identifier for a user
+* `levelOfAssurance` - the level of assurance the user verified at
+* `attributes` - information about the user's identity
 
-## Check the status of your VSP
-
-You can check if your VSP is set up properly by doing a GET request to the `admin/healthcheck` endpoint to confirm it is running correctly.
+Your service can now use the provided identity or error messages to further guide the user in their journey in your service.
