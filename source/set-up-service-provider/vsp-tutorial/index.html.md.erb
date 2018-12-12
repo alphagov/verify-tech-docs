@@ -206,20 +206,31 @@ SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWwycDpSZXN
 
 </details>
 
+
+### Step 5: Translate the SAML Response into JSON
+
+Send a POST request to `/translate-non-matching-response` to translate the SAML Response into JSON.
+
+The call must contain:
+
+* `samlResponse` - the base64 encoded SAML from the Compliance Tool you got in Step 4
+* `requestId` - the token you stored in Step 2
+* `levelOfAssurance` - to validate that the user meets the minimum level of assurance you have requested
+
+
 <details>
 <summary>
-Example successful match response
+Example call
 </summary>
 
 ```
-< HTTP/1.1 200 OK
-< Content-Type: application/json
-<
+> POST /translate-non-matching-response HTTP/1.1
+> Content-Type: application/json
+>
 {
-    "scenario": "SUCCESS_MATCH",
-    "pid": "etikgj3ewowe",
-    "levelOfAssurance": "LEVEL_2",
-    "attributes": null
+  "samlResponse" : "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c2FtbDJwOkF1dGhuUmVxdWVzdCB4bWxuczpzYW1sMnA9InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDpwcm90b2NvbCIgRGVzdGluYXRpb249Imh0dHBzOi8vY29tc...",
+  "requestId" : "_64c90b35-154f-4e9f-a75b-3a58a6c55e8b",
+  "levelOfAssurance" : "LEVEL_2"
 }
 ```
 
@@ -227,7 +238,7 @@ Example successful match response
 
 <details>
 <summary>
-Example successful user account creation response
+Example successful response
 </summary>
 
 ```
@@ -235,69 +246,10 @@ Example successful user account creation response
 < Content-Type: application/json
 <
 {
-    "scenario": "ACCOUNT_CREATION",
+    "scenario": "IDENTITY_VERIFIED",
     "pid": "etikgj3ewowe",
     "levelOfAssurance": "LEVEL_2",
-    "attributes": {
-        "firstName": {
-            "value": "Screaming",
-            "verified": true
-        },
-        "middleName": {
-            "value": "Jay",
-            "verified": false
-        },
-        "surname": {
-            "value": "Hawkins",
-            "verified": true
-        },
-        "dateOfBirth": {
-            "value": "1977-07-21",
-            "verified": false
-        },
-        "address": {
-            "value": {
-                "lines": [
-                    "33 Example Street"
-                ],
-                "postCode": "WC1 7AA",
-                "internationalPostCode": null,
-                "uprn": null,
-                "fromDate": null,
-                "toDate": null
-            },
-            "verified": true
-        },
-        "addressHistory": [
-            {
-                "value": {
-                    "lines": [
-                        "33 Example Street"
-                    ],
-                    "postCode": "WC1 7AA",
-                    "internationalPostCode": null,
-                    "uprn": null,
-                    "fromDate": "2016-11-01",
-                    "toDate": null
-                },
-                "verified": true
-            },
-            {
-                "value": {
-                    "lines": [
-                        "33 Old Street"
-                    ],
-                    "postCode": "WC1 6AA",
-                    "internationalPostCode": null,
-                    "uprn": null,
-                    "fromDate": "2015-11-01",
-                    "toDate": "2016-11-01"
-                },
-                "verified": false
-            }
-        ],
-        "cycle3": "NINO"
-    }
+    "attributes": pie
 }
 ```
 
@@ -305,16 +257,6 @@ Example successful user account creation response
 
 <br>
 
-**HTTP response codes**
-
-Common [response codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) include:
-
-| Code | Description |
-| --- | --- |
-| 200 | Contains the details of the SAML response, translated into JSON - see 'Handle response scenarios' (ADD LINK) for next steps. |
-| 400 | An error due to a problem translating the Response. |
-| 422 | An error due to a JSON request in an invalid format (e.g. missing mandatory parameters). |
-| 500 | An error due to an internal server error. |
 
 ## How to handle 200 responses
 
