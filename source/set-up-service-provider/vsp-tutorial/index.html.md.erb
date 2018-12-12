@@ -189,20 +189,19 @@ Example test scenarios from Compliance Tool
 </details>
 
 Access the URL for a particular scenario to test that your service can handle that particular response.
+
+### Step 4: Receive the SAML Response
+
+
+The SAML Response will be submitted to the URL you specified when initialising the Compliance Tool, via the user's browser. For example, `passport-verify-stub-relying-party` uses `/verify/response`. The SAML Response will be URL form encoded, `application/x-www-form-urlencoded`.
+
 <details>
 <summary>
-Example call
+Example form body submitted from the user's browser
 </summary>
 
 ```
-> POST /translate-response HTTP/1.1
-> Content-Type: application/json
->
-{
-  "samlResponse" : "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c2FtbDJwOkF1dGhuUmVxdWVzdCB4bWxuczpzYW1sMnA9InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDpwcm90b2NvbCIgRGVzdGluYXRpb249Imh0dHBzOi8vY29tc...",
-  "requestId" : "_64c90b35-154f-4e9f-a75b-3a58a6c55e8b",
-  "levelOfAssurance" : "LEVEL_2"
-}
+SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWwycDpSZXNwb25zZSBEZXN0aW5hdGlvbj0iaHR0cHM6Ly9wYXNzcG9ydC12ZXJpZnktc3R1Yi1yZWx5aW5nLXBhcnR5LWRldi5jbG91ZGFwcHMuZGlnaXRhbC92ZXJpZnkv...
 ```
 
 </details>
