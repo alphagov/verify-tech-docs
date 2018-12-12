@@ -70,13 +70,12 @@ The parts of the response represent:
 
 
 
-### Step 2: Securely store `requestId` from the response
+### Step 2: Store the requestId from the response
 
-You will need to access the `requestId` later in the process to validate the user's browser came from a specific AuthnRequest.
+You will need to access the `requestId` later in the process to link the identities received from GOV.UK Verify with the correct user.
 
-You must securely store the `requestId` and save it to the user's session. We recommend you store the `requestId` in a secure cookie. If you store the requestId in a cookie you must ensure the cookie is signed to prevent tampering.
+You must store the `requestId` securely and link it to the user's session. We recommend you store the `requestId` in a secure cookie.
 
-## Send an AuthnRequest to Verify Hub
 
 Next, you need to send your newly-generated AuthnRequest to the Verify Hub. This is done through the user's browser. You can do this by submitting an HTML form via their browser, as per the [SAML HTTP Post Binding](https://en.wikipedia.org/wiki/SAML_2.0#HTTP_Post_Binding).
 
