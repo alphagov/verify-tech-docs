@@ -1,0 +1,36 @@
+---
+title: Message flow
+weight: 05
+---
+
+# Message flow
+
+GOV.UK Verify uses SAML to securely send messages between the service, Hub, and identity providers. Trust is established between these entities through the use of public key infrastructure.
+
+The diagram describes the SAML message flow for the Verify journey.
+
+<%= image_tag "verify-message-flow.svg" %>
+
+### Step 1
+
+After the user initiates the Verify process from their browser, the service sends an authentication request to the Verify Service Provider (VSP). The VSP converts the JSON authentication request into a SAML authentication request.
+
+### Step 2
+
+The VSP sends the SAML authentication request back to the service. The government service then signs the SAML request and sends it to the GOV.UK Verify Hub. The request shows that a user wants to access the government service and needs to prove their identity using GOV.UK Verify.
+
+### Step 3
+
+The GOV.UK Verify hub prompts the user to select an identity provider to authenticate them. The GOV.UK Verify hub anonymises the government service and forwards the SAML authentication request to the identity provider the user chose. The identity provider authenticates the user based on the required level of assurance.
+
+### Step 4
+
+The identity provider then [signs](LINK) and sends a SAML response to the GOV.UK Verify hub. The SAML response contains an authentication context assertion and an identity assertion, both signed by the identity provider and [encrypted](LINK) for the GOV.UK Verify hub. The authentication context assertion validates the user’s authentication and contains the [level of assurance](LINK). The identity assertion contains the user’s [matching dataset](LINK) and the [persistent identifier](LINK).
+
+### Step 5
+
+The GOV.UK Verify hub signs and sends a SAML attribute query to the government service. The SAML attribute query is encrypted for the service and contains the identity assertion signed by the identity provider. The service decrypts the assertion and sends the SAML response to the VSP.
+
+### Step 6
+
+The VSP translates the SAML Response to JSON and sends it back to the service for further processing.
