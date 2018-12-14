@@ -6,8 +6,8 @@ weight: 10
 # Tutorial
 
 GOV.UK Verify uses SAML (Security Assertion Markup Language) to securely exchange information about identities. A
-Relying Party can use [Verify Service Provider](https://github.com/alphagov/verify-service-provider/blob/master/README.md) (VSP)
-to generate SAML to send to the Verify Hub and translate the SAML responses returned by the Verify Hub.
+Relying Party can use the [Verify Service Provider](https://github.com/alphagov/verify-service-provider/blob/master/README.md) (VSP)
+to generate SAML to send to the Verify Hub, and translate the SAML responses returned by the Verify Hub.
 
 This tutorial explains how to integrate with the VSP in your local environment using the [Compliance Tool](https://verify-tech-docs.cloudapps.digital/set-up-service-provider/compliance-tool/#compliance-tool) as a placeholder for the GOV.UK Verify Hub. You will find out how to to send a SAML `AuthnRequest` and how to handle a SAML `Response`.
 
@@ -16,7 +16,7 @@ This tutorial explains how to integrate with the VSP in your local environment u
 To be able to follow this tutorial you must:
 
 * have Java 8 or higher
-* [set up and configure Verify Service Provider](https://github.com/alphagov/verify-service-provider/blob/master/README.md)
+* [set up and configure the VSP](https://github.com/alphagov/verify-service-provider/blob/master/README.md)
 * have [initialised the Compliance Tool](https://verify-tech-docs.cloudapps.digital/set-up-service-provider/compliance-tool/#compliance-tool)
 
 You can check if your VSP is set up properly by doing a GET request to the `admin/healthcheck` endpoint to confirm it is running correctly.
