@@ -21,7 +21,7 @@ To be able to follow this tutorial you must:
 
 You can check if your VSP is set up properly by doing a GET request to the `admin/healthcheck` endpoint to confirm it is running correctly.
 
-### Step 1: Generate a SAML AuthnRequest
+## Step 1: Generate a SAML AuthnRequest
 
 Make a POST request to the `/generate-request` endpoint to generate a SAML `AuthnRequest`. The request body must contain the level of assurance you want to confirm for that user.
 
@@ -59,13 +59,13 @@ The parts of the response represent:
 
 
 
-### Step 2: Store the requestId from the response
+## Step 2: Store the requestId from the response
 
 You will need to access the `requestId` later in the process to link the identities received from GOV.UK Verify with the correct user.
 
 You must store the `requestId` securely and link it to the user's session. We recommend you store the `requestId` in a secure cookie.
 
-### Step 3: Send the AuthnRequest to Compliance Tool
+## Step 3: Send the AuthnRequest to Compliance Tool
 
 The `AuthnRequest` is sent via the user's browser in a form. We recommend you do this by rendering an HTML form and JavaScript to submit it, as per [SAML HTTP Post Binding](https://en.wikipedia.org/wiki/SAML_2.0#HTTP_Post_Binding).
 
@@ -179,7 +179,7 @@ Example test scenarios from Compliance Tool
 
 Access the URL for a particular scenario to test that your service can handle that particular response.
 
-### Step 4: Receive the SAML Response
+## Step 4: Receive the SAML Response
 
 
 The SAML Response will be submitted to the URL you specified when initialising the Compliance Tool, via the user's browser. For example, `passport-verify-stub-relying-party` uses `/verify/response`. The SAML Response will be URL form encoded, `application/x-www-form-urlencoded`.
@@ -196,7 +196,7 @@ SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWwycDpSZXN
 </details>
 
 
-### Step 5: Translate the SAML Response into JSON
+## Step 5: Translate the SAML Response into JSON
 
 Send a POST request to `/translate-non-matching-response` to translate the SAML Response into JSON.
 
@@ -246,7 +246,7 @@ Example successful response
 
 <br>
 
-### Step 6: Handle the JSON response
+## Step 6: Handle the JSON response
 
 When you receive an HTTP 200 response, with one of 4 scenarios:
 
