@@ -5,7 +5,9 @@ weight: 10
 
 # Set up end-to-end tests
 
-The integration environment is not accredited to use real user data, and it has no links to real identity providers. Carry out business analysis to identify user identities that cause potential problem scenarios during [matching](LINK). Then, in the user administration application programming interface (API), create test users that will test these scenarios. You must also add the test users to your local matching datastore in the integration environment.
+The integration environment is not accredited to use real user data, and it has no links to real identity providers.
+
+If you are [linking identities received from Verify to information in your database](LINK), you should make sure to test against potential problematic scenarios.
 
 A test identity provider contains:
 
@@ -23,7 +25,7 @@ Setup for end-to-end testing involves the following procedures:
 
 ## Create test users
 
-This procedure describes how to create test users in bulk and load them into the test identity provider. You must add the same test users to your local matching datastore in the integration environment.
+This procedure describes how to create test users in bulk and load them into the test identity provider. You must add the same test users to your local datastore in the integration environment.
 
 Make an HTTP POST to the user administration API with a JSON document containing an array of user data. For example:
 

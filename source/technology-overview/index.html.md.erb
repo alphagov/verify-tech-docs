@@ -9,7 +9,7 @@ GOV.UK Verify lets users prove their identity online so they can access governme
 
 ## GOV.UK Verify hub
 
-The GOV.UK Verify hub is the infrastructure that manages interactions between users, government services, identity providers, and matching services for the purpose of authenticating a user who wants to use a government service.
+The GOV.UK Verify hub is the infrastructure that manages interactions between users, government services, and identity providers for the purpose of authenticating a user who wants to use a government service.
 
 The hub is at the centre of the GOV.UK Verify federation, providing a clear divide between identity providers and government services. This means your service has to integrate with the GOV.UK Verify hub only. It doesn’t have to integrate with several identity providers.
 
@@ -36,21 +36,9 @@ A transactional government service that needs proof of a person’s identity to 
 
 [The VSP](LINK) is a software tool provided by GOV.UK Verify. It handles communication and authentication between your service and the Verify Hub, converting the Hub’s [SAML](LINK) into JSON and vice versa, and managing much of the security.
 
-## Matching Service
-
-The function of finding a match between a user’s verified identity and a record in a government service’s data sources. The [matching service](LINK) is composed of the Matching Service Adapter (MSA) and the local matching service.
-
-## Matching Service Adapter (MSA)
-
-The [Matching Service Adapter](LINK) is a software tool provided by GOV.UK Verify. It simplifies communication between your local matching service and the GOV.UK Verify hub. The MSA converts [SAML](LINK) into JSON and vice versa.
-
-## Local Matching Service
-
-A Local Matching Service finds a match between a user’s assured identity and a record in the government service’s data sources, to allow the user to access the service. Because there’s no unique identifier for UK citizens, locating the record involves matching user information (for example name, address, date of birth) against the service’s records.
-
 ## SAML
 
-[SAML](LINK) is a data format for exchanging information securely. All exchanges between the entities in the GOV.UK Verify federation use SAML but the local matching service managed by the government service usually uses JSON.
+[SAML](LINK) is an open standard for exchanging information securely. The entities of the GOV.UK federation, the government service, GOV.UK Verify Hub, and identity providers, exchange information using SAML.
 
 For more information, see the [diagram showing the SAML message flow](LINK) within the GOV.UK Verify federation.
 
