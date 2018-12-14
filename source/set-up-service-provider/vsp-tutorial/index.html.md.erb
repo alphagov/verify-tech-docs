@@ -21,17 +21,6 @@ To be able to follow this tutorial you must:
 
 You can check if your VSP is set up properly by doing a GET request to the `admin/healthcheck` endpoint to confirm it is running correctly.
 
-## Context
-
-When a user indicates they want to use Verify, your service must send a request to the GOV.UK Verify Hub to start the identity
-verification process. That request is known as an `AuthnRequest` and must be in SAML. The `AuthnRequest` is sent to the Hub via the user's browser.
-
-You'll need to:
-
-1. Generate a SAML `AuthnRequest` using the VSP.
-2. Store the `requestId` from the response.
-3. Send the SAML `AuthnRequest`to GOV.UK Verify Hub
-
 ### Step 1: Generate a SAML AuthnRequest
 
 Make a POST request to the `/generate-request` endpoint to generate a SAML `AuthnRequest`. The request body must contain the level of assurance you want to confirm for that user.
