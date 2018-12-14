@@ -195,7 +195,6 @@ SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWwycDpSZXN
 
 </details>
 
-
 ## Step 5: Translate the SAML Response into JSON
 
 Send a POST request to `/translate-non-matching-response` to translate the SAML Response into JSON.
@@ -205,7 +204,6 @@ The call must contain:
 * `samlResponse` - the base64 encoded SAML from the Compliance Tool you got in Step 4
 * `requestId` - the token you stored in Step 2
 * `levelOfAssurance` - to validate that the user meets the minimum level of assurance you have requested
-
 
 <details>
 <summary>
@@ -243,8 +241,6 @@ Example successful response
 ```
 
 </details>
-
-<br>
 
 ## Step 6: Handle the JSON response
 
