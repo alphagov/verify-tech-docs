@@ -6,8 +6,8 @@ weight: 10
 # Tutorial
 
 GOV.UK Verify uses SAML (Security Assertion Markup Language) to securely exchange information about identities. A
-Relying Party can use [Verify Service Provider](https://github.com/alphagov/verify-service-provider/blob/master/README.md) (VSP)
-to generate SAML to send to the Verify Hub and translate the SAML responses returned by the Verify Hub.
+Relying Party can use the [Verify Service Provider](https://github.com/alphagov/verify-service-provider/blob/master/README.md) (VSP)
+to generate SAML to send to the Verify Hub, and translate the SAML responses returned by the Verify Hub.
 
 This tutorial explains how to integrate with the VSP in your local environment using the [Compliance Tool](https://verify-tech-docs.cloudapps.digital/set-up-service-provider/compliance-tool/#compliance-tool) as a placeholder for the GOV.UK Verify Hub. You will find out how to to send a SAML `AuthnRequest` and how to handle a SAML `Response`.
 
@@ -16,23 +16,12 @@ This tutorial explains how to integrate with the VSP in your local environment u
 To be able to follow this tutorial you must:
 
 * have Java 8 or higher
-* [set up and configure Verify Service Provider](https://github.com/alphagov/verify-service-provider/blob/master/README.md)
+* [set up and configure the VSP](https://github.com/alphagov/verify-service-provider/blob/master/README.md)
 * have [initialised the Compliance Tool](https://verify-tech-docs.cloudapps.digital/set-up-service-provider/compliance-tool/#compliance-tool)
 
 You can check if your VSP is set up properly by doing a GET request to the `admin/healthcheck` endpoint to confirm it is running correctly.
 
-## Context
-
-When a user indicates they want to use Verify, your service must send a request to the GOV.UK Verify Hub to start the identity
-verification process. That request is known as an `AuthnRequest` and must be in SAML. The `AuthnRequest` is sent to the Hub via the user's browser.
-
-You'll need to:
-
-1. Generate a SAML `AuthnRequest` using the VSP.
-2. Store the `requestId` from the response.
-3. Send the SAML `AuthnRequest`to GOV.UK Verify Hub
-
-### Step 1: Generate a SAML AuthnRequest
+## Step 1: Generate a SAML AuthnRequest
 
 Make a POST request to the `/generate-request` endpoint to generate a SAML `AuthnRequest`. The request body must contain the level of assurance you want to confirm for that user.
 
@@ -70,13 +59,13 @@ The parts of the response represent:
 
 
 
-### Step 2: Store the requestId from the response
+## Step 2: Store the requestId from the response
 
 You will need to access the `requestId` later in the process to link the identities received from GOV.UK Verify with the correct user.
 
 You must store the `requestId` securely and link it to the user's session. We recommend you store the `requestId` in a secure cookie.
 
-### Step 3: Send the AuthnRequest to Compliance Tool
+## Step 3: Send the AuthnRequest to Compliance Tool
 
 The `AuthnRequest` is sent via the user's browser in a form. We recommend you do this by rendering an HTML form and JavaScript to submit it, as per [SAML HTTP Post Binding](https://en.wikipedia.org/wiki/SAML_2.0#HTTP_Post_Binding).
 
@@ -190,7 +179,7 @@ Example test scenarios from Compliance Tool
 
 Access the URL for a particular scenario to test that your service can handle that particular response.
 
-### Step 4: Receive the SAML Response
+## Step 4: Receive the SAML Response
 
 
 The SAML Response will be submitted to the URL you specified when initialising the Compliance Tool, via the user's browser. For example, `passport-verify-stub-relying-party` uses `/verify/response`. The SAML Response will be URL form encoded, `application/x-www-form-urlencoded`.
@@ -206,8 +195,7 @@ SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWwycDpSZXN
 
 </details>
 
-
-### Step 5: Translate the SAML Response into JSON
+## Step 5: Translate the SAML Response into JSON
 
 Send a POST request to `/translate-non-matching-response` to translate the SAML Response into JSON.
 
@@ -216,7 +204,6 @@ The call must contain:
 * `samlResponse` - the base64 encoded SAML from the Compliance Tool you got in Step 4
 * `requestId` - the token you stored in Step 2
 * `levelOfAssurance` - to validate that the user meets the minimum level of assurance you have requested
-
 
 <details>
 <summary>
@@ -255,9 +242,7 @@ Example successful response
 
 </details>
 
-<br>
-
-### Step 6: Handle the JSON response
+## Step 6: Handle the JSON response
 
 When you receive an HTTP 200 response, with one of 4 scenarios:
 
