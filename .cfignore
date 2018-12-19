@@ -1,4 +1,4 @@
-.git/
-config/
-source/
-logs/
+*
+!build
+!Staticfile
+!nginx
