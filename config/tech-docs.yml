@@ -1,17 +1,17 @@
 # Host to use for canonical URL generation (without trailing slash)
-host: verify-tech-docs.cloudapps.digital
+host: www.docs.verify.service.gov.uk
 
 # Header-related options
 show_govuk_logo: true
 service_name: Verify
-service_link: https://connecting-to-verify-prototype.herokuapp.com/product-page
 phase: Test Documentation
+service_link: https://www.verify.service.gov.uk/
 
 # Links to show on right-hand-side of header
 header_links:
-  Connect: https://connecting-to-verify-prototype.herokuapp.com/get-started
+  Connecting: https://www.verify.service.gov.uk/connecting/
   Documentation: /
-  Support: https://connecting-to-verify-prototype.herokuapp.com/product-page/support
+  Support: https://www.verify.service.gov.uk/
 
 # Tracking ID from Google Analytics (e.g. UA-XXXX-Y)
 ga_tracking_id: UA-26179049-26
