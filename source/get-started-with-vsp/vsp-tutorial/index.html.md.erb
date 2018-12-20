@@ -30,8 +30,11 @@ Make a POST request to the `/generate-request` endpoint to generate a SAML `Auth
 Example call
 </summary>
 
-```sh
-curl -H 'Content-Type: application/json' --data '{ "levelOfAssurance": "LEVEL_2" }' localhost:50400/generate-request
+```
+> POST /generate-request HTTP/1.1
+> Content-Type: application/json
+>
+> { "levelOfAssurance": "LEVEL_2" }
 ```
 
 </details>
