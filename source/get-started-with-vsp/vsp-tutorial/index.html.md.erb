@@ -23,7 +23,7 @@ You can check if your VSP is set up properly by doing a GET request to the `admi
 
 ## Step 1: Generate a SAML AuthnRequest
 
-Make a POST request to the `/generate-request` endpoint to generate a SAML `AuthnRequest`. The request body must also contain the [level of assurance][loa] for your service. 
+Make a POST request to the `/generate-request` endpoint to generate a SAML `AuthnRequest`. The request body must also contain the [level of assurance][loa] for your service.
 
 <details>
 <summary>
@@ -263,3 +263,5 @@ In the `IDENTITY_VERIFIED` scenario, the response will also contain:
 * `attributes` - information about the user's identity
 
 Your service can now use the provided identity or error messages to further guide the user in their journey in your service.
+
+<%= partial "partials/links" %>
