@@ -23,7 +23,7 @@ You can check if your VSP is set up properly by doing a GET request to the `admi
 
 ## Step 1: Generate a SAML AuthnRequest
 
-Make a POST request to the `/generate-request` endpoint to generate a SAML `AuthnRequest`. The request body must contain the level of assurance you want to confirm for that user.
+Make a POST request to the `/generate-request` endpoint to generate a SAML `AuthnRequest`. The request body must also contain the [level of assurance][loa] for your service. 
 
 <details>
 <summary>
