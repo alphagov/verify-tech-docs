@@ -5,18 +5,15 @@ weight: 30
 
 # Development steps
 
-Before starting the development phase, you should have already decided:
-
-- which [service provider](LINK) option you are implementing
-- how to [store and manage your encryption and signing keys](LINK)
+Before starting the development phase, you should have already decided how to [store and manage your encryption and signing keys][pki].
 
 ## Local development phase
 
-In this phase, you are setting up and testing your service provider. You can do all all of this on a development machine.
+In this phase, you are setting up the Verify Service Provider and testing that your service can handle all the responses form the GOV.UK Verify Hub. You can do all all of this on a development machine using a placeholder for the GOV.UK Verify Hub.
 
-After successfully testing your service provider, you can move on to deploying and testing in the Integration environment.
+When your service can successfully handle all the responses form the GOV.UK Verify Hub, you can move on to deploying and testing in the Integration environment. This is a secure test environment containing a full-scale deployment of the GOV.UK Verify Hub.
 
-### Set up your service provider
+### Set up your Verify Service Provider
 
 1. [Send an authentication request to the GOV.UK Verify hub](LINK).
 1. [Handle the SAML response from the GOV.UK Verify hub](LINK) .
@@ -25,11 +22,11 @@ Outcome: you’re ready to run SAML compliance tests.
 
 For more information, see [How SAML works with GOV.UK Verify](LINK) and the [Identity Assurance Hub Service SAML 2.0 Profile](LINK).
 
-### Test your service provider
+### Test your Verify Service Provider
 
-You should [use the Compliance Tool to test] that your service provider handles all the required scenarios correctly.
+You should [use the Compliance Tool to test] that your Verify Service Provider handles all the required scenarios correctly.
 
-Outcome: your service provider can consume and produce valid SAML.
+Outcome: your Verify Service Provider can consume and produce valid SAML.
 
 For more information, see [How SAML works with GOV.UK Verify](LINK).
 
@@ -45,7 +42,7 @@ Outcome: you’re ready to connect your service to the Integration environment.
 
 For more information, see [GOV.UK Verify environments](LINK) and [How a PKI works](LINK).
 
-### Connect your service provider to the Integration environment
+### Connect your Verify Service Provider to the Integration environment
 
 To do this:
 
@@ -77,7 +74,7 @@ To do this:
 1. Obtain [signed certificates](LINK) for the production environment from the IDAP certificate authority.
 1. [Fill in the ‘Request access to an environment‘ form](LINK).
 
-Outcome: you’re ready to connect your service provider to the Production environment.
+Outcome: you’re ready to connect your Verify Service Provider to the Production environment.
 
 For more information, see [GOV.UK Verify environments](LINK) and [How a PKI works](LINK).
 
@@ -87,6 +84,6 @@ For more information, see [GOV.UK Verify environments](LINK) and [How a PKI work
 
 When the certificates containing your public keys are due to expire, [replace your keys and certificates](LINK).
 
-Outcome: the encryption and signing certificates for your service provider are up to date.
+Outcome: the encryption and signing certificates for your Verify Service Provider are up to date.
 
 For more information, see [How a PKI works](LINK).

@@ -1,6 +1,6 @@
 # Get certificates
 
-To use integration, you must to request encryption and signing certificates for your service provider from the IDAP Certificate Authority.
+To use integration, you must to request encryption and signing certificates for your Verify Service Provider from the IDAP Certificate Authority.
 
 Only certificates approved by the IDAP certificate authority can be used with GOV.UK Verify
 
@@ -56,7 +56,7 @@ where:
 - `2048` ensures that the private key meets the RSA 2048 standard required by the IDAP certificate authority
 - `<file name>` is a meaningful name, for example `MyserviceDevSamlSigning1.key` or `MyserviceUatVspSamlEncryption3.key`
 
-We advise you to establish a naming convention for all your PKI files. Typically, this includes the name of your service provider or the MSA and an incremental version number.
+We advise you to establish a naming convention for all your PKI files. Typically, this includes the name of your Verify Service Provider or the MSA and an incremental version number.
 
 Generate a new private key for each certificate signing request file that you submit. This naturally retires any private keys that have been compromised; you should not re-use existing private keys.
 
