@@ -4,8 +4,8 @@ host: www.docs.verify.service.gov.uk
 # Header-related options
 show_govuk_logo: true
 service_name: Verify
-phase: Test Documentation
 service_link: https://www.verify.service.gov.uk/
+phase:
 
 # Links to show on right-hand-side of header
 header_links:
