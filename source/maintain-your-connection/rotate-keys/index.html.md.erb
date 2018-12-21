@@ -9,24 +9,24 @@ When the certificates containing your public keys are due to expire, you must ro
 
 As a government service you are responsible for maintaining the encryption and signing keys for your service provider and Matching Service Adapter (MSA), if you are running one. Your service provider could be the [Verify Service Provider (VSP)](https://github.com/alphagov/verify-service-provider) or another service provider.
 
-Before you start rotating keys, you must [get new signed certificates](LINK)for your public keys from the [IDAP certificate authority](http://alphagov.github.io/rp-onboarding-tech-docs/pages/pki/pkiWorks.html#keys-and-certificates-in-the-gov-uk-verify-federation).
+Before you start rotating keys, you must [get new signed certificates][get-cert-prod]for your public keys from the [IDAP certificate authority][idap-ca].
 
 Then, as part of the key rotation process, you must rotate your:
 
-* [VSP encryption key](LINK)or [service provider encryption key](LINK)
-* [VSP signing key](LINK)or [service provider signing key](LINK)
-* [MSA encryption key](LINK)
-* [MSA signing key](LINK)
+* [VSP encryption key][vsp-enc] or [service provider encryption key][sp-enc]
+* [VSP signing key][vsp-sign] or [service provider signing key][sp-sign]
+* [MSA encryption key][msa-enc]
+* [MSA signing key][msa-sign]
 
 To communicate with the GOV.UK Verify team during a key rotation process, send an email to idasupport+onboarding@digital.cabinet-office.gov.uk. This will begin an email thread that you can use for any queries you have during this key-rotation process.
 
 ## Get new signed certificates
 
-1. [Generate new signing and encryption private keys](LINK) for both the MSA and your service provider - this is 4 keys in total.
+1. [Generate new signing and encryption private keys][generate-keys] for both the MSA and your service provider - this is 4 keys in total.
 
-1. [Generate a certificate signing request](LINK) for each of the the keys you generated in step 1.
+1. [Generate a certificate signing request][generate-cert-request] for each of the the keys you generated in step 1.
 
-1. [Submit the certificate signing requests](LINK) from step 2 to the IDAP certificate authority.
+1. [Submit the certificate signing requests][submit-cert-request] from step 2 to the IDAP certificate authority.
 
 The IDAP certificate authority will issue you signed certificates for the MSA and your service provider encryption and signing public keys.
 
@@ -77,7 +77,7 @@ The GOV.UK Verify hub now trusts SAML messages signed with your new service prov
 
 These instructions apply to you if you're using the legacy setup with an MSA.
 
-1. Add a second list item containing the details for your new public and private key under ``encryptionKeys`` in your [MSA configuration ](LINK), for example:
+1. Add a second list item containing the details for your new public and private key under `encryptionKeys` in your [MSA configuration][msa-config], for example:
 
     ```yaml
     encryptionKeys:
@@ -111,7 +111,7 @@ These instructions apply to you if you're using the legacy setup with an MSA.
 
 The MSA publishes its certificates containing the public keys in its own metadata at run time. The service provider you’re using reads this metadata and uses the MSA's signing certificate to trust assertions signed by the MSA. Therefore you must restart the MSA once you've changed the certificates in the configuration file (step 2) and make sure your service provider has read the new metadata (step 3).
 
-1. Send the new signing certificate to the GOV.UK Verify team and add it to the [MSA configuration ](LINK)under `signingKeys.secondary`, for example:
+1. Send the new signing certificate to the GOV.UK Verify team and add it to the [MSA configuration][msa-config] under `signingKeys.secondary`, for example:
 
     ```yaml
     signingKeys:
