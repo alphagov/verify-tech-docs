@@ -1,0 +1,30 @@
+---
+title: Get started with the Verify Service Provider
+weight: 30
+---
+
+# Get started with the Verify Service Provider
+
+The Verify Service Provider (VSP) allows you to send and receive messages from the GOV.UK Verify Hub. GOV.UK Verify uses [Security Assertion Markup Language (SAML)][saml] for secure message exchange. Using the VSP removes the need for your service to handle SAML by:
+
+- generating SAML requests to send to the GOV.UK Verify Hub
+- translating SAML responses from the GOV.UK Verify Hub into JSON
+
+## Set up the Verify Service Provider
+
+The first step in connecting to GOV.UK Verify is to set up the VSP locally. You must host the VSP on your own infrastructure and you can connect multiple services to one instance.
+
+To start setting up the VSP locally, [download the latest release][vsp-release] from GitHub and configure it using the information in the `README.md` file.
+
+[Follow the VSP tutorial][tutorial] to make sure your service correctly uses the VSP to:
+
+- generate and send requests
+- handle all possible responses
+
+The tutorial uses a placeholder for the GOV.UK Verify Hub so you can follow the tutorial using your local VSP setup.
+
+Once you've confirmed your service can handle all the possible response scenarios, you can move on to testing your setup in [the secure test environment](access-integration) which contains a full-scale deployment of the GOV.UK Verify Hub.
+
+If you are thinking of not using the VSP, [contact the GOV.UK Verify team][support] before you start building your own service provider.
+
+<%= partial "partials/links" %>

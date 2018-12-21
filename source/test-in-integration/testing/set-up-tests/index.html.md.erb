@@ -7,21 +7,21 @@ weight: 10
 
 The integration environment is not accredited to use real user data, and it has no links to real identity providers.
 
-If you are [linking identities received from Verify to information in your database](LINK), you should make sure to test against potential problematic scenarios.
+If you are [linking identities received from Verify to information in your database][matching], you should make sure to test against potential problematic scenarios.
 
 A test identity provider contains:
 
-* the user administration API – you should have submitted your credentials when you [requested access to the environment](LINK).
+* the user administration API – you should have submitted your credentials when you [requested access to the environment][get-env-access-test].
 
 * a connection to the hub in the integration environment, which is used for end-to-end testing – no authentication credentials are required
 
 Setup for end-to-end testing involves the following procedures:
 
- * [create test users](LINK)
+ * [create test users][create-test-users]
 
- * [view test users](LINK)
+ * [view test users][view-test-users]
 
- * [delete test users](LINK)
+ * [delete test users][delete-test-users]
 
 ## Create test users
 
@@ -72,7 +72,7 @@ where:
 }]
 ```
 
-Possible values are shown in the following table. [LINK] find the csv-table file
+Possible values are shown in the following table.
 
 
 | Attribute  | Value                      |
@@ -107,3 +107,5 @@ where:
 * `user1` is the name of the test user you want to delete
 * `username` and `password` are your credentials for managing test users
 * `idp-name` is the name of the test identity provider
+
+<%= partial "partials/links" %>

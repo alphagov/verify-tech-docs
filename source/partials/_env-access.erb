@@ -1,7 +1,7 @@
 
 # Get environment access
 
-An environment is a fully-working deployment of the GOV.UK Verify hub. GOV.UK Verify maintains a number of environments for development, testing, and operational purposes. As a government service you need to work in the integration and production environments.
+An environment is a fully-working deployment of the GOV.UK Verify hub. GOV.UK Verify maintains a number of environments for development, testing, and operational purposes. As a government service you need to work in the Integration and Production environments.
 
 GOV.UK Verify provides two identical, secure environments:
 
@@ -28,9 +28,9 @@ The form does not store data between sessions. You must make sure you have all t
 
 To complete the form you’ll need to share URLs for your:
 
-- service provider
+- Verify Service Provider
 - service start point or page
-- [Verify SAML response](LINK)
+- [Verify SAML response][verify-saml-response]
 
 You’ll need to provide web content to personalise the Verify Hub for your end users, including:
 
@@ -39,15 +39,10 @@ You’ll need to provide web content to personalise the Verify Hub for your end 
 - contact details for your service
 - a description of other ways users can access your service
 
-You’ll need to provide [valid, signed IDAP X.509 Public certificates](LINK) for:
+You’ll need to provide [valid, signed IDAP X.509 Public certificates][get-cert-test] for:
 
-- service provider signature validation
-- service provider encryption
-
-If applicable to your service, you’ll need to provide:
-
-- [Cycle 3 attributes](LINK), for example driving licence or passport number
-- [‘New User’ account](LINK) attributes, for example first name, middle name, surname, date of birth, current address
+- Verify Service Provider signature validation
+- Verify Service Provider encryption
 
 For <%= env %> environments, you’ll also need to provide a username and password to manage the test user data.
 

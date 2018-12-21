@@ -14,15 +14,15 @@ Encryption and signing are provided by public-key cryptography. A PKI supports p
 
 ## Why does GOV.UK Verify use a PKI?
 
-The Identity Assurance Programme (IDAP) runs a PKI to enable secure communication between the entities in the GOV.UK Verify federation, for example, between government services and the GOV.UK Verify hub. For an outline of the technical steps in the onboarding process, see [Stage 4: Build and integration testing](LINK) in the onboarding guide.
+The Identity Assurance Programme (IDAP) runs a PKI to enable secure communication between the entities in the GOV.UK Verify federation, for example, between government services and the GOV.UK Verify hub. For an outline of the technical steps in the connecting process, see [the development steps][development-steps].
 
 The entities in the GOV.UK Verify federation communicate with each other using SAML. Public-key cryptography secures the integrity and privacy of SAML messages sent between the different entities.
 
 ## What do you need to do?
 
-As part of the GOV.UK Verify federation you need to [request certificates](LINK) from the IDAP PKI certificate authority. When your certificates are due to expire you need to [run the key rotation process](LINK) to update the keys in your certificates.
+As part of the GOV.UK Verify federation you need to request certificates from the IDAP PKI certificate authority. When your certificates are due to expire you need to [run the key rotation process][rotate-keys] to update the keys in your certificates.
 
-For more information, see [Steps to integrate GOV.UK Verify into your service](LINK).
+For more information, see [the development steps to integrate GOV.UK Verify into your service][development-steps].
 
 You are responsible for ensuring that the terms of the IDAP PKI Certification Policy are upheld. To do this, you and your service manager need to refer to a set of documents. Your service manager must request these documents from the IDAP PKI:
 
@@ -42,8 +42,7 @@ To encrypt and sign data, you need 2 pairs of keys:
 * public and private **signing** keys
 
 
-The keys consist of very long numbers linked in a particular way so the public key can be derived from the private key but not the other way around. Entities within a PKI generate their own keys. They always retain their private keys. However, they share their public keys with other entities to allow secure communication through [encryption](LINK)
-and [signing](LINK).
+The keys consist of very long numbers linked in a particular way so the public key can be derived from the private key but not the other way around. Entities within a PKI generate their own keys. They always retain their private keys. However, they share their public keys with other entities to allow secure communication through [encryption and signing][encryption-and-signing].
 
 Public keys are shared using certificates. A certificate is a file that contains:
 
@@ -64,8 +63,8 @@ If you are running the legacy setup with matching, you must also request encrypt
 
 To obtain a certificate:
 
-1. Generate pair of keys ([private](LINK) and [public](LINK)). You must generate a pair of encryption keys for each encryption certificate request and a pair of signing keys for each signing certificate request.
-1. [Submit a certificate signing request](LINK) to the IDAP certificate authority.
+1. Generate pair of keys ([private and public][about-keys-and-certs]). You must generate a pair of encryption keys for each encryption certificate request and a pair of signing keys for each signing certificate request.
+1. [Submit a certificate signing request][submit-cert-request] to the IDAP certificate authority.
 1. The certificate authority generates your certificate and sends it to you.
 
 The certificate authority also issues certificates for the GOV.UK Verify hub and identity providers.
@@ -90,4 +89,6 @@ You can use encryption and signing together or alone.
 
   When a user has verified their identity, the identity provider sends a signed message to the hub containing the user's encrypted personal information. This ensures the confidentiality of the message and that the message originated from the identity provider.
 
-A message can contain embedded messages which may be encrypted and/or signed by different entities within the GOV.UK Verify federation. For more information, see the [diagram showing the SAML message flow](LINK) within the GOV.UK Verify federation.
+A message can contain embedded messages which may be encrypted and/or signed by different entities within the GOV.UK Verify federation. For more information, see the [diagram showing the SAML message flow][message-flow] within the GOV.UK Verify federation.
+
+<%= partial "partials/links" %>
