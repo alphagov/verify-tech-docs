@@ -1,1 +1,4 @@
 @import "govuk_tech_docs";
+
+// Hide page expiry banners
+.page-expiry--not-expired, .page-expiry--expired { display: none }

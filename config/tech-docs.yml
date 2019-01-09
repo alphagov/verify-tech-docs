@@ -1,5 +1,5 @@
 # Host to use for canonical URL generation (without trailing slash)
-host: www.docs.verify.service.gov.uk
+host: https://www.docs.verify.service.gov.uk
 
 # Header-related options
 show_govuk_logo: true
@@ -42,3 +42,7 @@ enable_search: true
 # For example: https://raw.githubusercontent.com/alphagov/verify-service-provider/53d28ebec44b7ca99f0b9675bab5fb60e0145e60/docs/api/verify-service-provider-api.swagger-v2.yml
 
 api_path:
+
+# Set default slack workspace and owner
+owner_slack_workspace: gds
+default_owner_slack: '#bot-testing'
