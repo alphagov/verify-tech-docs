@@ -1,7 +1,3 @@
-
-**This repo is a work in progress as we migrate the [GOV.UK Verify documentation](http://alphagov.github.io/rp-onboarding-tech-docs/index.html) to the [GOV.UK tech doc tool format](https://github.com/alphagov/tech-docs-template).**
-
-
 # Technical Documentation
 
 [![Build Status](https://travis-ci.com/alphagov/verify-tech-docs.svg?branch=master)](https://travis-ci.com/alphagov/verify-tech-docs)
