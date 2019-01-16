@@ -4,9 +4,12 @@
 
 ## Getting started
 
+You can [read documentation about the GDS technical documentation
+tool][tdt-documentation] [external link].
+
 To preview or build the website, we need to use the terminal.
 
-Install Ruby with Rubygems, perferably with a [Ruby version manager][rvm],
+Install Ruby with Rubygems, preferably with a [Ruby version manager][rvm],
 and the [Bundler gem][bundler].
 
 In the application folder type the following to install the required gems:
@@ -96,3 +99,4 @@ The documentation is [© Crown copyright][copyright] and available under the ter
 [mit]: LICENCE
 [copyright]: http://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/
 [ogl]: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+[tdt-documentation]: https://tdt-documentation.london.cloudapps.digital
