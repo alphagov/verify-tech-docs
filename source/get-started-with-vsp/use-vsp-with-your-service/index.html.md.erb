@@ -5,30 +5,62 @@ weight: 10
 
 # Use the VSP with your service
 
-GOV.UK Verify uses SAML (Security Assertion Markup Language) to securely exchange information about identities. A
-Relying Party can use the [Verify Service Provider](https://github.com/alphagov/verify-service-provider/blob/master/README.md) (VSP)
-to generate SAML to send to the Verify Hub, and translate the SAML responses returned by the Verify Hub.
+This tutorial explains how to integrate with the VSP in your local environment.
 
-This tutorial explains how to integrate with the VSP in your local environment using the [Compliance Tool](https://verify-tech-docs.cloudapps.digital/set-up-service-provider/compliance-tool/#compliance-tool) as a placeholder for the GOV.UK Verify Hub. You will find out how to to send a SAML `AuthnRequest` and how to handle a SAML `Response`.
+The tutorial uses the GOV.UK Verify test tool as a placeholder for the GOV.UK Verify Hub. This allows you to follow the tutorial using your local VSP setup.
+
+You will find out how to:
+
+- initialise the test tool
+- send a request
+- handle the response in all scenarios
+
+![](/images/vsp-integration-overview.svg)
 
 ## Prerequisites
 
-To be able to follow this tutorial you must:
+To be able to follow this tutorial you must have:
 
-* have Java 8 or higher
-* [set up and configure the VSP](https://github.com/alphagov/verify-service-provider/blob/master/README.md)
-* have [initialised the GOV.UK Verify Hub placeholder](https://verify-tech-docs.cloudapps.digital/set-up-service-provider/compliance-tool/#compliance-tool)
+* Java 8 or higher
+* [set up the VSP](https://github.com/alphagov/verify-service-provider/blob/master/README.md)
 
-You can check if your VSP is set up properly by doing a GET request to the `admin/healthcheck` endpoint to confirm it is running correctly.
+You can check if your VSP is set up correctly by doing a GET request to the `admin/healthcheck` endpoint.
 
-## Step 1: Generate a SAML AuthnRequest
+**What does a response look like? New page for troubleshooting?**
 
-Make a POST request to the `/generate-request` endpoint to generate a SAML `AuthnRequest`. The request body must also contain the [level of assurance][loa] for your service.
+## Initialise the test tool
 
-<details>
-<summary>
-Example call
-</summary>
+The test tool allows you to test and prove that your service can respond appropriately to all of the response scenarios in a Verify journey.
+
+The test tool is hosted by the GOV.UK Verify team and must be initialised before you start development.
+
+The (VSP) automates the initialisation of the test tool so you can focus on integrating your service with the VSP. Each initialisation spins up a test tool instance which has a lifetime of **HOW LONG**.
+
+![](/images/vsp-integration-initialise-test-tool.svg)
+
+To initialise the test tool:
+
+```
+WHAT TO DO?
+```
+
+This command:
+
+- generates self-signed keys and certificates for the test tool
+- starts the VSP configured with the new keys and the URL of the test tool
+- initialises an instance of the test tool
+
+You can now use the test tool.
+
+## Send a request
+
+Once the user starts a Verify journey from the browser, your service must POST a request to the VSP to generate the SAML AuthnRequest. Then, your service must send the SAML AuthnRequest to the test tool via the browser.
+
+![](/images/vsp-integration-request.svg)
+
+### Generate an AuthnRequest
+
+Make a POST request to the `/generate-request` endpoint to generate a SAML `AuthnRequest`. The request body must contain the [level of assurance][loa] for your service:
 
 ```
 > POST /generate-request HTTP/1.1
@@ -37,12 +69,7 @@ Example call
 > { "levelOfAssurance": "LEVEL_2" }
 ```
 
-</details>
-
-<details>
-<summary>
-Example response
-</summary>
+The response from the VSP is in JSON format, and contains the SAML AuthnRequest:
 
 ```json
 {
@@ -52,83 +79,51 @@ Example response
 }
 ```
 
-</details>
+The parts of the response are:
 
-The parts of the response represent:
+| Field         | Description                                            |
+| ------------- | ------------------------------------------------------ |
+| `samlRequest` | Your base64 encoded SAML `AuthnRequest`                |
+| `requestId`   | A string that identifies the SAML `AuthnRequest`       |
+| `ssoLocation` | The URL to send the `AuthnRequest` to. In this case this is the URL of the test tool. |
 
-* `samlRequest` - your base64 encoded `AuthnRequest`
-* `requestId` - a token that identifies the `AuthnRequest`. It is used to connect the user's browser with a specific request.
-* `ssoLocation` - the URL to send the `AuthnRequest` to
-
-
-
-## Step 2: Store the requestId from the response
+#### Store the requestId
 
 You will need to access the `requestId` later in the process to link the identities received from GOV.UK Verify with the correct user.
 
 You must store the `requestId` securely and link it to the user's session. We recommend you store the `requestId` in a secure cookie.
 
-## Step 3: Send the AuthnRequest to Compliance Tool
+### Send the AuthnRequest to the test tool
 
-The `AuthnRequest` is sent via the user's browser in a form. We recommend you do this by rendering an HTML form and JavaScript to submit it, as per [SAML HTTP Post Binding](https://en.wikipedia.org/wiki/SAML_2.0#HTTP_Post_Binding).
-
-The HTML form should:
-
-* escape inputs - to make sure no symbols or special characters are processed
-* contain JavaScript to auto-post - to automatically send the user on to the Hub
-* include page styling to display if JavaScript is disabled - to prompt users to turn on JavaScript. This should look like your service
-
-<details>
-<summary>
-Example HTML form from passport-verify
-</summary>
+After receiving the AuthnRequest, your service sends it to the test tool via the browser. We recommend you do this by rendering an HTML form and using JavaScript to auto-submit it, as described by [SAML HTTP Post Binding](https://en.wikipedia.org/wiki/SAML_2.0#HTTP_POST_Binding) [external link]:
 
 ```html
-    <form class='passport-verify-saml-form' method='post' action='${escape(ssoLocation)}'>
-      <h1>Continue to next step</h1>
-      <p>Because Javascript is not enabled on your browser, you must press the continue button</p>
-      <input type='hidden' name='SAMLRequest' value='${escape(samlRequest)}'/>
-      <input type='hidden' name='relayState' value=''/>
-      <button class='passport-verify-button'>Continue</button>
-    </form>
-    <script>
-      var form = document.forms[0]
-      form.setAttribute('style', 'display: none;')
-      window.setTimeout(function () { form.removeAttribute('style') }, 5000)
-      form.submit()
-    </script>
-    <style type='text/css'>
-      body {
-        padding-top: 2em;
-        padding-left: 2em;
-      }
-      .passport-verify-saml-form {
-        font-family: Arial, sans-serif;
-      }
-      .passport-verify-button {
-        background-color: #00823b;
-        color: #fff;
-        padding: 10px;
-        font-size: 1em;
-        line-height: 1.25;
-        border: none;
-        box-shadow: 0 2px 0 #003618;
-        cursor: pointer;
-      }
-      .passport-verify-button:hover, .passport-verify-button:focus {
-        background-color: #00692f;
-      }
-    </style>
+<!-- The form containing the SAML AuthnRequest
+to be submitted to the test tool -->
+<form method='post' action='${escape(ssoLocation)}'>
+  <h1>Continue to next step</h1>
+  <p>Because Javascript is not enabled on your browser, you must press the continue button</p>
+  <input type='hidden' name='SAMLRequest' value='${escape(samlRequest)}'/>
+  <input type='hidden' name='relayState' value=''/>
+  <button>Continue</button>
+</form>
+
+<!-- JavaScript to automatically submit the form
+and POST to `ssoLocation` -->
+<script>
+  var form = document.forms[0]
+  form.setAttribute('style', 'display: none;')
+  window.setTimeout(function () { form.removeAttribute('style') }, 5000)
+  form.submit()
+</script>
 ```
+Make sure to escape inputs so that special characters are not processed.
 
-</details>
+For a consistent user journey, we recommend you also include page styling matching the appearance of your service. The styling is for the page that appear if a user has JavaScript disabled. This page prompts users to turn on JavaScript and should look like your service.
 
-The response from Compliance Tool should contain `"status": "PASSED"` and a `responseGeneratorLocation` URL which you can use to access the test scenarios.
+### Response from the test tool
 
-<details>
-<summary>
-Example response from Compliance Tool
-</summary>
+The response from the test tool should contain `"status": "PASSED"` and a `responseGeneratorLocation` URL which you can use to access the test scenarios:
 
 ```json
   {
@@ -140,16 +135,16 @@ Example response from Compliance Tool
   }
 ```
 
-</details>
+If the status is not `PASSED`, you may need to re-initialise the test tool.
 
-If the status is not `PASSED`, you may need to re-initialise the Compliance Tool. You should also check the Compliance Tool initialisation request matches the VSP configuration.
+## Choose scenario
+
+![](/images/vsp-integration-choose-scenario.svg)
 
 Go to the URL in `responseGeneratorLocation` using your browser. The response will contain the test scenarios for possible responses.
 
-<details>
-<summary>
-Example test scenarios from Compliance Tool
-</summary>
+Example test scenarios from the test tool
+
 
 ```json
 {
@@ -178,14 +173,13 @@ Example test scenarios from Compliance Tool
 }
 ```
 
-</details>
-
 Access the URL for a particular scenario to test that your service can handle that particular response.
 
-## Step 4: Receive the SAML Response
+## Handle the response
 
+![](/images/vsp-integration-response.svg)
 
-The SAML Response will be submitted to the URL you specified when initialising the Compliance Tool, via the user's browser. For example, `passport-verify-stub-relying-party` uses `/verify/response`. The SAML Response will be URL form encoded, `application/x-www-form-urlencoded`.
+The SAML Response will be submitted to the URL you specified when initialising the test tool, via the user's browser. For example, `passport-verify-stub-relying-party` uses `/verify/response`. The SAML Response will be URL form encoded, `application/x-www-form-urlencoded`.
 
 <details>
 <summary>
@@ -198,20 +192,15 @@ SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWwycDpSZXN
 
 </details>
 
-## Step 5: Translate the SAML Response into JSON
+### Translate the SAML Response into JSON
 
 Send a POST request to `/translate-non-matching-response` to translate the SAML Response into JSON.
 
 The call must contain:
 
-* `samlResponse` - the base64 encoded SAML from the Compliance Tool you got in Step 4
-* `requestId` - the token you stored in Step 2
+* `samlResponse` - the base64 encoded SAML Response you received from the test tool
+* `requestId` - the [string you stored](LINK) when the AuthnRequest was generated
 * `levelOfAssurance` - to validate that the user meets the minimum level of assurance you have requested
-
-<details>
-<summary>
-Example call
-</summary>
 
 ```
 > POST /translate-non-matching-response HTTP/1.1
@@ -224,12 +213,7 @@ Example call
 }
 ```
 
-</details>
 
-<details>
-<summary>
-Example successful response
-</summary>
 
 ```
 > HTTP/1.1 200 OK
@@ -242,10 +226,6 @@ Example successful response
     "attributes": pie
 }
 ```
-
-</details>
-
-## Step 6: Handle the JSON response
 
 When you receive an HTTP 200 response, with one of 4 scenarios:
 
