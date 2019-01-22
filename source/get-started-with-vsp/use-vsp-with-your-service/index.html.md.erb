@@ -187,7 +187,7 @@ SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWwycDpSZXN
 
 ### Translate the SAML Response into JSON
 
-Send a POST request to `/translate-non-matching-response` to translate the SAML Response into JSON.
+Send a POST request to `/translate-response` to translate the SAML Response into JSON.
 
 The call must contain:
 
@@ -196,7 +196,7 @@ The call must contain:
 * `levelOfAssurance` - to validate that the user meets the minimum level of assurance you have requested
 
 ```
-> POST /translate-non-matching-response HTTP/1.1
+> POST /translate-response HTTP/1.1
 > Content-Type: application/json
 >
 {
