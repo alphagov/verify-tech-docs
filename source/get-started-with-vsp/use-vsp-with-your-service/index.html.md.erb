@@ -30,15 +30,13 @@ You can check if your VSP is set up correctly by doing a GET request to the `adm
 
 ## Initialise the test tool
 
-The test tool allows you to test and prove that your service can respond appropriately to all of the response scenarios in a Verify journey.
-
-The test tool is hosted by the GOV.UK Verify team and must be initialised before you start development.
-
-The (VSP) automates the initialisation of the test tool so you can focus on integrating your service with the VSP. Each initialisation spins up a test tool instance which has a lifetime of **HOW LONG**.
+The test tool is hosted by the GOV.UK Verify team and must be initialised before you start development. It allows you to test and prove that your service can respond appropriately to all of the response scenarios in a Verify journey.
 
 ![](/images/vsp-integration-initialise-test-tool.svg)
 
-To initialise the test tool:
+The VSP automates the initialisation of the test tool so you can focus on integrating your service with the VSP. Each initialisation spins up a test tool instance which has a lifetime of **HOW LONG and should we recommend they re-initialise if something's not working later?**.
+
+To initialise the test tool: **Where are they running this from?**
 
 ```
 ./bin/verify-service-provider development
@@ -50,6 +48,8 @@ This command:
 - starts the VSP configured with the new keys and the URL of the test tool
 - initialises an instance of the test tool
 
+**What cues do I get so that I know what happened?**
+
 You can now use the test tool.
 
 ## Send a request
@@ -60,7 +60,7 @@ Once the user starts a Verify journey from the browser, your service must POST a
 
 ### Generate an AuthnRequest
 
-Make a POST request to the `/generate-request` endpoint to generate a SAML `AuthnRequest`. The request body must contain the [level of assurance][loa] for your service:
+Make a POST request to the `/generate-request` endpoint to generate a SAML AuthnRequest. The request body must contain the [level of assurance][loa] for your service:
 
 ```
 > POST /generate-request HTTP/1.1
