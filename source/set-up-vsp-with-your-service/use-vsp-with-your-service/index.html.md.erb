@@ -1,9 +1,9 @@
 ---
-title: Use the VSP with your service
+title: Get started with the VSP
 weight: 10
 ---
 
-# Use the VSP with your service
+# Get started with the VSP
 
 This tutorial explains how to integrate with the VSP in your local environment.
 
@@ -13,7 +13,7 @@ You will find out how to:
 
 - initialise the test tool
 - send a request
-- handle the response in all scenarios
+- handle the response scenarios
 
 ![](/images/vsp-integration-overview.svg)
 
@@ -24,33 +24,23 @@ To be able to follow this tutorial you must have:
 * Java 8 or higher
 * [set up the VSP](https://github.com/alphagov/verify-service-provider/blob/master/README.md)
 
-You can check if your VSP is set up correctly by doing a GET request to the `admin/healthcheck` endpoint.
+## Start the VSP
 
-**What does a response look like? New page for troubleshooting?**
+You'll have to start the VSP in developer mode and specify the service endpoint where the test tool should send the responses to.
 
-## Initialise the test tool
-
-The test tool is hosted by the GOV.UK Verify team and must be initialised before you start development. It allows you to test and prove that your service can respond appropriately to all of the response scenarios in a Verify journey.
-
-![](/images/vsp-integration-initialise-test-tool.svg)
-
-The VSP automates the initialisation of the test tool so you can focus on integrating your service with the VSP. Each initialisation spins up a test tool instance which has a lifetime of **HOW LONG and should we recommend they re-initialise if something's not working later?**.
-
-To initialise the test tool: **Where are they running this from?**
+To initialise the test tool run from **WHERE**
 
 ```
 ./bin/verify-service-provider development
 ```
 
-This command:
+The test tool is hosted by the GOV.UK Verify team and must be initialised before you start development. It allows you to test and prove that your service can respond appropriately to all of the response scenarios in a Verify journey.
+
+Starting the VSP automatically initialises the test tool so you can focus on integrating your service with the VSP. Each initialisation:
 
 - generates self-signed keys and certificates for the test tool
 - starts the VSP configured with the new keys and the URL of the test tool
 - initialises an instance of the test tool
-
-**What cues do I get so that I know what happened?**
-
-You can now use the test tool.
 
 ## Send a request
 
@@ -58,7 +48,7 @@ Once the user starts a Verify journey from the browser, your service must POST a
 
 ![](/images/vsp-integration-request.svg)
 
-### Generate an AuthnRequest
+### Request to Generate a SAML AuthnRequest
 
 Make a POST request to the `/generate-request` endpoint to generate a SAML AuthnRequest. The request body must contain the [level of assurance][loa] for your service:
 
@@ -68,6 +58,8 @@ Make a POST request to the `/generate-request` endpoint to generate a SAML Authn
 >
 > { "levelOfAssurance": "LEVEL_2" }
 ```
+
+### Receive the SAML AuthnRequest
 
 The response from the VSP is in JSON format, and contains the SAML AuthnRequest:
 
@@ -119,7 +111,7 @@ and POST to `ssoLocation` -->
 ```
 Make sure to escape inputs so that special characters are not processed.
 
-For a consistent user journey, we recommend you also include page styling matching the appearance of your service. The styling is for the page that appear if a user has JavaScript disabled. This page prompts users to turn on JavaScript and should look like your service.
+For a consistent user journey, we recommend you also include page styling matching the appearance of your service. The styling is for the page that appears if a user has JavaScript disabled. This page prompts users to turn on JavaScript and should look like your service.
 
 ### Response from the test tool
 
@@ -135,61 +127,50 @@ The response from the test tool should contain `"status": "PASSED"` and a `respo
   }
 ```
 
-If the status is not `PASSED`, you may need to re-initialise the test tool.
+If the status is not `PASSED`, you may need to [initialise the test tool][init-test-tool] again.
 
 ## Choose scenario
 
 ![](/images/vsp-integration-choose-scenario.svg)
 
-Go to the URL in `responseGeneratorLocation` using your browser. The response will contain the test scenarios for possible responses.
+Go to the URL in `responseGeneratorLocation` using your browser. The response contains the 4 test cases or scenarios.
 
-Example test scenarios from the test tool
-
+For the purpose of this tutorial, we'll focus on the first test case, when the user has been successfully verified:
 
 ```json
 {
-  "id" : "_6817b389-4924-479c-9851-db089c4e639c",
-  "testCases" : [ {
-    "executeUri" : "https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk:443/rp-test/_6817b389-4924-479c-9851-db089c4e639c/test-non-matching/10",
-    "id" : 10,
-    "title" : "Verified User On Service With Non Match Setting",
-    "description" : "Issues a successful response where the user has been successfully verified."
-  }, {
-    "executeUri" : "https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk:443/rp-test/_6817b389-4924-479c-9851-db089c4e639c/test-non-matching/11",
-    "id" : 11,
-    "title" : "No Authentication Context Response With Non Match Setting",
-    "description" : "Issues a response with NoAuthnContext status. This happens when the user cancels or fails to authenticate at an appropriate level of assurance."
-  }, {
-    "executeUri" : "https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk:443/rp-test/_6817b389-4924-479c-9851-db089c4e639c/test-non-matching/13",
-    "id" : 13,
-    "title" : "Authentication Failed Response",
-    "description" : "Issues an Authentication Failed response. The user was not authenticated successfully."
-  }, {
-    "executeUri" : "https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk:443/rp-test/_6817b389-4924-479c-9851-db089c4e639c/test-non-matching/14",
-    "id" : 14,
-    "title" : "Fraudulent match response with assertions signed by hub",
-    "description" : "Issues a response with an assertion signed with the hub's private key. Your service should return an error to the user because your service should only trust assertions signed by your matching service adapter."
-  } ]
-}
+  "executeUri" : "https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk:443/rp-test/_6817b389-4924-479c-9851-db089c4e639c/test-non-matching/10",
+  "id" : 10,
+  "title" : "Verified User On Service With Non Match Setting",
+  "description" : "Issues a successful response where the user has been successfully verified."
+},
 ```
 
-Access the URL for a particular scenario to test that your service can handle that particular response.
+The test scenarios cover all possible responses your service might get from the GOV.UK Verify Hub.
+
+Go to the URL for a scenario to test that your service can handle that response.
 
 ## Handle the response
 
 ![](/images/vsp-integration-response.svg)
 
-The SAML Response will be submitted to the URL you specified when initialising the test tool, via the user's browser. For example, `passport-verify-stub-relying-party` uses `/verify/response`. The SAML Response will be URL form encoded, `application/x-www-form-urlencoded`.
+The SAML Response for the [scenario you selected][choose-scenario] will be submitted to the URL you specified when initialising the test tool **How does this work now that initialising CT is part of the VSP?**, via the user's browser. The SAML Response will be URL form encoded, `application/x-www-form-urlencoded`:
 
 ```
+...
 SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWwycDpSZXNwb25zZSBEZXN0aW5hdGlvbj0iaHR0cHM6Ly9wYXNzcG9ydC12ZXJpZnktc3R1Yi1yZWx5aW5nLXBhcnR5LWRldi5jbG91ZGFwcHMuZGlnaXRhbC92ZXJpZnkv...
+...
 ```
+
+**Should the code block contain anything else?**
+
+`SAMLResponse` property in the JSON contains the base64 encoded SAML Response from the test tool.
 
 ### Translate the SAML Response into JSON
 
 Send a POST request to `/translate-response` to translate the SAML Response into JSON.
 
-The call must contain:
+The request must contain:
 
 * `samlResponse` - the base64 encoded SAML Response you received from the test tool
 * `requestId` - the [string you stored](LINK) when the AuthnRequest was generated
@@ -206,7 +187,7 @@ The call must contain:
 }
 ```
 
-
+An HTTP 200 response confirms the VSP translated the SAML response successfully and also contains details about the test scenario:
 
 ```
 > HTTP/1.1 200 OK
@@ -220,20 +201,22 @@ The call must contain:
 }
 ```
 
-When you receive an HTTP 200 response, with one of 4 scenarios:
+* `scenario` - name of the scenario **MORE**
+* `pid` - a unique identifier for a user
+* `levelOfAssurance` - the level of assurance the user verified at
+* `attributes` - information about the user's identity
+
+
+**This needs updating**
 
 | Scenario | Description |
 | --- | --- |
 | IDENTITY_VERIFIED | The user successfully completed the Verify journey. |
 | CANCELLATION | User opted to cancel verification at some point in their journey. Response will be empty. |
 | AUTHENTICATION_FAILED | User could not be identified by identity provider. |
-| REQUEST_ERROR | Internal error. Contact  idasupport@digital.cabinet-office.gov.uk. |
+| **fraud.** | Internal error. Contact  idasupport@digital.cabinet-office.gov.uk. |
 
-In the `IDENTITY_VERIFIED` scenario, the response will also contain:
 
-* `pid` - a unique identifier for a user
-* `levelOfAssurance` - the level of assurance the user verified at
-* `attributes` - information about the user's identity
 
 Your service can now use the provided identity or error messages to further guide the user in their journey in your service.
 
