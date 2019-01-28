@@ -137,6 +137,14 @@ Here we'll focus on the first test case, which simulates a user who has been suc
   "description" : "Issues a successful response where the user has been successfully verified."
 },
 ```
+Each scenario is characterised by has a title, description, id, and a executeUri, which can be followed to run the scenarion. (FIXME I want to be a table)
+
+| Parameter     | Description                       |
+| ------------- | --------------------------------- |
+| `executeUri`  | URI for running the test scenario |
+| `id`          | Number identifying the scenario   |
+| `title`       | The name of the scenario          |
+| `Description` | Details about the scenario        |
 
 ### Run the scenario
 Using your response find the scenario that has a title: blah and go to the `executeUri` location to run the scenario.
@@ -145,7 +153,7 @@ Using your response find the scenario that has a title: blah and go to the `exec
 
 ![](/images/vsp-integration-response.svg)
 
-The test tool will generate a SAML response that will be provided in a HTML form that when submitted will be sent to the URL you provided to the VSP when launching development mode. 
+The test tool will generate a SAML response that will be provided in a HTML form that when submitted will be sent to the URL you provided to the VSP when launching development mode.
 Your service must be listening at that URL for the incoming form submission.
 The SAML response will be base64 encoded within the `SAMLResponse` form parameter:
 
@@ -161,7 +169,7 @@ The request must contain:
 * `requestId` - the [string you stored](LINK) when the AuthnRequest was generated
 * `levelOfAssurance` - to validate that the user meets the minimum level of assurance you have requested
 
-```
+```http
 > POST /translate-response HTTP/1.1
 > Content-Type: application/json
 >
@@ -174,7 +182,7 @@ The request must contain:
 
 An HTTP 200 response confirms the VSP translated the SAML response successfully and also contains details about the test scenario:
 
-```
+```http
 > HTTP/1.1 200 OK
 > Content-Type: application/json
 >
