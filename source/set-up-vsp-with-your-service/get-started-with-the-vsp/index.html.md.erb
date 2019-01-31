@@ -44,7 +44,7 @@ Once the user starts a Verify journey from the browser, your service must send a
 
 ### Request to generate an authentication request
 
-Make a HTTP POST request to the `/generate-request` endpoint to generate a SAML authentication request message (FIXME replace usages of AuthnRequest). The request body must contain the [level of assurance][loa] for your service:
+Make a HTTP POST request to the `/generate-request` endpoint to generate a SAML authentication request message. The request body must contain the [level of assurance][loa] for your service:
 
 ```
 > POST /generate-request HTTP/1.1
@@ -53,9 +53,9 @@ Make a HTTP POST request to the `/generate-request` endpoint to generate a SAML 
 > { "levelOfAssurance": "LEVEL_2" }
 ```
 
-### Receive the SAML AuthnRequest
+### Receive the SAML authentication request
 
-The response from the VSP is in JSON format, and contains the SAML AuthnRequest:
+The response from the VSP is in JSON format, and contains the SAML authentication request:
 
 ```json
 {
@@ -69,9 +69,9 @@ The parts of the response are:
 
 | Field         | Description                                            |
 | ------------- | ------------------------------------------------------ |
-| `samlRequest` | Your base64 encoded SAML `AuthnRequest`                |
-| `requestId`   | A string that identifies the SAML `AuthnRequest`       |
-| `ssoLocation` | The URL to send the `AuthnRequest` to. In this case this is the URL of the test tool. |
+| `samlRequest` | Your base64 encoded SAML authentication request                |
+| `requestId`   | A string that identifies the SAML authentication request       |
+| `ssoLocation` | The URL to send the authentication request to. In this case this is the URL of the test tool. |
 
 #### Store the requestId
 
@@ -79,12 +79,12 @@ You will need to access the `requestId` later in the process to link the identit
 
 You must store the `requestId` securely and link it to the user's session. We recommend you store the `requestId` in a secure cookie.
 
-### Send the AuthnRequest to the test tool
+### Send the authentication request to the test tool
 
-After receiving the AuthnRequest, your service sends it to the test tool via the browser. We recommend you do this by rendering an HTML form and using JavaScript to auto-submit it, as described by [SAML HTTP Post Binding](https://en.wikipedia.org/wiki/SAML_2.0#HTTP_POST_Binding) [external link]:
+After receiving the authentication request, your service sends it to the test tool via the browser. We recommend you do this by rendering an HTML form and using JavaScript to auto-submit it, as described by [SAML HTTP Post Binding](https://en.wikipedia.org/wiki/SAML_2.0#HTTP_POST_Binding) [external link]:
 
 ```html
-<!-- The form containing the SAML AuthnRequest
+<!-- The form containing the SAML authentication request
 to be submitted to the test tool -->
 <form method='post' action='${escape(ssoLocation)}'>
   <h1>Continue to next step</h1>
@@ -166,7 +166,7 @@ From your service, make a HTTP POST request to `/translate-response` to translat
 The request must contain:
 
 * `samlResponse` - the base64 encoded SAML Response you received from the test tool
-* `requestId` - the [string you stored](LINK) when the AuthnRequest was generated
+* `requestId` - the [string you stored](LINK) when the authentication request was generated
 * `levelOfAssurance` - to validate that the user meets the minimum level of assurance you have requested
 
 ```http
