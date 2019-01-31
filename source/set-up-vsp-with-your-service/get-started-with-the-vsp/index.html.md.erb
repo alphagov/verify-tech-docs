@@ -11,7 +11,7 @@ This guide uses the GOV.UK Verify test tool as a placeholder for the GOV.UK Veri
 
 This guide is the first step in integrating your service with the VSP. It explains how to set up the happy path scenario, including:
 
-- generating a SAML authentication request using the VSP
+- generating an authentication request using the VSP
 - sending the authentication request to the GOV.UK Verify Hub
 - translating a SAML response using the VSP
 - linking an authentication request with its response
@@ -38,13 +38,13 @@ To initialise the test tool where the SAML responses will be sent to `http://loc
 
 ## Send a request
 
-Once the user starts a Verify journey from the browser, your service must send a request to the VSP to generate the an authentication request (AKA SAML AutnRequest). Then, your service must send the authentication request to the test tool via the browser.
+Once the user starts a Verify journey from the browser, your service must send a request to the VSP to generate the authentication request. Then, your service must send the authentication request to the test tool via the browser. The authentication request is also known as a SAML AuthnRequest.
 
 ![](/images/vsp-integration-request.svg)
 
 ### Request to generate an authentication request
 
-Make a HTTP POST request to the `/generate-request` endpoint to generate a SAML authentication request message. The request body must contain the [level of assurance][loa] for your service:
+Make a HTTP POST request to the `/generate-request` endpoint to generate an authentication request message. The request body must contain the [level of assurance][loa] for your service:
 
 ```
 > POST /generate-request HTTP/1.1
@@ -53,9 +53,9 @@ Make a HTTP POST request to the `/generate-request` endpoint to generate a SAML 
 > { "levelOfAssurance": "LEVEL_2" }
 ```
 
-### Receive the SAML authentication request
+### Receive the authentication request
 
-The response from the VSP is in JSON format, and contains the SAML authentication request:
+The response from the VSP is in JSON format, and contains the authentication request:
 
 ```json
 {
@@ -71,7 +71,7 @@ The parts of the response are:
 | ------------- | ------------------------------------------------------ |
 | `samlRequest` | Your base64 encoded SAML authentication request                |
 | `requestId`   | A string that identifies the SAML authentication request       |
-| `ssoLocation` | The URL to send the authentication request to. In this case this is the URL of the test tool. |
+| `ssoLocation` | The URL to send the authentication request to, for example the test tool. |
 
 #### Store the requestId
 
@@ -182,7 +182,7 @@ The request must contain:
 }
 ```
 
-An HTTP 200 response confirms the VSP translated the SAML response successfully and also contains details about the test scenario:
+An `HTTP 200 OK` response confirms the VSP translated the SAML response successfully and also contains details about the test scenario:
 
 ```http
 > HTTP/1.1 200 OK
