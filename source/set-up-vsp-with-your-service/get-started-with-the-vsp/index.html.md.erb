@@ -18,23 +18,19 @@ This guide is the first step in integrating your service with the VSP. It explai
 
 ## Prerequisites
 
-To be able to follow this tutorial you must have [set up the VSP][vsp-readme].
+[Download and set up the VSP][vsp-readme-setup] to be able to follow along with the instructions on this page.
 
-## Use the VSP with the test tool
+## Using the VSP with the test tool
 
-You'll have to start the VSP in developer mode and specify the service endpoint where the test tool should send the responses to.
+To use the VSP with the test too, you need to run the VSP in [development mode][dev-mode]. Running the VSP in development mode initialises and configures the test tool and the VSP to connect to each other.
 
-Starting the VSP automatically initialises the test tool so you can focus on integrating your service with the VSP. Each initialisation:
-
-- generates self-signed keys and certificates for the test tool
-- starts the VSP configured with the new keys and the URL of the test tool
-- initialises an instance of the test tool
-
-To initialise the test tool where the SAML responses will be sent to `http://localhost:8080` you can run:
+To start the VSP in development mode, run:
 
 ```
 ./bin/verify-service-provider development -u localhost:8080
 ```
+
+The example sets `http://localhost:8080` as the endpoint where the test tool will send the SAML responses.
 
 ## Send a request
 
