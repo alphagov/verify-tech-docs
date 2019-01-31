@@ -9,7 +9,7 @@ Find out how to start setting up the Verify Service Provider (VSP) so your servi
 
 This guide uses the GOV.UK Verify test tool as a placeholder for the GOV.UK Verify Hub. The test tool is hosted by the GOV.UK Verify team which means you can follow along using your local VSP setup.
 
-This guide is the first step in integrating your service with the VSP. It explains how to set up the happy path scenario, including:
+This guide is the first step in integrating your service with the VSP. It explains how to set up the successful verification journey, including:
 
 - generating an authentication request using the VSP
 - sending the authentication request to the GOV.UK Verify Hub
@@ -40,7 +40,7 @@ Once the user starts a Verify journey from the browser, your service must send a
 
 ### Request to generate an authentication request
 
-Make a HTTP POST request to the `/generate-request` endpoint to generate an authentication request message. The request body must contain the [level of assurance][loa] for your service:
+Make an HTTP POST request to the `/generate-request` endpoint to generate an authentication request message. The request body must contain the [level of assurance][loa] for your service:
 
 ```
 > POST /generate-request HTTP/1.1
