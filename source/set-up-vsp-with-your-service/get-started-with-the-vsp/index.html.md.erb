@@ -165,9 +165,11 @@ From your service, make a HTTP POST request to `/translate-response` to translat
 
 The request must contain:
 
-* `samlResponse` - the base64 encoded SAML Response you received from the test tool
-* `requestId` - the [string you stored](LINK) when the authentication request was generated
-* `levelOfAssurance` - to validate that the user meets the minimum level of assurance you have requested
+| Parameter          | Description                                                      |
+| ------------------ | ---------------------------------------------------------------- |
+| `samlResponse`     | base64 encoded SAML response from the test tool                  |
+| `requestId`        | the string your saved when generating the authentication request |
+| `levelOfAssurance` | the [level of assurance][loa] for your service                                                                 |
 
 ```http
 > POST /translate-response HTTP/1.1
@@ -194,10 +196,12 @@ An HTTP 200 response confirms the VSP translated the SAML response successfully 
 }
 ```
 
-* `scenario` - name of the scenario **MORE**
-* `pid` - a unique identifier for a user
-* `levelOfAssurance` - the level of assurance the user verified at
-* `attributes` - information about the user's identity
+| Parameter          | Description                                 |
+| ------------------ | ------------------------------------------- |
+| `scenario`         | The name of the scenario you're testing     |
+| `pid`              | A unique identifier for a user              |
+| `levelOfAssurance` | The level of assurance the user verified at |
+| `attributes`       | Information about the user's identity       |
 
 
 Your service can now use the provided identity to further guide the user in their journey in your service.
