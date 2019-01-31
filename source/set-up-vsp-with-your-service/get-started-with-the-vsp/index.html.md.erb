@@ -5,16 +5,16 @@ weight: 10
 
 # Get started with the Verify Service Provider
 
-This tutorial explains how to integrate with the VSP in your local environment to do SAML magic (FIXME).
+Find out how to start setting up the Verify Service Provider (VSP) so your service can communicate with the GOV.UK Verify Hub without having to handle SAML.
 
-The tutorial uses the GOV.UK Verify test tool as a placeholder for the GOV.UK Verify Hub. __FIXME__: The test tool is hosted by the GOV.UK Verify team. This allows you to follow the tutorial using your local VSP setup.
-The test tool allows you to test and prove that your service can respond appropriately to all of the response scenarios in a Verify journey.
+This guide uses the GOV.UK Verify test tool as a placeholder for the GOV.UK Verify Hub. The test tool is hosted by the GOV.UK Verify team which means you can follow along using your local VSP setup.
 
-You will find out how to:
+This guide is the first step in integrating your service with the VSP. It explains how to set up the happy path scenario, including:
 
-- initialise the test tool
-- send a request
-- handle a response
+- generating a SAML authentication request using the VSP
+- sending the authentication request to the GOV.UK Verify Hub
+- translating a SAML response using the VSP
+- linking an authentication request with its response
 
 ## Prerequisites
 
