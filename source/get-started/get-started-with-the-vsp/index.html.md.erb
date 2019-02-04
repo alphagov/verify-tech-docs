@@ -1,9 +1,9 @@
 ---
-title: Get started with the Verify Service Provider
+title: Set up the successful verification user journey
 weight: 10
 ---
 
-# Get started with the Verify Service Provider
+# Set up the successful verification user journey
 
 Find out how to start setting up the Verify Service Provider (VSP) so your service can communicate with the GOV.UK Verify Hub without having to handle SAML.
 
@@ -36,9 +36,9 @@ The example sets `http://localhost:8080` as the endpoint where the test tool wil
 
 Once the user starts a Verify journey from the browser, your service must send a request to the VSP to generate the authentication request. Then, your service must send the authentication request to the test tool via the browser. The authentication request is also known as a SAML AuthnRequest.
 
-![](/images/vsp-integration-request.png)
+![](/images/vsp-integration-request.svg)
 
-### Request to generate an authentication request
+### Generate an authentication request
 
 Make an HTTP POST request to the `/generate-request` endpoint to generate an authentication request message. The request body must contain the [level of assurance][loa] for your service:
 
