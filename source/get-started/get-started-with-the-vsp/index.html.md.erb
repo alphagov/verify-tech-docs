@@ -36,7 +36,7 @@ The example sets `http://localhost:8080` as the endpoint where the test tool wil
 
 Once the user starts a Verify journey from the browser, your service must send a request to the VSP to generate the authentication request. Then, your service must send the authentication request to the test tool via the browser. The authentication request is also known as a SAML AuthnRequest.
 
-![](/images/vsp-integration-request.png)
+![](/images/vsp-integration-request.svg)
 
 ### Generate an authentication request
 
@@ -147,7 +147,7 @@ Using your response find the scenario that has a title: blah and go to the `exec
 
 ### Handle the response
 
-![](/images/vsp-integration-response.png)
+![](/images/vsp-integration-response.svg)
 
 The test tool will generate a SAML response that will be provided in a HTML form that when submitted will be sent to the URL you provided to the VSP when launching development mode.
 Your service must be listening at that URL for the incoming form submission.
