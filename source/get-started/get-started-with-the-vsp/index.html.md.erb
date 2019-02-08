@@ -22,15 +22,15 @@ This guide uses the GOV.UK Verify testing service as a placeholder for the GOV.U
 
 ## Using the VSP with the testing service
 
-To use the VSP with the testing service, you need to run the VSP in [development mode][dev-mode]. Running the VSP in development mode initialises and configures the testing service and the VSP to connect to each other.
-
-To start the VSP in development mode, run:
+To connect your VSP with the testing service, you need to run the VSP using the `development` command:
 
 ```sh
 ./bin/verify-service-provider development -u localhost:8080
 ```
 
 The example sets `http://localhost:8080` as the endpoint where the testing service will send the SAML responses.
+
+[Read more about using the `development` command][dev-command] in the VSP README file.
 
 ## Send a request
 
@@ -149,7 +149,7 @@ Using your response find the scenario that has a title: blah and go to the `exec
 
 ![](/images/vsp-integration-response.svg)
 
-The testing service will generate a SAML response that will be provided in a HTML form that when submitted will be sent to the URL you provided to the VSP when launching development mode.
+The testing service will generate a SAML response that will be provided in a HTML form that when submitted will be sent to the URL you provided to the VSP when connecting it to the testing service.
 Your service must be listening at that URL for the incoming form submission.
 The SAML response will be base64 encoded within the `SAMLResponse` form parameter:
 
