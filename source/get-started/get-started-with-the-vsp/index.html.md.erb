@@ -7,22 +7,22 @@ weight: 10
 
 This guide is the first step in integrating your service with the Verify Service Provider (VSP). The VSP allows your service to communicate with the GOV.UK Verify Hub securely, without having to handle [SAML][saml].
 
-Find out how to set up the successful verification journey, including:
+Find out how to set up the successful verification journey, including how to
 
-- generating an authentication request using the VSP
-- sending the authentication request to the GOV.UK Verify Hub
-- translating a SAML response using the VSP
-- linking an authentication request with its response
+- generate an authentication request using the VSP
+- send the authentication request to the GOV.UK Verify Hub
+- translate a SAML response using the VSP
+- link an authentication request with its response
 
-This guide uses the GOV.UK Verify test tool as a placeholder for the GOV.UK Verify Hub. The test tool is hosted by the GOV.UK Verify team which means you can follow along using your local VSP setup.
+This guide uses the GOV.UK Verify testing service as a placeholder for the GOV.UK Verify Hub. The testing service is hosted by the GOV.UK Verify team which means you can follow along using your local VSP setup.
 
 ## Prerequisites
 
 [Download the latest VSP release][vsp-release] to be able to follow the instructions on this page.
 
-## Using the VSP with the test tool
+## Using the VSP with the testing service
 
-To use the VSP with the test tool, you need to run the VSP in [development mode][dev-mode]. Running the VSP in development mode initialises and configures the test tool and the VSP to connect to each other.
+To use the VSP with the testing service, you need to run the VSP in [development mode][dev-mode]. Running the VSP in development mode initialises and configures the testing service and the VSP to connect to each other.
 
 To start the VSP in development mode, run:
 
@@ -30,11 +30,11 @@ To start the VSP in development mode, run:
 ./bin/verify-service-provider development -u localhost:8080
 ```
 
-The example sets `http://localhost:8080` as the endpoint where the test tool will send the SAML responses.
+The example sets `http://localhost:8080` as the endpoint where the testing service will send the SAML responses.
 
 ## Send a request
 
-Once the user starts a Verify journey from the browser, your service must send a request to the VSP to generate the authentication request. Then, your service must send the authentication request to the test tool via the browser. The authentication request is also known as a SAML AuthnRequest.
+Once the user starts a Verify journey from the browser, your service must send a request to the VSP to generate the authentication request. Then, your service must send the authentication request to the testing service via the browser. The authentication request is also known as a SAML AuthnRequest.
 
 ![](/images/vsp-integration-request.svg)
 
@@ -67,7 +67,7 @@ The parts of the response are:
 | ------------- | ------------------------------------------------------ |
 | `samlRequest` | Your base64 encoded SAML authentication request                |
 | `requestId`   | A string that identifies the SAML authentication request       |
-| `ssoLocation` | The URL to send the authentication request to, for example the test tool. |
+| `ssoLocation` | The URL to send the authentication request to, for example the testing service. |
 
 #### Store the requestId
 
@@ -75,13 +75,13 @@ You will need to access the `requestId` later in the process to link the identit
 
 You must store the `requestId` securely and link it to the user's session. We recommend you store the `requestId` in a secure cookie.
 
-### Send the authentication request to the test tool
+### Send the authentication request to the testing service
 
-After receiving the authentication request, your service sends it to the test tool via the browser. We recommend you do this by rendering an HTML form and using JavaScript to auto-submit it, as described by [SAML HTTP Post Binding](https://en.wikipedia.org/wiki/SAML_2.0#HTTP_POST_Binding) [external link]:
+After receiving the authentication request, your service sends it to the testing service via the browser. We recommend you do this by rendering an HTML form and using JavaScript to auto-submit it, as described by [SAML HTTP Post Binding](https://en.wikipedia.org/wiki/SAML_2.0#HTTP_POST_Binding) [external link]:
 
 ```html
 <!-- The form containing the SAML authentication request
-to be submitted to the test tool -->
+to be submitted to the testing service -->
 <form method='post' action='${escape(ssoLocation)}'>
   <h1>Continue to next step</h1>
   <p>Because Javascript is not enabled on your browser, you must press the continue button</p>
@@ -103,9 +103,9 @@ Make sure to escape inputs so that special characters are not processed. In our 
 
 For a consistent user journey, we recommend you also include page styling matching the appearance of your service. The styling is for the page that appears if a user has JavaScript disabled. This page prompts users to turn on JavaScript and should look like your service.
 
-### Response from the test tool
+### Response from the testing service
 
-After the form is submitted, the test tool response should contain `"status": "PASSED"` and a `responseGeneratorLocation` URL which you can use to access the test scenarios:
+After the form is submitted, the testing service response should contain `"status": "PASSED"` and a `responseGeneratorLocation` URL which you can use to access the test scenarios:
 
 ```json
   {
@@ -149,7 +149,7 @@ Using your response find the scenario that has a title: blah and go to the `exec
 
 ![](/images/vsp-integration-response.svg)
 
-The test tool will generate a SAML response that will be provided in a HTML form that when submitted will be sent to the URL you provided to the VSP when launching development mode.
+The testing service will generate a SAML response that will be provided in a HTML form that when submitted will be sent to the URL you provided to the VSP when launching development mode.
 Your service must be listening at that URL for the incoming form submission.
 The SAML response will be base64 encoded within the `SAMLResponse` form parameter:
 
@@ -163,7 +163,7 @@ The request must contain:
 
 | Parameter          | Description                                                      |
 | ------------------ | ---------------------------------------------------------------- |
-| `samlResponse`     | Base64 encoded SAML response from the test tool                  |
+| `samlResponse`     | Base64 encoded SAML response from the testing service                  |
 | `requestId`        | Bhe string your saved when generating the authentication request |
 | `levelOfAssurance` | The [level of assurance][loa] for your service                                                                 |
 
