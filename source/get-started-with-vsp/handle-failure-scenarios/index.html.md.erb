@@ -54,17 +54,17 @@ The `responseGeneratorLocation` and `executeUri` are only valid for the VSP sess
 If the `responseGeneratorLocation` or `executeUri` you generated don't work, try restarting your VSP. The GOV.UK Verify team periodically restarts the testing service, so restarting your VSP will restore the connection.
 
 
-### Response from testing service
+### Receive the SAML response from the testing service
 
-The testing service will generate a SAML response that will be provided in a HTML form that when submitted will be sent to the URL you provided to the VSP when connecting it to the testing service.
-Your service must be listening at that URL for the incoming form submission.
-The SAML response will be base64 encoded within the `SAMLResponse` form parameter:
+Visiting the `executeUri` for the `NO_AUTHENTICATION` scenario causes the testing service to generate a SAML response for this scenario.
+
+The testing service sends the SAML response inside an HTML form, via the browser. The SAML response will be base64 encoded within the `SAMLResponse` form parameter:
 
 ```
+...
 SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWwycDpSZXNwb25zZSBEZXN0aW5hdGlvbj0iaHR0cHM6Ly9wYXNzcG9ydC12ZXJpZnktc3R1Yi1yZWx5aW5nLXBhcnR5LWRldi5jbG91ZGFwcHMuZGlnaXRhbC92ZXJpZnkv...
+...
 ```
-Check accuracy.
-
 ### Request to translate response
 
 From your service, make a HTTP POST request to the VSP's `/translate-response` endpoint to translate the SAML Response into JSON.
