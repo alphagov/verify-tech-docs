@@ -30,17 +30,29 @@ To follow instructions on this page, you should have already:
 
 This guide continues from the 'Response from the testing service' section.
 
-## NO_AUTHENTICATION
+## NO_AUTHENTICATION scenario
 
-How to choose test scenario
+If a user cancels before the identity verification process is complete, GOV.UK Verify Hub sends a `NO_AUTHENTICATION` response. To run this scenario using the testing service:
+
+1. Submit [an authentication request to the testing service][send-request].
+2. Go to the `responseGeneratorLocation` URL in the [response from the testing service][scenario-list].
+3. Select the `executeUri` for the `NO_AUTHENTICATION` scenario.
+
+For example, the `NO_AUTHENTICATION` JSON object is similar to:
 
 ```json
-example
+{
+  "executeUri" : "https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk:443/rp-test/_6817b389-4924-479c-9851-db089c4e639c/test-non-matching/10",
+  "id" : 12,
+  "title" : "NO_AUTHENTICATION",
+  "description" : "The user chose to cancel at some point in their journey."
+},
 ```
 
-![](/images/vsp-integration-response.svg)
+The `responseGeneratorLocation` and `executeUri` are only valid for the VSP session that generated them. The VSP generates a new set of keys for the testing service every time you start it with the development command, which leads to the URLs changing.
 
-Check aacuracy
+If the `responseGeneratorLocation` or `executeUri` you generated don't work, try restarting your VSP. The GOV.UK Verify team periodically restarts the testing service, so restarting your VSP will restore the connection.
+
 
 ### Response from testing service
 
