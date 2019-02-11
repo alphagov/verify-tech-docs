@@ -1,0 +1,45 @@
+---
+title: Handle the identity datset
+weight: 30
+---
+
+# Handling the identity datset
+
+This page offers guidance on things you should consider if you need to link a user's verified identity to information your service already holds.
+
+## The identity dataset
+
+When a user's identity is successfully verified, your service receives an identity dataset which contains verified information about that user including their:
+
+- name
+- address
+- date of birth
+
+The identity dataset may also include additional data such as historical addresses and gender.
+
+To be able to receive the identity dataset, as a minimum requirement, your service should be able to [handle the successful verification user journey][successful-verification].
+
+## Matching
+
+If you need to check whether the identity dataset can be linked to information held by your service, you will need to implement a process called 'matching'. For more detailed information about setting up matching, refer to the [matching guidance section][matching].
+
+### Handling European identities
+
+Intro and link to eIDAS section: https://www.docs.verify.service.gov.uk/legacy/matching-guidance/matching-dataset/#pid-and-matching-dataset
+
+## Test your matching implementation
+
+You should test that your matching implementation correctly handles the [level of assurance][loa] of your service. If you have an LOA2 service, you must not accept LOA2 identities. However, as an LOA1 service, you can accept LOA2 identities.
+
+Your matching strategy should be able to handle variations on user attributes as well as historical attributes and European identities, if needed.
+
+There is [documentation on testing the matching service][test-matching] and it mentions testing using both the testing service (compliance tool) and the matching service test tool.
+**TODO** Is the old content ok? Do we still want to mention both?
+**TODO** Using the new VSP functionality to test the matching strategy
+
+
+
+[successful-verification]: LINK
+[test-matching]: https://www.docs.verify.service.gov.uk/legacy/build-ms/test-ms/#test-your-matching-service
+
+<%= partial "partials/links" %>
