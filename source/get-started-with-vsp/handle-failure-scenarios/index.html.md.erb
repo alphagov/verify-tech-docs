@@ -90,9 +90,11 @@ The request must contain:
 Check accuracy.
 
 
-### Handle response from the VSP
 
 An `HTTP 200 OK` response confirms the VSP translated the SAML response successfully and also contains details about the test scenario:
+### Handle the translated response from the VSP
+
+An `HTTP 200 OK` response confirms the VSP translated the SAML response successfully. The response body contains:
 
 ```http
 > HTTP/1.1 200 OK
@@ -102,11 +104,11 @@ An `HTTP 200 OK` response confirms the VSP translated the SAML response successf
     "scenario": "IDENTITY_VERIFIED",
     "pid": "etikgj3ewowe",
     "levelOfAssurance": "LEVEL_2",
-    "attributes": FIXME FIXME FIXME FIXME FIXME FIXME
+    "attributes": FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME
 }
 ```
 
-What the service should do goes here.
+When the translated SAML response contains the `NO_AUTHENTICATION` scenario, your service should redirect the user to a page offering them other ways to use your service. This could be another way of proving their identity online or going somewhere in person to finish the process.
 
 ## AUTHENTICATION_FAILURE
 
