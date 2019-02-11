@@ -111,40 +111,44 @@ An `HTTP 200 OK` response confirms the VSP translated the SAML response successf
 
 When the translated SAML response contains the `NO_AUTHENTICATION` scenario, your service should redirect the user to a page offering them other ways to use your service. This could be another way of proving their identity online or going somewhere in person to finish the process.
 
-## AUTHENTICATION_FAILURE
+## AUTHENTICATION_FAILURE scenario
 
-How to choose test scenario
+If the identity provider cannot verify the user's identity, GOV.UK Verify Hub sends an `AUTHENTICATION_FAILURE` response. To run this scenario using the testing service:
+
+1. Submit [an authentication request to the testing service][send-request].
+2. Go to the `responseGeneratorLocation` URL in the [response from the testing service][scenario-list].
+3. Select the `executeUri` for the `AUTHENTICATION_FAILURE` scenario.
+
+For example, the `AUTHENTICATION_FAILURE` JSON object is similar to:
 
 ```json
-example
+{
+  "executeUri" : "https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk:443/rp-test/_6817b389-4924-479c-9851-db089c4e639c/test-non-matching/10",
+  "id" : 14,
+  "title" : "AUTHENTICATION_FAILURE",
+  "description" : "The identity provider could not verify the user's identity."
+},
 ```
 
-![](/images/vsp-integration-response.svg)
+The `responseGeneratorLocation` and `executeUri` are only valid for the VSP session that generated them. The VSP generates a new set of keys for the testing service every time you start it with the development command, which leads to the URLs changing.
 
-Check aacuracy
+If the `responseGeneratorLocation` or `executeUri` you generated don't work, try restarting your VSP. The GOV.UK Verify team periodically restarts the testing service, so restarting your VSP will restore the connection.
 
-### Response from testing service
+### Receive the SAML response from the testing service
 
-The testing service will generate a SAML response that will be provided in a HTML form that when submitted will be sent to the URL you provided to the VSP when connecting it to the testing service.
-Your service must be listening at that URL for the incoming form submission.
-The SAML response will be base64 encoded within the `SAMLResponse` form parameter:
+Visiting the `executeUri` for the `AUTHENTICATION_FAILURE` scenario causes the testing service to generate a SAML response for this scenario.
+
+The testing service sends the SAML response inside an HTML form, via the browser. The SAML response will be base64 encoded within the `SAMLResponse` form parameter:
 
 ```
 SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWwycDpSZXNwb25zZSBEZXN0aW5hdGlvbj0iaHR0cHM6Ly9wYXNzcG9ydC12ZXJpZnktc3R1Yi1yZWx5aW5nLXBhcnR5LWRldi5jbG91ZGFwcHMuZGlnaXRhbC92ZXJpZnkv...
 ```
-Check accuracy.
+Your service will receive the form at the endpoint you provided when starting the VSP.
 
-### Request to translate response
+### Request to translate the SAML response
 
-From your service, make a HTTP POST request to the VSP's `/translate-response` endpoint to translate the SAML Response into JSON.
+To translate the SAML response into JSON, your service should make an HTTP POST request to the VSP's `/translate-response` endpoint:
 
-The request must contain:
-
-| Parameter          | Description                                                      |
-| ------------------ | ---------------------------------------------------------------- |
-| `samlResponse`     | Base64 encoded SAML response from the testing service                  |
-| `requestId`        | The string your saved when generating the authentication request |
-| `levelOfAssurance` | The [level of assurance][loa] for your service                                                                 |
 
 ```http
 > POST /translate-response HTTP/1.1
@@ -156,12 +160,20 @@ The request must contain:
   "levelOfAssurance" : "LEVEL_2"
 }
 ```
-Check accuracy.
 
+The fields in the request body are:
 
-### Handle translated response
+| Field          | Description                                                      |
+| ------------------ | ---------------------------------------------------------------- |
+| `samlResponse`     | Base64 encoded SAML response from the testing service                  |
+| `requestId`        | The string your saved when generating the authentication request |
+| `levelOfAssurance` | The [level of assurance][loa] for your service                |
 
-An `HTTP 200 OK` response confirms the VSP translated the SAML response successfully and also contains details about the test scenario:
+All fields are mandatory.
+
+### Handle the translated response from the VSP
+
+An `HTTP 200 OK` response confirms the VSP translated the SAML response successfully. The response body contains:
 
 ```http
 > HTTP/1.1 200 OK
@@ -171,17 +183,15 @@ An `HTTP 200 OK` response confirms the VSP translated the SAML response successf
     "scenario": "IDENTITY_VERIFIED",
     "pid": "etikgj3ewowe",
     "levelOfAssurance": "LEVEL_2",
-    "attributes": FIXME FIXME FIXME FIXME FIXME FIXME
+    "attributes": FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME
 }
 ```
 
-What the service should do goes here.
+When the translated SAML response contains the `AUTHENTICATION_FAILURE` scenario, your service should redirect the user to a page offering them other ways to use your service. This could be another way of proving their identity online or going somewhere in person to finish the process.
 
 
 ## Next steps
-Your service can now use the provided identity or error messages to further guide the user in their journey in your service.
 
-[successful-verification]: LINK
 After implementing all scenarios, your service should be able to handle all possible responses from GOV.UK Verify Hub:
 
 - `IDENTITY_VERIFIED`
