@@ -1,0 +1,164 @@
+---
+title: Handle failure scenarios
+weight: 20
+---
+
+# Handle failure scenarios
+
+After [setting up the successful verification journey][successful-verification], you should make sure your service can handle the failure scenarios.
+
+There are two scenarios when the user does not successfully complete the verification journey:
+
+| Scenario                 | Description |
+| ------------------------ | ----------- |
+| `NO_AUTHENTICATION`      | The user chose to cancel at some point in their journey.           |
+| `AUTHENTICATION_FAILURE` | The identity provider could not verify the user's identity.          |
+
+This guide uses the GOV.UK Verify testing service as a placeholder for the GOV.UK Verify Hub. The testing service is hosted by the GOV.UK Verify team, which means you can follow the instructions on this page using your local VSP setup.
+
+## Prerequisites
+
+To follow instructions on this page, you should have already:
+
+- downloaded [the latest VSP release][vsp-release]
+- familiarised yourself with or implemented [the successful verification scenario][successful-verification]
+
+This guide continues from the 'Response from the testing service' section.
+
+## NO_AUTHENTICATION
+
+How to choose test scenario
+
+```json
+example
+```
+
+![](/images/vsp-integration-response.svg)
+
+Check aacuracy
+
+### Response from testing service
+
+The testing service will generate a SAML response that will be provided in a HTML form that when submitted will be sent to the URL you provided to the VSP when connecting it to the testing service.
+Your service must be listening at that URL for the incoming form submission.
+The SAML response will be base64 encoded within the `SAMLResponse` form parameter:
+
+```
+SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWwycDpSZXNwb25zZSBEZXN0aW5hdGlvbj0iaHR0cHM6Ly9wYXNzcG9ydC12ZXJpZnktc3R1Yi1yZWx5aW5nLXBhcnR5LWRldi5jbG91ZGFwcHMuZGlnaXRhbC92ZXJpZnkv...
+```
+Check accuracy.
+
+### Request to translate response
+
+From your service, make a HTTP POST request to the VSP's `/translate-response` endpoint to translate the SAML Response into JSON.
+
+The request must contain:
+
+| Parameter          | Description                                                      |
+| ------------------ | ---------------------------------------------------------------- |
+| `samlResponse`     | Base64 encoded SAML response from the testing service                  |
+| `requestId`        | The string your saved when generating the authentication request |
+| `levelOfAssurance` | The [level of assurance][loa] for your service                                                                 |
+
+```http
+> POST /translate-response HTTP/1.1
+> Content-Type: application/json
+>
+{
+  "samlResponse" : "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c2FtbDJwOkF1dGhuUmVxdWVzdCB4bWxuczpzYW1sMnA9InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDpwcm90b2NvbCIgRGVzdGluYXRpb249Imh0dHBzOi8vY29tc...",
+  "requestId" : "_64c90b35-154f-4e9f-a75b-3a58a6c55e8b",
+  "levelOfAssurance" : "LEVEL_2"
+}
+```
+Check accuracy.
+
+
+### Handle response from the VSP
+
+An `HTTP 200 OK` response confirms the VSP translated the SAML response successfully and also contains details about the test scenario:
+
+```http
+> HTTP/1.1 200 OK
+> Content-Type: application/json
+>
+{
+    "scenario": "IDENTITY_VERIFIED",
+    "pid": "etikgj3ewowe",
+    "levelOfAssurance": "LEVEL_2",
+    "attributes": FIXME FIXME FIXME FIXME FIXME FIXME
+}
+```
+
+What the service should do goes here.
+
+## AUTHENTICATION_FAILURE
+
+How to choose test scenario
+
+```json
+example
+```
+
+![](/images/vsp-integration-response.svg)
+
+Check aacuracy
+
+### Response from testing service
+
+The testing service will generate a SAML response that will be provided in a HTML form that when submitted will be sent to the URL you provided to the VSP when connecting it to the testing service.
+Your service must be listening at that URL for the incoming form submission.
+The SAML response will be base64 encoded within the `SAMLResponse` form parameter:
+
+```
+SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWwycDpSZXNwb25zZSBEZXN0aW5hdGlvbj0iaHR0cHM6Ly9wYXNzcG9ydC12ZXJpZnktc3R1Yi1yZWx5aW5nLXBhcnR5LWRldi5jbG91ZGFwcHMuZGlnaXRhbC92ZXJpZnkv...
+```
+Check accuracy.
+
+### Request to translate response
+
+From your service, make a HTTP POST request to the VSP's `/translate-response` endpoint to translate the SAML Response into JSON.
+
+The request must contain:
+
+| Parameter          | Description                                                      |
+| ------------------ | ---------------------------------------------------------------- |
+| `samlResponse`     | Base64 encoded SAML response from the testing service                  |
+| `requestId`        | The string your saved when generating the authentication request |
+| `levelOfAssurance` | The [level of assurance][loa] for your service                                                                 |
+
+```http
+> POST /translate-response HTTP/1.1
+> Content-Type: application/json
+>
+{
+  "samlResponse" : "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c2FtbDJwOkF1dGhuUmVxdWVzdCB4bWxuczpzYW1sMnA9InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDpwcm90b2NvbCIgRGVzdGluYXRpb249Imh0dHBzOi8vY29tc...",
+  "requestId" : "_64c90b35-154f-4e9f-a75b-3a58a6c55e8b",
+  "levelOfAssurance" : "LEVEL_2"
+}
+```
+Check accuracy.
+
+
+### Handle translated response
+
+An `HTTP 200 OK` response confirms the VSP translated the SAML response successfully and also contains details about the test scenario:
+
+```http
+> HTTP/1.1 200 OK
+> Content-Type: application/json
+>
+{
+    "scenario": "IDENTITY_VERIFIED",
+    "pid": "etikgj3ewowe",
+    "levelOfAssurance": "LEVEL_2",
+    "attributes": FIXME FIXME FIXME FIXME FIXME FIXME
+}
+```
+
+What the service should do goes here.
+
+
+## Next steps
+Your service can now use the provided identity or error messages to further guide the user in their journey in your service.
+
+[successful-verification]: LINK
