@@ -182,3 +182,11 @@ What the service should do goes here.
 Your service can now use the provided identity or error messages to further guide the user in their journey in your service.
 
 [successful-verification]: LINK
+After implementing all scenarios, your service should be able to handle all possible responses from GOV.UK Verify Hub:
+
+- `IDENTITY_VERIFIED`
+- `NO_AUTHENTICATION`
+- `AUTHENTICATION_FAILURE`
+
+If your need to link the identity dataset received with user information your service already has, refer to the section on [handling the identity dataset][handle-identity-dataset].
+
