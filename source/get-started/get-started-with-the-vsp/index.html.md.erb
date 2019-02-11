@@ -12,17 +12,17 @@ Find out how to set up the successful verification journey, including how to
 - generate an authentication request using the VSP
 - send the authentication request to the GOV.UK Verify Hub
 - translate a SAML response using the VSP
-- link an authentication request with its response
+- link an authentication request to its response
 
-This guide uses the GOV.UK Verify testing service as a placeholder for the GOV.UK Verify Hub. The testing service is hosted by the GOV.UK Verify team which means you can follow along using your local VSP setup.
+This guide uses the GOV.UK Verify testing service as a placeholder for the GOV.UK Verify Hub. The testing service is hosted by the GOV.UK Verify team, which means you can follow the instructions on this page using your local VSP setup.
 
 ## Prerequisites
 
-[Download the latest VSP release][vsp-release] to be able to follow the instructions on this page.
+[Download the latest VSP release][vsp-release] to follow the instructions on this page.
 
 ## Using the VSP with the testing service
 
-To connect your VSP with the testing service, you need to run the VSP using the `development` command:
+To connect your VSP to the testing service, start the VSP using the `development` command:
 
 ```sh
 ./bin/verify-service-provider development -u localhost:8080
@@ -30,7 +30,7 @@ To connect your VSP with the testing service, you need to run the VSP using the 
 
 The example sets `http://localhost:8080` as the endpoint where the testing service will send the SAML responses.
 
-[Read more about using the `development` command][dev-command] in the VSP README file.
+Read more about [the commands available for the VSP][vsp-run] in the VSP README file.
 
 ## Send a request
 
@@ -48,8 +48,6 @@ Make an HTTP POST request to the `/generate-request` endpoint to generate an aut
 >
 > { "levelOfAssurance": "LEVEL_2" }
 ```
-
-### Receive the authentication request
 
 The response from the VSP is in JSON format, and contains the authentication request:
 
@@ -69,7 +67,7 @@ The parts of the response are:
 | `requestId`   | A string that identifies the SAML authentication request       |
 | `ssoLocation` | The URL to send the authentication request to, for example the testing service. |
 
-#### Store the requestId
+### Store the requestId
 
 You will need to access the `requestId` later in the process to link the identities received from GOV.UK Verify with the correct user.
 
@@ -105,6 +103,10 @@ For a consistent user journey, we recommend you also include page styling matchi
 
 ### Response from the testing service
 
+The testing service allows you to test all scenarios
+After submitting the form, the testin service will return a link to all the scenarios you service needs to be able to handle.
+status
+responsegeneratorlocation
 After the form is submitted, the testing service response should contain `"status": "PASSED"` and a `responseGeneratorLocation` URL which you can use to access the test scenarios:
 
 ```json
@@ -117,23 +119,23 @@ After the form is submitted, the testing service response should contain `"statu
   }
 ```
 
-If the status is not `PASSED` then you may need to restart the VSP.
+If the status is not `PASSED` then you may need to restart the VSP using the `development` command.
 
 ## Handle your first response scenario
 
-Go to the URL in `responseGeneratorLocation` using your browser. The JSON response contains the 4 test cases or scenarios your service must handle when live.
+Using the response you got from the testing service, go to the URL in `responseGeneratorLocation` using your browser. The JSON response contains the 4 test cases or scenarios your service must handle when live.
 
-Here we'll focus on the first test case, which simulates a user who has been successfully verified:
+Here we'll focus on the first test case, which simulates a user whose identity has been successfully verified:
 
 ```json
 {
   "executeUri" : "https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk:443/rp-test/_6817b389-4924-479c-9851-db089c4e639c/test-non-matching/10",
   "id" : 10,
-  "title" : "FIXME",
+  "title" : "IDENTITY_VERIFIED",
   "description" : "Issues a successful response where the user has been successfully verified."
 },
 ```
-Each scenario is characterised by has a title, description, id, and a executeUri, which can be followed to run the scenarion. (FIXME I want to be a table)
+Several parameters describe each scenario:
 
 | Parameter     | Description                       |
 | ------------- | --------------------------------- |
@@ -164,7 +166,7 @@ The request must contain:
 | Parameter          | Description                                                      |
 | ------------------ | ---------------------------------------------------------------- |
 | `samlResponse`     | Base64 encoded SAML response from the testing service                  |
-| `requestId`        | Bhe string your saved when generating the authentication request |
+| `requestId`        | The string your saved when generating the authentication request |
 | `levelOfAssurance` | The [level of assurance][loa] for your service                                                                 |
 
 ```http
