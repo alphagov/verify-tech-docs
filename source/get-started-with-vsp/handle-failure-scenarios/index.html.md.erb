@@ -65,17 +65,12 @@ The testing service sends the SAML response inside an HTML form, via the browser
 SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWwycDpSZXNwb25zZSBEZXN0aW5hdGlvbj0iaHR0cHM6Ly9wYXNzcG9ydC12ZXJpZnktc3R1Yi1yZWx5aW5nLXBhcnR5LWRldi5jbG91ZGFwcHMuZGlnaXRhbC92ZXJpZnkv...
 ...
 ```
-### Request to translate response
 
-From your service, make a HTTP POST request to the VSP's `/translate-response` endpoint to translate the SAML Response into JSON.
+Your service will receive the form at the endpoint you provided when starting the VSP.
 
-The request must contain:
+### Request to translate the SAML response
 
-| Parameter          | Description                                                      |
-| ------------------ | ---------------------------------------------------------------- |
-| `samlResponse`     | Base64 encoded SAML response from the testing service                  |
-| `requestId`        | The string your saved when generating the authentication request |
-| `levelOfAssurance` | The [level of assurance][loa] for your service                                                                 |
+To translate the SAML response into JSON, your service should make an HTTP POST request to the VSP's `/translate-response` endpoint:
 
 ```http
 > POST /translate-response HTTP/1.1
@@ -87,11 +82,17 @@ The request must contain:
   "levelOfAssurance" : "LEVEL_2"
 }
 ```
-Check accuracy.
 
+The fields in the request body are:
 
+| Field          | Description                                                      |
+| ------------------ | ---------------------------------------------------------------- |
+| `samlResponse`     | Base64 encoded SAML response from the testing service                  |
+| `requestId`        | The string your saved when generating the authentication request |
+| `levelOfAssurance` | The [level of assurance][loa] for your service |
 
-An `HTTP 200 OK` response confirms the VSP translated the SAML response successfully and also contains details about the test scenario:
+All fields are mandatory.
+
 ### Handle the translated response from the VSP
 
 An `HTTP 200 OK` response confirms the VSP translated the SAML response successfully. The response body contains:
