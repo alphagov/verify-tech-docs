@@ -7,14 +7,14 @@ weight: 10
 
 This guide is the first step in integrating your service with the Verify Service Provider (VSP). The VSP allows your service to communicate with the GOV.UK Verify Hub securely, without having to handle [SAML][saml].
 
-Find out how to set up the successful verification journey, including how to
+Find out how to set up the successful verification journey, including how to:
 
 - generate an authentication request using the VSP
 - send the authentication request to the GOV.UK Verify Hub
 - translate a SAML response using the VSP
 - link an authentication request to its response
 
-This guide uses the GOV.UK Verify testing service as a placeholder for the GOV.UK Verify Hub. The testing service is hosted by the GOV.UK Verify team, which means you can follow the instructions on this page using your local VSP setup.
+This guide uses the GOV.UK Verify testing service as a placeholder for the GOV.UK Verify Hub. The testing service is hosted by the GOV.UK Verify team, which means you can follow the instructions on this page using your local VSP setup, without any additional backing services.
 
 ## Prerequisites
 
@@ -30,17 +30,17 @@ To connect your VSP to the testing service, start the VSP using the `development
 
 The example sets `http://localhost:8080` as the endpoint where the testing service will send the SAML responses.
 
-Read more about [the commands available for the VSP][vsp-run] in the VSP README file.
+Read more about the development command and other [commands available for the VSP][vsp-run] in the VSP's README file.
 
 ## Send a request
 
 Once the user starts a Verify journey from the browser, your service must send a request to the VSP to generate the authentication request. Then, your service must send the authentication request to the testing service via the browser. The authentication request is also known as a SAML AuthnRequest.
 
-![](/images/vsp-integration-request.svg)
+![](/images/vsp-request-sequence-diagram.svg)
 
 ### Generate an authentication request
 
-Make an HTTP POST request to the `/generate-request` endpoint to generate an authentication request message. The request body must contain the [level of assurance][loa] for your service:
+Make an HTTP POST request to the VSP's `/generate-request` endpoint to generate an authentication request message. The request body must contain the [level of assurance][loa] for your service:
 
 ```
 > POST /generate-request HTTP/1.1
@@ -71,11 +71,11 @@ The parts of the response are:
 
 You will need to access the `requestId` later in the process to link the identities received from GOV.UK Verify with the correct user.
 
-You must store the `requestId` securely and link it to the user's session. We recommend you store the `requestId` in a secure cookie.
+You must store the `requestId` securely and link it to the user's session. For example, you could store the `requestId` in a secure cookie.
 
 ### Send the authentication request to the testing service
 
-After receiving the authentication request, your service sends it to the testing service via the browser. We recommend you do this by rendering an HTML form and using JavaScript to auto-submit it, as described by [SAML HTTP Post Binding](https://en.wikipedia.org/wiki/SAML_2.0#HTTP_POST_Binding) [external link]:
+After receiving the authentication request, your service sends it to the testing service via the browser. You can do this by rendering an HTML form and using JavaScript to auto-submit it, as described by [SAML HTTP Post Binding](https://en.wikipedia.org/wiki/SAML_2.0#HTTP_POST_Binding) [external link]:
 
 ```html
 <!-- The form containing the SAML authentication request
@@ -99,11 +99,11 @@ and POST to `ssoLocation` -->
 ```
 Make sure to escape inputs so that special characters are not processed. In our example, we are using the Express framework's escape method when rendering the form.
 
-For a consistent user journey, we recommend you also include page styling matching the appearance of your service. The styling is for the page that appears if a user has JavaScript disabled. This page prompts users to turn on JavaScript and should look like your service.
+For a consistent user journey, we recommend you also include page styling matching the appearance of your service. The styling will be used for the page that appears if a user has JavaScript disabled. This page prompts users to click **Continue** and should look like your service.
 
 ### Response from the testing service
 
-After submitting the form, the testing service will return a link to all the scenarios you service needs to be able to handle.
+After the browser submits the form, the testing service will return a link to all the scenarios your service needs to be able to handle.
 
 The response should contain `"status": "PASSED"` and a `responseGeneratorLocation` URL which you can use to access the test scenarios:
 
@@ -121,9 +121,9 @@ If the status is not `PASSED` then you may need to restart the VSP using the `de
 
 ## Handle a response
 
-When handling a response, your service needs to be able to receive an HTML form  containing the SAML response. In this case, the form is sent by the testing service, via the browser. After receiving the form, your service translates the SAML response into JSON using the VSP. Then, depending on the scenario, your service should offer appropriate messaging to help the user continue. 
+When handling a response, your service needs to be able to receive an HTML form containing the SAML response. In this case, the form is sent by the testing service, via the browser. After receiving the form, your service translates the SAML response into JSON using the VSP. Then, depending on the scenario in the SAML message, your service should offer appropriate messaging to help the user continue.
 
-![](/images/vsp-integration-response.svg)
+![](/images/vsp-response-sequence-diagram.svg)
 
 
 ### Run the IDENTITY_VERIFIED response scenario
@@ -151,7 +151,7 @@ Several parameters describe each scenario:
 
 The `responseGeneratorLocation` and `executeUri` are only valid for the VSP session that generated them. The VSP generates a new set of keys for the testing service every time you start it with the development command, which leads to the URLs changing.
 
-If the `responseGeneratorLocation` or `executeUri` you generated don't work, try restarting your VSP. The GOV.UK Verify team periodically restarts the testing service, so restarting your VSP will restore the connection.
+If the `responseGeneratorLocation` or `executeUri` you generated don't work, try restarting your VSP. The GOV.UK Verify team periodically restarts the testing service, which can clear the current testing session. Restarting your VSP will restore the connection with the testing service.
 
 ### Receive the SAML response from the testing service
 
@@ -202,7 +202,7 @@ An `HTTP 200 OK` response confirms the VSP translated the SAML response successf
     "scenario": "IDENTITY_VERIFIED",
     "pid": "etikgj3ewowe",
     "levelOfAssurance": "LEVEL_2",
-    "attributes": FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME
+    "attributes": {...}
 }
 ```
 
