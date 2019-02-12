@@ -121,7 +121,12 @@ After the form is submitted, the testing service response should contain `"statu
 
 If the status is not `PASSED` then you may need to restart the VSP using the `development` command.
 
-## Handle your first response scenario
+## Handle a response
+
+When handling a response, your service needs to be able to receive an HTML form  containing the SAML response. In this case, the form is sent by the testing service, via the browser. After receiving the form, your service translates the SAML response into JSON using the VSP. Then, depending on the scenario, your service should offer appropriate messaging to help the user continue. 
+
+![](/images/vsp-integration-response.svg)
+
 
 Using the response you got from the testing service, go to the URL in `responseGeneratorLocation` using your browser. The JSON response contains the 4 test cases or scenarios your service must handle when live.
 
