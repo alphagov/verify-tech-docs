@@ -126,7 +126,9 @@ When handling a response, your service needs to be able to receive an HTML form 
 ![](/images/vsp-integration-response.svg)
 
 
-Using the response you got from the testing service, go to the URL in `responseGeneratorLocation` using your browser. The JSON response contains the 4 test cases or scenarios your service must handle when live.
+### Run the IDENTITY_VERIFIED response scenario
+
+Using the response you got from the testing service, go to the URL in `responseGeneratorLocation` using your browser. The JSON response contains the test cases or scenarios your service must handle when live.
 
 Here we'll focus on the first test case, which simulates a user whose identity has been successfully verified:
 
@@ -147,30 +149,25 @@ Several parameters describe each scenario:
 | `title`       | The name of the scenario          |
 | `description` | Details about the scenario        |
 
-### Run the scenario
-Using your response find the scenario that has a title: blah and go to the `executeUri` location to run the scenario.
+The `responseGeneratorLocation` and `executeUri` are only valid for the VSP session that generated them. The VSP generates a new set of keys for the testing service every time you start it with the development command, which leads to the URLs changing.
 
-### Handle the response
+If the `responseGeneratorLocation` or `executeUri` you generated don't work, try restarting your VSP. The GOV.UK Verify team periodically restarts the testing service, so restarting your VSP will restore the connection.
 
-![](/images/vsp-integration-response.svg)
+### Receive the SAML response from the testing service
 
-The testing service will generate a SAML response that will be provided in a HTML form that when submitted will be sent to the URL you provided to the VSP when connecting it to the testing service.
-Your service must be listening at that URL for the incoming form submission.
-The SAML response will be base64 encoded within the `SAMLResponse` form parameter:
+Visiting the `executeUri` for the `IDENTITY_VERIFIED` scenario causes the testing service to generate a SAML response for this scenario.
+
+The testing service sends the SAML response inside an HTML form, via the browser. The SAML response will be base64 encoded within the `SAMLResponse` form parameter:
 
 ```
 SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWwycDpSZXNwb25zZSBEZXN0aW5hdGlvbj0iaHR0cHM6Ly9wYXNzcG9ydC12ZXJpZnktc3R1Yi1yZWx5aW5nLXBhcnR5LWRldi5jbG91ZGFwcHMuZGlnaXRhbC92ZXJpZnkv...
 ```
 
-From your service, make a HTTP POST request to `/translate-response` to translate the SAML Response into JSON.
+Your service will receive the form at the endpoint you provided when starting the VSP.
 
-The request must contain:
+### Request to translate the SAML response
 
-| Parameter          | Description                                                      |
-| ------------------ | ---------------------------------------------------------------- |
-| `samlResponse`     | Base64 encoded SAML response from the testing service                  |
-| `requestId`        | The string your saved when generating the authentication request |
-| `levelOfAssurance` | The [level of assurance][loa] for your service                                                                 |
+To translate the SAML response into JSON, your service should make an HTTP POST request to the VSP's `/translate-response` endpoint:
 
 ```http
 > POST /translate-response HTTP/1.1
@@ -183,7 +180,19 @@ The request must contain:
 }
 ```
 
-An `HTTP 200 OK` response confirms the VSP translated the SAML response successfully and also contains details about the test scenario:
+The request body must contain:
+
+| Parameter          | Description                                                      |
+| ------------------ | ---------------------------------------------------------------- |
+| `samlResponse`     | Base64 encoded SAML response from the testing service                  |
+| `requestId`        | The string your saved in a secure cookie when generating the authentication request |
+| `levelOfAssurance` | The [level of assurance][loa] for your service |
+
+All fields are mandatory.
+
+### Handle the translated response from the VSP
+
+An `HTTP 200 OK` response confirms the VSP translated the SAML response successfully. The response body contains:
 
 ```http
 > HTTP/1.1 200 OK
@@ -193,15 +202,15 @@ An `HTTP 200 OK` response confirms the VSP translated the SAML response successf
     "scenario": "IDENTITY_VERIFIED",
     "pid": "etikgj3ewowe",
     "levelOfAssurance": "LEVEL_2",
-    "attributes": pie
+    "attributes": FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME
 }
 ```
 
-For a successful verification journey, the response contains information about the user's identity:
+For a successful verification journey, the response body contains:
 
 | Parameter          | Description                                 |
 | ------------------ | ------------------------------------------- |
-| `scenario`         | The name of the scenario you're testing     |
+| `scenario`         | The name of the response scenario     |
 | `pid`              | A unique identifier for a user              |
 | `levelOfAssurance` | The level of assurance the user verified at |
 | `attributes`       | Information about the user's identity       |
