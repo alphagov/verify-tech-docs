@@ -14,7 +14,7 @@ There are two scenarios when the user does not successfully complete the verific
 | `NO_AUTHENTICATION`      | The user chose to cancel at some point in their journey.           |
 | `AUTHENTICATION_FAILURE` | The identity provider could not verify the user's identity.          |
 
-Find out how to handle these   failure scenarios, including how to:
+Find out how to handle these failure scenarios, including how to:
 
 - recognise failure responses
 - respond to users whose identity was not verified
@@ -58,7 +58,7 @@ If the `responseGeneratorLocation` or `executeUri` you generated don't work, try
 
 Visiting the `executeUri` for the `NO_AUTHENTICATION` scenario causes the testing service to generate a SAML response for this scenario.
 
-The testing service sends the SAML response inside an HTML form, via the browser. The SAML response will be base64 encoded within the `SAMLResponse` form parameter:
+The testing service sends the SAML response inside an HTML form, through the browser. The SAML response will be base64 encoded within the `SAMLResponse` form parameter:
 
 ```
 ...
@@ -135,7 +135,7 @@ If the `responseGeneratorLocation` or `executeUri` you generated don't work, try
 
 Visiting the `executeUri` for the `AUTHENTICATION_FAILURE` scenario causes the testing service to generate a SAML response for this scenario.
 
-The testing service sends the SAML response inside an HTML form, via the browser. The SAML response will be base64 encoded within the `SAMLResponse` form parameter:
+The testing service sends the SAML response inside an HTML form, through the browser. The SAML response will be base64 encoded within the `SAMLResponse` form parameter:
 
 ```
 SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWwycDpSZXNwb25zZSBEZXN0aW5hdGlvbj0iaHR0cHM6Ly9wYXNzcG9ydC12ZXJpZnktc3R1Yi1yZWx5aW5nLXBhcnR5LWRldi5jbG91ZGFwcHMuZGlnaXRhbC92ZXJpZnkv...
