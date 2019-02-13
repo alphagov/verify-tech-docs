@@ -1,13 +1,15 @@
 ---
-title: Handle the identity datset
+title: Handling the identity datset
 weight: 30
 ---
 
-# Handling the identity datset
+# Handling the identity dataset
 
 This page offers guidance on things you should consider if you need to link a user's verified identity to information your service already holds.
 
 ## The identity dataset
+
+The Verify identity dataset
 
 When a user's identity is successfully verified, your service receives an identity dataset which contains verified information about that user including their:
 
@@ -15,17 +17,25 @@ When a user's identity is successfully verified, your service receives an identi
 - address
 - date of birth
 
-The identity dataset may also include additional data such as historical addresses and gender.
+The identity dataset may also include additional data such as gender (optional) or historical addresses, historical surname, historical middle names.
+
+In eIDAS you only get name and surname and DOB.
 
 To be able to receive the identity dataset, as a minimum requirement, your service should be able to [handle the successful verification user journey][successful-verification].
+
+you could use these attributes to check eligibility for the service like for example postocode lookup
+
+### Handling European identities
+
+Intro and link to eIDAS section: https://www.docs.verify.service.gov.uk/legacy/matching-guidance/matching-dataset/#pid-and-matching-dataset
+
+
 
 ## Matching
 
 If you need to check whether the identity dataset can be linked to information held by your service, you will need to implement a process called 'matching'. For more detailed information about setting up matching, refer to the [matching guidance section][matching].
 
-### Handling European identities
 
-Intro and link to eIDAS section: https://www.docs.verify.service.gov.uk/legacy/matching-guidance/matching-dataset/#pid-and-matching-dataset
 
 ## Test your matching implementation
 
@@ -37,7 +47,11 @@ There is [documentation on testing the matching service][test-matching] and it m
 **TODO** Is the old content ok? Do we still want to mention both?
 **TODO** Using the new VSP functionality to test the matching strategy
 
+Keep the page technical
 
+ship without the JSON shcema for now and add the JSOn schema later.
+
+Mention universal JSON schema (expandable) to describe what the identity dataset looks like
 
 [successful-verification]: LINK
 [test-matching]: https://www.docs.verify.service.gov.uk/legacy/build-ms/test-ms/#test-your-matching-service
