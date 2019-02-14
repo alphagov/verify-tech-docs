@@ -19,16 +19,16 @@ Find out how to handle these failure scenarios, including how to:
 - recognise failure responses
 - respond to users whose identity was not verified
 
-This guide uses the GOV.UK Verify testing service as a placeholder for the GOV.UK Verify Hub. The testing service is hosted by the GOV.UK Verify team, which means you can follow the instructions on this page using your local VSP setup.
+The guide uses a GOV.UK Verify-hosted testing service as a placeholder for the GOV.UK Verify Hub. This means you can follow the instructions on this page using your local VSP setup, without any additional backing services.
 
-## Prerequisites
+## Before you start
 
 To follow instructions on this page, you should have already:
 
-- downloaded [the latest VSP release][vsp-release]
+- downloaded [the latest VSP release][vsp-release] [external link]
 - familiarised yourself with or implemented [the successful verification scenario][successful-verification]
 
-This guide continues from the 'Response from the testing service' section.
+This guide continues from the ['Response from the testing service' section][response-from-testing-service].
 
 ## NO_AUTHENTICATION scenario
 
@@ -49,16 +49,15 @@ For example, the `NO_AUTHENTICATION` JSON object is similar to:
 },
 ```
 
-The `responseGeneratorLocation` and `executeUri` are only valid for the VSP session that generated them. The VSP generates a new set of keys for the testing service every time you start it with the development command, which leads to the URLs changing.
+The `responseGeneratorLocation` and `executeUri` are only valid for the VSP session that generated them. The VSP generates a new set of keys for the testing service every time you start the VSP with the development command, which leads to the URLs changing.
 
-If the `responseGeneratorLocation` or `executeUri` you generated don't work, try restarting your VSP. The GOV.UK Verify team periodically restarts the testing service, so restarting your VSP will restore the connection.
-
+If the `responseGeneratorLocation` or `executeUri` you generated do not work, restart your VSP. The GOV.UK Verify team occasionally restarts the testing service, which clears the current testing session. Restarting your VSP restores the connection with the testing service.
 
 ### Receive the SAML response from the testing service
 
 Visiting the `executeUri` for the `NO_AUTHENTICATION` scenario causes the testing service to generate a SAML response for this scenario.
 
-The testing service sends the SAML response inside an HTML form, through the browser. The SAML response will be base64 encoded within the `SAMLResponse` form parameter:
+The testing service sends the SAML response inside an HTML form, through the browser. The SAML response is base64 encoded within the `SAMLResponse` form parameter:
 
 ```
 ...
@@ -66,7 +65,7 @@ SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWwycDpSZXN
 ...
 ```
 
-Your service will receive the form at the endpoint you provided when starting the VSP.
+Your service receives the form at the endpoint provided when starting the VSP.
 
 ### Request to translate the SAML response
 
@@ -90,8 +89,6 @@ The fields in the request body are:
 | `samlResponse`     | Base64 encoded SAML response from the testing service                  |
 | `requestId`        | The string your saved when generating the authentication request |
 | `levelOfAssurance` | The [level of assurance][loa] for your service |
-
-All fields are mandatory.
 
 ### Handle the translated response from the VSP
 
@@ -127,20 +124,20 @@ For example, the `AUTHENTICATION_FAILURE` JSON object is similar to:
 },
 ```
 
-The `responseGeneratorLocation` and `executeUri` are only valid for the VSP session that generated them. The VSP generates a new set of keys for the testing service every time you start it with the development command, which leads to the URLs changing.
+The `responseGeneratorLocation` and `executeUri` are only valid for the VSP session that generated them. The VSP generates a new set of keys for the testing service every time you start the VSP with the development command, which leads to the URLs changing.
 
-If the `responseGeneratorLocation` or `executeUri` you generated don't work, try restarting your VSP. The GOV.UK Verify team periodically restarts the testing service, so restarting your VSP will restore the connection.
+If the `responseGeneratorLocation` or `executeUri` you generated do not work, restart your VSP. The GOV.UK Verify team occasionally restarts the testing service, which clears the current testing session. Restarting your VSP restores the connection with the testing service.
 
 ### Receive the SAML response from the testing service
 
 Visiting the `executeUri` for the `AUTHENTICATION_FAILURE` scenario causes the testing service to generate a SAML response for this scenario.
 
-The testing service sends the SAML response inside an HTML form, through the browser. The SAML response will be base64 encoded within the `SAMLResponse` form parameter:
+The testing service sends the SAML response inside an HTML form, through the browser. The SAML response is base64 encoded within the `SAMLResponse` form parameter:
 
 ```
 SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWwycDpSZXNwb25zZSBEZXN0aW5hdGlvbj0iaHR0cHM6Ly9wYXNzcG9ydC12ZXJpZnktc3R1Yi1yZWx5aW5nLXBhcnR5LWRldi5jbG91ZGFwcHMuZGlnaXRhbC92ZXJpZnkv...
 ```
-Your service will receive the form at the endpoint you provided when starting the VSP.
+Your service receives the form at the endpoint provided when starting the VSP.
 
 ### Request to translate the SAML response
 
@@ -166,8 +163,6 @@ The fields in the request body are:
 | `requestId`        | The string your saved when generating the authentication request |
 | `levelOfAssurance` | The [level of assurance][loa] for your service                |
 
-All fields are mandatory.
-
 ### Handle the translated response from the VSP
 
 An `HTTP 200 OK` response confirms the VSP translated the SAML response successfully. The response body contains:
@@ -192,7 +187,7 @@ After implementing all scenarios, your service should be able to handle all poss
 - `NO_AUTHENTICATION`
 - `AUTHENTICATION_FAILURE`
 
-If your need to link the identity dataset received with user information your service already has, refer to the section on [handling the identity dataset][handle-identity-dataset].
+If you need to link the identity dataset received with user information your service already has, refer to the section on [handling the identity dataset][handle-identity-dataset].
 
 
 
@@ -200,5 +195,6 @@ If your need to link the identity dataset received with user information your se
 [send-request]: LINK
 [scenario-list]: LINK
 [handle-identity-dataset]: LINK
+[response-from-testing-service]: LINK]
 [loa]: https://www.verify.service.gov.uk/understand-levels-of-assurance/
 [vsp-release]: https://github.com/alphagov/verify-service-provider/releases
