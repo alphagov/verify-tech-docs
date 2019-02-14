@@ -5,20 +5,18 @@ weight: 10
 
 # Set up the successful verification user journey
 
-This guide is the first step to integrating your service with the Verify Service Provider (VSP). The VSP allows your service to securely communicate with the GOV.UK Verify Hub without handling [SAML][saml]
+This guide is the first step to integrating your service with the Verify Service Provider (VSP). The VSP allows your service to securely communicate with the GOV.UK Verify Hub without handling [SAML][saml].
 
-Find out how to set up the successful verification journey, including how to:
+Find out what is involved in sending requests to and receiving responses from the GOV.UK Verify Hub and how to use the VSP to:
 
-- generate an authentication request using the VSP
-- send the authentication request to the GOV.UK Verify Hub
-- translate a SAML response using the VSP
-- link an authentication request to its response
+- generate SAML authentication requests
+- translate SAML responses
 
-The guide uses the GOV.UK Verify testing service as a placeholder for the GOV.UK Verify Hub. The testing service is hosted by the GOV.UK Verify team, which means you can follow the instructions on this page using your local VSP setup, without any additional backing services.
+The guide uses a GOV.UK Verify-hosted testing service as a placeholder for the GOV.UK Verify Hub. This means you can follow the instructions on this page using your local VSP setup, without any additional backing services.
 
-## Prerequisites
+## Before you start
 
-[Download the latest VSP release][vsp-release] to follow the instructions on this page.
+Download [the latest VSP release][vsp-release] [external link].
 
 ## Using the VSP with the testing service
 
@@ -30,7 +28,7 @@ To connect your VSP to the testing service, start the VSP using the `development
 
 The example sets `http://localhost:8080` as the endpoint where the testing service sends the SAML responses.
 
-Read more about the development command and other [commands available for the VSP][vsp-run] in the VSP's README file.
+Read more about the development command and other [commands available for the VSP][vsp-run] [external link] in the VSP's README file.
 
 ## Send a request
 
@@ -75,7 +73,7 @@ You must store the `requestId` securely and link it to the user's session. For e
 
 ### Send the authentication request to the testing service
 
-After receiving the authentication request, your service sends it to the testing service through the browser. You can do this by rendering an HTML form and using JavaScript to auto-submit it, as described by [SAML HTTP Post Binding](https://en.wikipedia.org/wiki/SAML_2.0#HTTP_POST_Binding) [external link]:
+After receiving the authentication request, your service sends that request to the testing service through the browser. You can do this by rendering an HTML form and using JavaScript to auto-submit the form, as described by [SAML HTTP Post Binding](https://en.wikipedia.org/wiki/SAML_2.0#HTTP_POST_Binding) [external link]:
 
 ```html
 <!-- The form containing the SAML authentication request
@@ -103,9 +101,9 @@ For a consistent user journey it's recommended you also include page styling tha
 
 ### Response from the testing service
 
-After the browser submits the form, the testing service returns a link to all the scenarios your service needs to be able to handle.
+After the browser submits the form, the testing service returns a response.
 
-The response should contain `"status": "PASSED"` and a `responseGeneratorLocation` URL which you can use to access the test scenarios:
+This response contains `"status": "PASSED"` and a `responseGeneratorLocation` URL which you can use to access the test scenarios:
 
 ```json
   {
@@ -128,9 +126,9 @@ Your service needs to be able to receive an HTML form containing the SAML respon
 
 ### Run the IDENTITY_VERIFIED response scenario
 
-Using the response you got from the testing service, go to the URL in `responseGeneratorLocation` using your browser. The JSON response contains the test cases or scenarios your service must handle when it's live.
+Using the response you got from the testing service, go to the URL in `responseGeneratorLocation` using your browser. The JSON response contains objects with the test cases or scenarios your service must handle when it's live.
 
-Here we'll focus on the first test case, which simulates a user having their identity successfully verified:
+To simulate a user having their identity successfully verified, use the following test case:
 
 ```json
 {
@@ -149,9 +147,9 @@ Several parameters describe each scenario:
 | `title`       | The name of the scenario          |
 | `description` | Details about the scenario        |
 
-The `responseGeneratorLocation` and `executeUri` are only valid for the VSP session that generated them. The VSP generates a new set of keys for the testing service every time you start it with the development command, which leads to the URLs changing.
+The `responseGeneratorLocation` and `executeUri` are only valid for the VSP session that generated them. The VSP generates a new set of keys for the testing service every time you start the VSP with the development command, which leads to the URLs changing.
 
-If the `responseGeneratorLocation` or `executeUri` you generated do not work, restart your VSP. The GOV.UK Verify team periodically restarts the testing service, which can clear the current testing session. Restarting your VSP restores the connection with the testing service.
+If the `responseGeneratorLocation` or `executeUri` you generated do not work, restart your VSP. The GOV.UK Verify team occasionally restarts the testing service, which clears the current testing session. Restarting your VSP restores the connection with the testing service.
 
 ### Receive the SAML response from the testing service
 
@@ -167,7 +165,7 @@ Your service receives the form at the endpoint provided when starting the VSP.
 
 ### Request to translate the SAML response
 
-To translate the SAML response into JSON, your service should make an HTTP POST request to the VSP's `/translate-response` endpoint:
+To translate the SAML response into JSON, make an HTTP POST request to the VSP's `/translate-response` endpoint:
 
 ```http
 > POST /translate-response HTTP/1.1
@@ -217,7 +215,7 @@ Your service can use this identity dataset to guide a user with their service jo
 
 ## Next Steps
 
-Now that your service can handle the successful verification user journey, make sure it can [handle possible failure scenarios][failure-scenarios].
+Now that your service can handle the successful verification user journey, make sure your service can [handle possible failure scenarios][failure-scenarios].
 
 If you need to link the identity dataset received with user information your service already has, read about [handling the identity dataset][handle-identity-dataset].
 
