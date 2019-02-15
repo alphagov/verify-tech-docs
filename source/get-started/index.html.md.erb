@@ -14,14 +14,10 @@ The Verify Service Provider (VSP) allows you to send and receive messages from t
 
 The first step in connecting to GOV.UK Verify is to set up the VSP locally. You must host the VSP on your own infrastructure and you can connect multiple services to one instance.
 
-To start setting up the VSP locally, [download the latest release][vsp-release] from GitHub and configure it using the information in the `README.md` file.
+[Follow the step-by-step guide][tutorial] to make sure your service correctly uses the VSP to:
 
-[Follow the VSP tutorial][tutorial] to make sure your service correctly uses the VSP to:
-
-- generate and send requests
-- handle all possible responses
-
-The tutorial uses a placeholder for the GOV.UK Verify Hub so you can follow the tutorial using your local VSP setup.
+- generate and send authentication requests
+- handle the successful verification response
 
 Once you've confirmed your service can handle all the possible response scenarios, you can move on to testing your setup in [the secure test environment](access-integration) which contains a full-scale deployment of the GOV.UK Verify Hub.
 
