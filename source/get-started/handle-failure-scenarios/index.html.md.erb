@@ -1,6 +1,8 @@
 ---
 title: Handle failure scenarios
 weight: 20
+last_reviewed_on: 2019-02-15
+review_in: 3 months
 ---
 
 # Handle failure scenarios
@@ -182,23 +184,4 @@ An `HTTP 200 OK` response confirms the VSP translated the SAML response successf
 
 When the translated SAML response contains the `AUTHENTICATION_FAILURE` scenario, your service should redirect the user to a page offering them other ways to use your service. This could be another way of proving their identity online or in person.
 
-
-## Next steps
-
-After implementing all scenarios, your service can handle all possible responses from GOV.UK Verify Hub:
-
-- `IDENTITY_VERIFIED`
-- `NO_AUTHENTICATION`
-- `AUTHENTICATION_FAILURE`
-
-If you need to link the identity dataset received with user information your service already has, refer to the section on [handling the identity dataset][handle-identity-dataset].
-
-
-
-[successful-verification]: /get-started/set-up-successful-verification
-[send-request]: LINK
-[scenario-list]: LINK
-[handle-identity-dataset]: LINK
-[response-from-testing-service]: LINK]
-[loa]: https://www.verify.service.gov.uk/understand-levels-of-assurance/
-[vsp-release]: https://github.com/alphagov/verify-service-provider/releases
+<%= partial "partials/links" %>
