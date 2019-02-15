@@ -7,7 +7,7 @@ weight: 20
 
 After [setting up the successful verification journey][successful-verification], you should make sure your service can handle the failure scenarios.
 
-There are two scenarios when the user does not successfully complete the verification journey:
+There are 2 scenarios when the user does not successfully complete the verification journey:
 
 | Scenario                 | Description |
 | ------------------------ | ----------- |
@@ -23,7 +23,7 @@ The guide uses a GOV.UK Verify-hosted testing service as a placeholder for the G
 
 ## Before you start
 
-To follow instructions on this page, you should have already:
+To follow instructions on this page, you must have already:
 
 - downloaded [the latest VSP release][vsp-release] [external link]
 - familiarised yourself with or implemented [the successful verification scenario][successful-verification]
@@ -32,13 +32,15 @@ This guide continues from the ['Response from the testing service' section][resp
 
 ## NO_AUTHENTICATION scenario
 
-If a user cancels before the identity verification process is complete, GOV.UK Verify Hub sends a `NO_AUTHENTICATION` response. To run this scenario using the testing service:
+If a user cancels before the identity verification process is complete, GOV.UK Verify Hub sends a `NO_AUTHENTICATION` response.
+
+### Run the NO_AUTHENTICATION scenario
 
 1. Submit [an authentication request to the testing service][send-request].
 2. Go to the `responseGeneratorLocation` URL in the [response from the testing service][scenario-list].
 3. Select the `executeUri` for the `NO_AUTHENTICATION` scenario.
 
-For example, the `NO_AUTHENTICATION` JSON object is similar to:
+This is an example of a `NO_AUTHENTICATION` JSON object:
 
 ```json
 {
@@ -69,7 +71,7 @@ Your service receives the form at the endpoint provided when starting the VSP.
 
 ### Request to translate the SAML response
 
-To translate the SAML response into JSON, your service should make an HTTP POST request to the VSP's `/translate-response` endpoint:
+To translate the SAML response into JSON, make an HTTP POST request to the VSP's `/translate-response` endpoint:
 
 ```http
 > POST /translate-response HTTP/1.1
@@ -87,7 +89,7 @@ The fields in the request body are:
 | Field          | Description                                                      |
 | ------------------ | ---------------------------------------------------------------- |
 | `samlResponse`     | Base64 encoded SAML response from the testing service                  |
-| `requestId`        | The string your saved when generating the authentication request |
+| `requestId`        | The string you saved when generating the authentication request |
 | `levelOfAssurance` | The [level of assurance][loa] for your service |
 
 ### Handle the translated response from the VSP
@@ -103,17 +105,19 @@ An `HTTP 200 OK` response confirms the VSP translated the SAML response successf
 }
 ```
 
-When the translated SAML response contains the `NO_AUTHENTICATION` scenario, your service should redirect the user to a page offering them other ways to use your service. This could be another way of proving their identity online or going somewhere in person to finish the process.
+When the translated SAML response contains the `NO_AUTHENTICATION` scenario, your service should redirect the user to a page offering them other ways to use your service. This could be another way of proving their identity online or in person.
 
 ## AUTHENTICATION_FAILURE scenario
 
-If the identity provider cannot verify the user's identity, GOV.UK Verify Hub sends an `AUTHENTICATION_FAILURE` response. To run this scenario using the testing service:
+If the identity provider cannot verify the user's identity, GOV.UK Verify Hub sends an `AUTHENTICATION_FAILURE` response.
+
+### Run the NO_AUTHENTICATION scenario
 
 1. Submit [an authentication request to the testing service][send-request].
 2. Go to the `responseGeneratorLocation` URL in the [response from the testing service][scenario-list].
 3. Select the `executeUri` for the `AUTHENTICATION_FAILURE` scenario.
 
-For example, the `AUTHENTICATION_FAILURE` JSON object is similar to:
+This is an example of a `AUTHENTICATION_FAILURE` JSON object::
 
 ```json
 {
@@ -141,7 +145,7 @@ Your service receives the form at the endpoint provided when starting the VSP.
 
 ### Request to translate the SAML response
 
-To translate the SAML response into JSON, your service should make an HTTP POST request to the VSP's `/translate-response` endpoint:
+To translate the SAML response into JSON, make an HTTP POST request to the VSP's `/translate-response` endpoint:
 
 
 ```http
@@ -160,7 +164,7 @@ The fields in the request body are:
 | Field          | Description                                                      |
 | ------------------ | ---------------------------------------------------------------- |
 | `samlResponse`     | Base64 encoded SAML response from the testing service                  |
-| `requestId`        | The string your saved when generating the authentication request |
+| `requestId`        | The string you saved when generating the authentication request |
 | `levelOfAssurance` | The [level of assurance][loa] for your service                |
 
 ### Handle the translated response from the VSP
@@ -176,12 +180,12 @@ An `HTTP 200 OK` response confirms the VSP translated the SAML response successf
 }
 ```
 
-When the translated SAML response contains the `AUTHENTICATION_FAILURE` scenario, your service should redirect the user to a page offering them other ways to use your service. This could be another way of proving their identity online or going somewhere in person to finish the process.
+When the translated SAML response contains the `AUTHENTICATION_FAILURE` scenario, your service should redirect the user to a page offering them other ways to use your service. This could be another way of proving their identity online or in person.
 
 
 ## Next steps
 
-After implementing all scenarios, your service should be able to handle all possible responses from GOV.UK Verify Hub:
+After implementing all scenarios, your service can handle all possible responses from GOV.UK Verify Hub:
 
 - `IDENTITY_VERIFIED`
 - `NO_AUTHENTICATION`
