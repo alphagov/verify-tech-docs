@@ -40,13 +40,11 @@ Once a user starts a GOV.UK Verify journey from their browser, your service must
 
 ### Generate an authentication request
 
-Make an HTTP POST request to the VSP's `/generate-request` endpoint to generate an authentication request message. The request body must contain the [level of assurance][loa] for your service:
+Make an HTTP POST request to the VSP's `/generate-request` endpoint to generate an authentication request message:
 
 ```
 > POST /generate-request HTTP/1.1
 > Content-Type: application/json
->
-> { "levelOfAssurance": "LEVEL_2" }
 ```
 
 The response from the VSP is in JSON format and contains the authentication request:
