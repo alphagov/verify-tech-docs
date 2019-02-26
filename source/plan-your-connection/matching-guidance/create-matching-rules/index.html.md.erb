@@ -5,19 +5,19 @@ weight: 20
 
 # Matching rules and confidence scores
 
-You should decide, and clearly document, what rules you will use for matching. For example, whether you will allow synonyms for first names such as William and Bill and how you will deal with [common difficulties](LINK).
+You should decide, and clearly document, what rules you will use for matching. For example, whether you will allow synonyms for first names such as William and Bill and how you will deal with [common difficulties][common-matching-difficulties].
 
 You should also decide which extra attributes to use to increase confidence in your matches. For example, passport number. You can then design your matching service to prompt the GOV.UK Verify Hub to request additional attributes from the identity provider.
 
 Your matching rules should aim to reduce the number of false positives and negatives. A false positive is where your matching service returns a match that is wrong. A false negative is where your matching service returns no match, but a record for the individual does exist in the datasource(s).
 
-You can minimise false positives by [making sure your datasource(s) are clean and accurate before using them for matching](LINK).
+You can minimise false positives by [making sure your datasource(s) are clean and accurate before using them for matching][prepare-local-datasources].
 
 You can minimise false negatives by thoroughly testing your matching strategy on your datasource(s), analysing the results, and iterating your matching rules.
 
 ## Fuzzy matching
 
-As well as looking for exact matches, you should consider looking for records that are an approximate match. The process for finding approximate matches is known as [fuzzy or probabilistic matching](LINK).
+As well as looking for exact matches, you should consider looking for records that are an approximate match. The process for finding approximate matches is known as [fuzzy or probabilistic matching][record-linkage] [external link].
 
 Much like finding exact matches, you will need to decide the rules for this matching process. The more relaxed your rules, the more ‘fuzzy’ your matching. You’ll be more likely to receive false positives. The tighter your rules, the less ‘fuzzy’ your matching. You’ll be more likely to receive false negatives.
 
@@ -32,7 +32,7 @@ There are several fuzzy matching techniques you can use to search for matches, i
 
 ### Levenshtein
 
-It can also be useful to assess how much the record and data from the identity provider disagree. You can do this by measuring the number of changes that need to be made to a string for it to match with another. The number of changes is known as the edit or [Levenshtein distance](LINK).
+It can also be useful to assess how much the record and data from the identity provider disagree. You can do this by measuring the number of changes that need to be made to a string for it to match with another. The number of changes is known as the edit or [Levenshtein distance][levenshtein-distance] [external link].
 
 The higher the Levenshtein distance, the greater the difference between the 2 strings.
 
@@ -42,7 +42,7 @@ If you want to reduce the risk of false positives, you might choose to restrict 
 
 Phonetic algorithms
 
-You can use phonetic algorithms such as [Metaphone](LINK) and [Soundex](LINK) help to identify words or names that sound similar.
+You can use phonetic algorithms such as [Metaphone][metaphone] [external link] and [Soundex][soundex] [external link] help to identify words or names that sound similar.
 
 These algorithms can help encode homophones in the same way so they can be matched by your matching service. For example, Metaphone transforms words with a ‘ck’ sound to ‘k’.
 
