@@ -9,7 +9,7 @@ The matching process consists of 3 matching cycles. The matching service should 
 
 If, after 3 cycles, there’s no match, you can decide if you want to create a new account for the user.
 
-The matching service uses limited information from the GOV.UK Verify Hub to run matching cycles. The limited information includes the persistent identifier (PID) and matching dataset.
+The matching service uses limited information from the GOV.UK Verify Hub to run matching cycles. The limited information includes the persistent identifier (PID) and identity dataset.
 
 
 ## Cycle 0
@@ -20,9 +20,9 @@ Cycle 0 matches the user’s hashed PID to an existing hashed PID in the local m
 
 ## Cycle 1
 
-Cycle 1 is also known as the ‘matching dataset’ match. It works when Cycle 0 has failed to find a match and uses the matching dataset from the identity provider to check for possible matches.
+Cycle 1 is also known as the identity dataset’ match. It works when Cycle 0 has failed to find a match and uses the identity dataset from the identity provider to check for possible matches.
 
-Your Local Matching Service can use the details in the matching dataset to attempt to find a match between the user and their existing record. Your service’s matching rules should specify which details to use. For example, you should use historical verified data if offered by the identity provider and then use unverified historical data to tell the difference between candidate records.
+Your Local Matching Service can use the details in the identity dataset to attempt to find a match between the user and their existing record. Your service’s matching rules should specify which details to use. For example, you should use historical verified data if offered by the identity provider and then use unverified historical data to tell the difference between candidate records.
 
 If the Local Matching Service finds a single match, it creates a correlation between the hashed PID and the existing record in the local datastore(s).
 
