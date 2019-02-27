@@ -12,13 +12,13 @@ If, after 3 cycles, there’s no match, you can decide if you want to create a n
 The matching service uses limited information from the GOV.UK Verify Hub to run matching cycles. The limited information includes the persistent identifier (PID) and user attributes.
 
 
-## Cycle 0
+## Personal identifier match
 
 Cycle 0 is also known as the PID match. It works when a user has previously verified their identity with the same identity provider.
 
 Cycle 0 matches the user’s hashed PID to an existing hashed PID in the local matching datastore(s) and returns a match.
 
-## Cycle 1
+## User attribute match
 
 Cycle 1 is also known as 'the user attribute match'. It works when Cycle 0 has failed to find a match and uses the user attributes from the identity provider to check for possible matches.
 
@@ -34,13 +34,13 @@ fails to find a match and no additional attributes are available
 finds multiple matches and no additional attributes are available
 If Cycle 1 finds multiple matches and additional matches are available, continue to the next cycle.
 
-## Cycle 2
+## Alternative trusted source match
 
 Cycle 2 matching uses additional attributes related to identity from another source such as a credit referencing agency or other government department to help the matching process. For example, an additional attribute could be whether the user qualifies for a Blue Badge.
 
 GOV.UK Verify does not currently support Cycle 2 matching. No government connecting service has needed Cycle 2 matching so far. If you think your service needs Cycle 2 matching, [contact the GOV.UK Verify team] [support].
 
-## Cycle 3
+## User input match
 
 If Cycle 1 finds more than 1 potential match, Cycle 3 asks the user for some additional information, for example driving licence number. The GOV.UK Verify Hub collects the additional information and sends it to the matching service. Your matching service then uses it to refine the match. When your matching service finds a match, it saves the hashed PID in the matching datastore(s).
 
