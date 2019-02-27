@@ -7,7 +7,7 @@ weight: 20
 
 You should decide, and clearly document, what rules you will use for matching. For example, whether you will allow synonyms for first names such as William and Bill and how you will deal with [common difficulties][common-matching-difficulties].
 
-You should also decide which extra attributes to use to increase confidence in your matches. For example, passport number. You can then design your matching service to prompt the GOV.UK Verify Hub to request additional attributes from the identity provider.
+You should also decide which extra attributes to use to increase confidence in your matches. You can design your service to [prompt the user for additional information][attributes-from-user], but you may not be able treat the extra attributes with the same level of trust.
 
 Your matching rules should aim to reduce the number of false positives and negatives. A false positive is where your matching service returns a match that is wrong. A false negative is where your matching service returns no match, but a record for the individual does exist in the datasource(s).
 
