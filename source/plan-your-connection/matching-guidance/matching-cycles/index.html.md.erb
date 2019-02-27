@@ -5,12 +5,16 @@ weight: 20
 
 # Matching cycles
 
-The matching process consists of 3 matching cycles. The matching service should run each cycle in turn to attempt to match the user to the correct record in the local data source. Each matching cycle uses an increasing number of attributes from the identity provider to search for a match.
+The matching process consist of matching cycles:
 
-If, after 3 cycles, there’s no match, you can decide if you want to create a new account for the user.
+1. personal identifier match
+1. user attribute match
+1. alternative trusted source match
+1. user input match
 
-The matching service uses limited information from the GOV.UK Verify Hub to run matching cycles. The limited information includes the persistent identifier (PID) and user attributes.
+Your service should run each cycle in turn to attempt to match the user to the correct record in the local data source. Each matching cycle uses an increasing number of attributes to search for a match.
 
+If, after completing the matching cycles, there’s no match, you can decide if you want to create a new account for the user.
 
 ## Personal identifier match
 
@@ -30,8 +34,9 @@ The hashed PID is then written to the local matching datastore(s) so the next ti
 
 Stop the matching process if Cycle 1:
 
-fails to find a match and no additional attributes are available
-finds multiple matches and no additional attributes are available
+- fails to find a match and no additional attributes are available
+- finds multiple matches and no additional attributes are available
+
 If Cycle 1 finds multiple matches and additional matches are available, continue to the next cycle.
 
 ## Alternative trusted source match
