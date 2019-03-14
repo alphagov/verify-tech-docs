@@ -2,92 +2,54 @@
 
 [![Build Status](https://travis-ci.com/alphagov/verify-tech-docs.svg?branch=master)](https://travis-ci.com/alphagov/verify-tech-docs)
 
-## Getting started
+This project uses the [Tech Docs Template][template], which is a [Middleman template][mmt] that you can use to build technical documentation using a GOV.UK style.
 
-You can [read documentation about the GDS technical documentation
-tool][tdt-documentation] [external link].
+👉 To find out more about setting up and managing content for a website using this template, see the [Tech Docs Template documentation][tdt-docs].
 
-To preview or build the website, we need to use the terminal.
+## Before you start
 
-Install Ruby with Rubygems, preferably with a [Ruby version manager][rvm],
-and the [Bundler gem][bundler].
+To use the Tech Docs Template you need:
 
-In the application folder type the following to install the required gems:
-
-```
-bundle install
-```
+- [Ruby][install-ruby]
+- [Middleman][install-middleman]
 
 ## Making changes
 
-To make changes edit the source files in the `source` folder.
+To make changes to the documentation for the Tech Docs Template website, edit files in the `source` folder of this repository.
 
-### Single page output
+You can add content by editing the `.html.md.erb` files. These files support content in:
 
-Although a single page of HTML is generated the markdown is spread across
-multiple files to make it easier to manage. They can be found in
-`source/documentation`.
+- Markdown
+- HTML
+- Ruby
 
-A new markdown file isn't automatically included in the generated output. If we
-add a new markdown file at the location `source/documentation/agile/scrum.md`,
-the following snippet in `source/index.html.md.erb`, includes it in the
-generated output.
+👉 You can use Markdown and HTML to [generate different content types][example-content] and [Ruby partials to manage content][partials].
 
-```
-<%= partial 'documentation/agile/scrum' %>
-```
+👉 Learn more about [producing more complex page structures][multipage] for your website.
 
-Including files manually like this lets us specify the position they appear in
-the page.
+## Preview your changes locally
 
-### Multiple pages
+To preview your new website locally, navigate to your project folder and run:
 
-To add a completely new page, create a file with a `.html.md` extension in the `/source` directory.
-
-For example, `source/about.html.md` will be accessible on <http://localhost:4567/about.html>.
-
-## Preview
-
-Whilst writing documentation we can run a middleman server to preview how the
-published version will look in the browser. After saving a change the preview in
-the browser will automatically refresh.
-
-The preview is only available on our own computer. Others won't be able to
-access it if they are given the link.
-
-Type the following to start the server:
-
-```
+```sh
 bundle exec middleman server
 ```
 
-If all goes well something like the following output will be displayed:
+👉 See the generated website on `http://localhost:4567` in your browser. Any content changes you make to your website will be updated in real time.
 
-```
-== The Middleman is loading
-== LiveReload accepting connections from ws://192.168.0.8:35729
-== View your site at "http://Laptop.local:4567", "http://192.168.0.8:4567"
-== Inspect your site configuration at "http://Laptop.local:4567/__middleman", "http://192.168.0.8:4567/__middleman"
-```
+To shut down the Middleman instance running on your machine, use `ctrl+C`.
 
-You should now be able to view a live preview at http://localhost:4567.
+If you make changes to the `config/tech-docs.yml` configuration file, you need to restart Middleman to see the changes.
 
-## Build
+## Publish your changes
 
-If you want to publish the website without using a build script you may need to
-build the static HTML files.
+Travis CI automatically publishes changes merged into the master branch of this repository.
 
-Type the following to build the HTML:
+## Troubleshooting
 
-```
-bundle exec middleman build
-```
+Run `bundle update` to make sure you're using the most recent Ruby gem versions.
 
-This will create a `build` subfolder in the application folder which contains
-the HTML and asset files ready to be published.
-
-[rvm]: https://www.ruby-lang.org/en/documentation/installation/#managers
-[bundler]: http://bundler.io/
+Run `bundle exec middleman build --verbose` to get detailed error messages to help with finding the problem.
 
 ## Licence
 
