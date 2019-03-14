@@ -61,4 +61,14 @@ The documentation is [© Crown copyright][copyright] and available under the ter
 [mit]: LICENCE
 [copyright]: http://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/
 [ogl]: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
-[tdt-documentation]: https://tdt-documentation.london.cloudapps.digital
+[mit]: LICENCE
+[copyright]: http://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/
+[ogl]: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+[template]: https://github.com/alphagov/tech-docs-template
+[mmt]: https://middlemanapp.com/advanced/project_templates/
+[tdt-docs]: https://tdt-documentation.london.cloudapps.digital
+[multipage]: https://tdt-documentation.london.cloudapps.digital/multipage.html#build-a-multipage-site
+[example-content]: https://tdt-documentation.london.cloudapps.digital/content.html#content-examples
+[partials]: https://tdt-documentation.london.cloudapps.digital/single_page.html#add-partial-lines
+[install-ruby]: https://tdt-documentation.london.cloudapps.digital/install_macs.html#install-ruby
+[install-middleman]: https://tdt-documentation.london.cloudapps.digital/install_macs.html#install-middleman
