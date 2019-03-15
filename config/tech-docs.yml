@@ -2,10 +2,10 @@
 host: https://www.docs.verify.service.gov.uk
 
 # Header-related options
-show_govuk_logo: true
-service_name: Verify
+show_govuk_logo: false
+service_name: GOV.UK Verify Self Service Tool
 service_link: https://www.verify.service.gov.uk/
-phase:
+phase: PROTOTYPE
 
 # Links to show on right-hand-side of header
 header_links:
@@ -14,7 +14,7 @@ header_links:
   Support: https://www.verify.service.gov.uk/support/
 
 # Tracking ID from Google Analytics (e.g. UA-XXXX-Y)
-ga_tracking_id: UA-26179049-26
+ga_tracking_id:
 
 # Table of contents depth – how many levels to include in the table of contents.
 # If your ToC is too long, reduce this number and we'll only show higher-level
