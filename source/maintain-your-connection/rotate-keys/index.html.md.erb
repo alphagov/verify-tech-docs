@@ -16,52 +16,52 @@ You can generate keys and self-signed certificates in many ways, but make sure t
 - PKCS#8 formatted keys `.pk8`
 - PEM encoded X509 certificates `.crt`
 
-## Update your VSP encryption key
+## Update your VSP encryption key and certificate
 
-These instructions apply to you if you're using the Verify Service Provider (VSP).
+These instructions apply to you if you're using the Verify Service Provider (VSP). If you're not using the VSP, [see the instructions on updating your service provider encryption key and certificate][sp-encryption].
 
 1. Generate a new self-signed encryption certificate for your VSP.
 1. Add your new VSP private encryption key to the `samlSecondaryEncryptionKey` field in the VSP configuration file.
 1. Restart the VSP to implement the configuration changes. The VSP can now use both the new and old keys to decrypt SAML messages.
-1. Upload your new self-signed encryption certificate to the GOV.UK Verify Self Service tool.
+1. [Upload your new self-signed encryption certificate to the GOV.UK Verify Service Admin tool]((https://connecting-to-verify-prototype.herokuapp.com/self-serve/before-you-start-vsp-encryption).
 1. Receive e-mail confirmation that the GOV.UK Verify team have deployed your encryption certificate.
 1. Replace the key in `samlPrimaryEncryptionKey` with the key from `samlSecondaryEncryptionKey` and leave `samlSecondaryEncryptionKey` empty for the next key update.
 1. Restart the VSP to implement the configuration changes.
 
 Your service now uses the new VSP encryption key to decrypt SAML messages.
 
-## Update your VSP signing key
+## Update your VSP signing key and certificate
 
-These instructions apply to you if you're using the Verify Service Provider (VSP).
+These instructions apply to you if you're using the Verify Service Provider (VSP). If you're not using the VSP, [see the instructions on updating your service provider signing key and certificate][sp-signing].
 
 1. Generate a new self-signed signing certificate for your VSP.
-1. Upload your new signing certificate to the [GOV.UK Verify Service Admin tool](https://connecting-to-verify-prototype.herokuapp.com/self-serve/before-you-start-sp-encryption).
+1. [Upload your new signing certificate to the GOV.UK Verify Service Admin tool](https://connecting-to-verify-prototype.herokuapp.com/self-serve/before-you-start-vsp-signing).
 1. Receive e-mail confirmation that the GOV.UK Verify team have deployed your signing certificate.
 1. Replace the old signing key under `samlSigningKey` in the VSP configuration with the new key.
 1. Restart the VSP to implement the configuration changes. The VSP now signs SAML messages with the new key.
 
 The GOV.UK Verify hub now trusts SAML messages signed with your new VSP signing key.
 
-## Update your service provider encryption key
+## Update your service provider encryption key and certificate
 
-These instructions apply to you if you're using an alternative to the Verify Service Provider.
+These instructions apply to you if you're using an alternative to the Verify Service Provider (VSP). If you're using the VSP, [see the instructions on updating your VSP encryption key and certificate][vsp-encryption].
+
+If your service provider does not support dual running for your encryption keys, there will be a small outage when you update the encryption key. It's therefore recommended you do the update during periods of low traffic for your service.
 
 1. Generate a new self-signed encryption certificate for your service provider.
 1. Add your new service provider private encryption key to your service provider. Your service can now use both the new and old keys to decrypt SAML messages.
-1. Upload your new encryption certificate to the [GOV.UK Verify Service Admin tool](https://connecting-to-verify-prototype.herokuapp.com/self-serve/before-you-start-sp-encryption).
+1. [Upload your new encryption certificate to the GOV.UK Verify Service Admin tool](https://connecting-to-verify-prototype.herokuapp.com/self-serve/before-you-start-sp-encryption).
 1. Receive e-mail confirmation that the GOV.UK Verify team have deployed your encryption certificate.
 1. Remove your old encryption key from your service.
 
 Your service provider now uses the new encryption key to decrypt SAML messages.
 
-If your service provider does not support dual running, there will be a small outage when you update the encryption key. It's therefore recommended you do it during periods of low traffic for your service.
+## Update your service provider signing key and certificate
 
-## Update your service provider signing key
-
-These instructions apply to you if you're using an alternative to the Verify Service Provider.
+These instructions apply to you if you're using an alternative to the Verify Service Provider (VSP). If you're using the VSP, [see the instructions on updating your VSP signing key and certificate][vsp-signing].
 
 1. Generate a new self-signed signing certificate for your service provider.
-1. Upload your new signing certificate to the [GOV.UK Verify Service Admin tool](https://connecting-to-verify-prototype.herokuapp.com/self-serve/before-you-start-sp-signing).
+1. [Upload your new signing certificate to the GOV.UK Verify Service Admin tool](https://connecting-to-verify-prototype.herokuapp.com/self-serve/before-you-start-sp-signing).
 1. Receive e-mail confirmation that the GOV.UK Verify team have deployed your signing certificate.
 1. Replace the old private signing key with the new key on your service endpoint - your service provider now signs SAML messages with the new key.
 
@@ -69,7 +69,7 @@ You don't need to let the GOV.UK Verify team know that the new key is live. GOV.
 
 The GOV.UK Verify hub now trusts SAML messages signed with your new service provider signing key.
 
-## Update your MSA encryption key
+## Update your MSA encryption key and certificate
 
 These instructions apply to you if you're using the legacy setup with a Matching Service Adapter (MSA).
 
@@ -91,7 +91,7 @@ These instructions apply to you if you're using the legacy setup with a Matching
     ```
 
 1. Restart the MSA to implement the configuration changes. The MSA can now use both the new and old keys to decrypt SAML messages.
-1. Upload your new encryption certificate to the [GOV.UK Verify Service Admin tool](https://connecting-to-verify-prototype.herokuapp.com/self-serve/before-you-start-sp-signing).
+1. [Upload your new encryption certificate to the GOV.UK Verify Service Admin tool](https://connecting-to-verify-prototype.herokuapp.com/self-serve/before-you-start-msa-encryption).
 1. Receive e-mail confirmation that the GOV.UK Verify team have deployed your encryption certificate.
 1. Delete the old encryption key and certificate.
 1. Restart the MSA to implement the configuration changes.
@@ -100,14 +100,15 @@ The MSA now uses the new encryption key to decrypt SAML messages, and the GOV.UK
 
 > While both keys are in use, you may see error messages in the logs with the description `Unwrapping failed`. These messages appear because the MSA attempts to decrypt the SAML message using each key in turn. You can safely ignore these messages. However, do not ignore any other error messages related to SAML decryption.
 
-## Update your MSA signing key
+## Update your MSA signing key and certificate
 
 These instructions apply to you if you're using the legacy setup with a Matching Service Adapter (MSA).
 
 The MSA publishes its certificates containing the public keys in its own metadata at run time. The service provider you’re using reads this metadata and uses the MSA's signing certificate to trust assertions signed by the MSA. Therefore you must restart the MSA once you've changed the certificates in the configuration file and make sure your service provider has read the new metadata.
 
 1. Generate a new self-signed signing certificate for your MSA.
-1. Upload your new signing certificate to the [GOV.UK Verify Service Admin tool](https://connecting-to-verify-prototype.herokuapp.com/self-serve/before-you-start-sp-signing).
+1. [Upload your new signing certificate to the GOV.UK Verify Service Admin tool](https://connecting-to-verify-prototype.herokuapp.com/self-serve/before-you-start-msa-signing).
+1. Make sure you received e-mail confirmation that the GOV.UK Verify team have deployed your signing certificate.
 1. Add your new signing key and self-signed certificate to `signingKeys.secondary` in your MSA configuration, for example:
 
     ```yaml
@@ -131,12 +132,15 @@ The MSA publishes its certificates containing the public keys in its own metadat
 
     If you’re using the VSP, wait for it to load the MSA metadata. The VSP periodically refreshes its metadata and will log when it has finished. Once it loads the new metadata, the VSP trusts assertions signed with the new MSA signing key.
 
-1. Make sure you received e-mail confirmation that the GOV.UK Verify team have deployed your signing certificate.
-
 1. Delete the `signingKeys.primary` section and rename `signingKeys.secondary` to `signingKeys.primary`. The MSA now signs the assertions with the new  key.
 
 1. Restart the MSA to update its metadata to contain only the new signing certificate.
 
 Your service provider now trusts assertions signed with your new MSA signing key.
+
+[sp-encryption]: /maintain-your-connection/rotate-keys/#update-your-service-provider-encryption-key-and-certificate
+[sp-signing]: /maintain-your-connection/rotate-keys/#update-your-service-provider-signing-key-and-certificate
+[vsp-encryption]: /maintain-your-connection/rotate-keys/#update-your-vsp-encryption-key-and-certificate
+[vsp-signing]: /maintain-your-connection/rotate-keys/#update-your-vsp-signing-key-and-certificate
 
 <%= partial "partials/links" %>
