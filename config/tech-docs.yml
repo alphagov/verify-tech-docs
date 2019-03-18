@@ -27,7 +27,7 @@ show_contribution_banner: true
 github_repo: alphagov/verify-tech-docs/
 
 # Prevent robots from indexing (e.g. whilst in development)
-prevent_indexing: false
+prevent_indexing: true
 
 # Enable multipage navigation in the sidebar
 multipage_nav: true
