@@ -1,0 +1,189 @@
+---
+title: Matching strategy
+weight: 40
+---
+
+# Matching strategy
+
+Your matching strategy should define your rules for matching and what should happen when:
+
+- a matching record is found
+- multiple records are found that could be a match
+- no match is found
+
+It’s up to each service to decide their own matching strategy. This guidance provides an overview of things to consider.
+
+## Common matching difficulties
+
+You need a matching strategy because matching an identity to a record is often affected by problems such as:
+
+- spelling mistakes
+- transcription errors
+- twins with very similar information
+- incorrect or outdated information in your service’s data sources, for example, if someone has moved house or changed their last name
+- inconsistent use of upper and lower case letters in names, for example McDonald, MacDonald, and Macdonald
+- variations with special characters, for example the difference between an apostrophe and single quotation mark in O’Reilly
+- the use of shortened names or nicknames for the same person, for example, William Smith, Bill Smith and David William Smith
+- date transposition for birth date, for example 02/07/1962 and 07/02/1962 or typos such as 1989 and 1998
+- phonetic spellings, for example if the data was collected in phone calls
+- an individual removing diacritical marks from their data, for example inputting Günther as Gunther
+
+Matching can also be affected by changes to the data since it was collected. For example, if the schema for the datasource changes.
+
+Different identity providers will use different data sources to check an individual’s identity. Because of this, the data you receive from one identity provider through the GOV.UK Verify Hub may look different to data from another identity provider. For example, if an individual does not have a middle name, one identity provider might list it as ‘null’ when another identity provider might leave the attribute blank.
+
+## Matching rules and confidence scores
+
+You should decide, and clearly document, what rules you will use for matching. For example, whether you will allow synonyms for first names such as William and Bill and how you will deal with [common difficulties][common-matching-difficulties].
+
+You should also decide which extra attributes to use to increase confidence in your matches. You can design your service to [prompt the user for additional information][attributes-from-user], but you may not be able treat the extra attributes with the same level of trust.
+
+Your matching rules should aim to reduce the number of false positives and negatives. A false positive is where your matching service returns a match that is wrong. A false negative is where your matching service returns no match, but a record for the individual does exist in the datasource(s).
+
+You can minimise false positives by [making sure your datasource(s) are clean and accurate before using them for matching][prepare-local-datasources].
+
+You can minimise false negatives by thoroughly testing your matching strategy on your datasource(s), analysing the results, and iterating your matching rules.
+
+### Fuzzy matching
+
+As well as looking for exact matches, you should consider looking for records that are an approximate match. The process for finding approximate matches is known as [fuzzy or probabilistic matching][record-linkage] [external link].
+
+Much like finding exact matches, you will need to decide the rules for this matching process. The more relaxed your rules, the more ‘fuzzy’ your matching. You’ll be more likely to receive false positives. The tighter your rules, the less ‘fuzzy’ your matching. You’ll be more likely to receive false negatives.
+
+However, if the risk of the wrong fuzzy match is low, you may decide to allow a fuzzy match with a low confidence score to access your service.
+
+Deterministic matching relies on comparing the exact data from the identity provider with an existing record to find a precise match; fuzzy or probabilistic matching instead looks at whether there is enough shared information to be considered a match.
+
+There are several fuzzy matching techniques you can use to search for matches, including:
+
+- Levenshtein
+- phonetic algorithms
+
+#### Levenshtein
+
+It can also be useful to assess how much the record and data from the identity provider disagree. You can do this by measuring the number of changes that need to be made to a string for it to match with another. The number of changes is known as the edit or [Levenshtein distance][levenshtein-distance] [external link].
+
+The higher the Levenshtein distance, the greater the difference between the 2 strings.
+
+For example, ‘Smith’ and ‘Smithy’ only requires one inserted character, `y` for it to match so it has a Levenshtein distance of 1. However, ‘Smithy’ and ‘Smithe’ has a Levenshtein distance of 2 as it requires the removal of one character `y` and the insertion of character `e`.
+
+If you want to reduce the risk of false positives, you might choose to restrict fuzzy matching to cases with a maximum Levenshtein distance or 2 or 3.
+
+#### Phonetic algorithms
+
+You can use phonetic algorithms such as [Metaphone][metaphone] [external link] and [Soundex][soundex] [external link] help to identify words or names that sound similar.
+
+These algorithms can help encode homophones in the same way so they can be matched by your matching service. For example, Metaphone transforms words with a ‘ck’ sound to ‘k’.
+
+This can be particularly helpful if your data was collected through telephone calls with users. For example, if a user called Philip gave his information to a telephone operator who entered his first name as `Phillip`, phonetic algorithms would help you search for records matching `Philip` with a single `l`.
+
+### Confidence scores
+
+You should assign a ‘score’ to indicate how confident you are in a match. You should aim to produce a single match with the highest confidence score.
+
+For example, a high confidence score could suggest first name, last name, date of birth, and address all match to a record in your local datastore(s).
+
+The risk of a mismatch to your service will affect the level of confidence required. For example, if your service is at high risk of identity fraud and uses LOA2, you will need a higher confidence in your matches than a service with a low risk of identity fraud.
+
+You should test your matching rules and confidence scores regularly and iterate them based on the results.
+
+## Matching stages
+
+The matching process typically consists of several stages, also known as matching cycles:
+
+1. personal identifier match
+1. user attribute match
+1. alternative trusted source match
+1. user input match
+
+Your service should run each cycle in turn to attempt to match the user to the correct record in the local data source. Each matching cycle uses an increasing number of attributes to search for a match.
+
+If your service doesn't find a match after completing the matching cycles, you can decide if you want to create a new account for the user.
+
+### Personal identifier match
+
+This first cycle is applicable if the user has previously verified their identity with the same identity provider. When doing a personal identifier (PID) match, the user’s hashed PID is matched against an existing hashed PID in your datastore(s).
+
+[Find out more about the PID][pid].
+
+### User attribute match
+
+If the PID match does not return a result, you should use the user attributes from the identity provider to check for possible matches.
+
+The matching service you build can take the user attributes and attempt to find a match between the user and their existing record. Your service’s matching rules should specify which details to use. For example, you should use historical verified data if offered by the identity provider and then use unverified historical data to tell the difference between candidate records.
+
+If your service finds a single match, it should create a correlation between the hashed PID and the existing record in the local datastore(s).
+
+The hashed PID should then be written to your datastore(s) so the next time the user attempts to use the service with the same identity provider, their record will be found during the personal identifier match.
+
+Stop the matching process if the user attribute match:
+
+- fails to find a match and no additional attributes are available
+- finds multiple matches and no additional attributes are available
+
+If the user attribute match finds multiple matches and additional attributes are available, continue to the next stage.
+
+### Alternative trusted source match
+
+This stage uses additional attributes related to identity from another source such as a credit referencing agency or other government department to help the matching process. For example, an additional attribute could be whether the user qualifies for a Blue Badge.
+
+### User input match
+
+At this stage, your service asks the user for some additional information, for example driving licence number. Your service then uses this information to refine the match. If your service finds a match, it should save the hashed PID in your datastore(s).
+
+This cycle is defined in the government service policy and may not be needed for all matches. You should clearly define what information your service asks the user for and how to use it for matching. For example, you decide how many pieces of additional information to request. If you request 2 pieces of information and the user can only provide 1 of them, your matching rules should specify whether to match this user.
+
+Use the user input match to enhance the user attribute match and not as an alternative to it.
+
+Although it might seem more productive to run the user input match straight away with the greatest number of attributes, it’s often less effective. Using the user input match in place of earlier stages can result fewer possible matching records and incorrect records if one or more of the input attributes are incorrect.
+
+## Matching approach
+
+One of the most effective matching approaches is to start with a wide search to make sure that any relevant record is found. If no records return, you can:
+
+- widen the search by using fewer attributes to find candidate records
+- do multiple searches with more attributes but smaller query clusters
+
+To run multiple searches you could break down a query with first name, surname and date of birth and run a series of searches with just 2 of those attributes.
+
+Once you have a number of possible matching records, run further checks with additional attributes to deduplicate until you are confident in the match.
+
+### First search with last name and date of birth
+
+For example, start with a first search for last name and date of birth. You may find clusters around 1 January and 1 June because children, immigrants and other people without official identity documents are often assigned these dates of birth.
+
+If a no match is returned, then the search should be run using any verified historical last name attributes if offered by the identity provider.
+
+You can also try synonym matching against forename and last name combinations such as transposing last name and forename. This can help match users who may use shortened versions of their name, a nickname, or their middle name rather than their legal first name. For example, a David Michael Smith might only use that name on his passport. He might use Michael Smith for other purposes, but refer to himself mostly as Mike Smith.
+
+### Filter candidates with postcode
+
+If the search returns multiple possible records, use the postcode to remove false positives. A verified postcode might not be the current postcode of a user, but is more valuable for matching than an unverified current postcode. If a set of user attributes does not contain any address, it is likely to be from an EU member state.
+
+If you cannot find a match with the postcode, you can:
+
+- ignore it, try to get sufficient matches on other attributes and move to the user input match for disambiguation
+- ask the user to provide further attributes to be able to use the user input match
+
+If you choose to request other attributes from the user to do a [user input match][user-input-match], you should consider how best to capture the information. For example, whether to ask a user to return online and provide more information or if someone from your organisation can collect the information in a telephone call.
+
+### Build confidence in a single record
+
+Once the matching process returns a single record, you should aim to increase your confidence score in the match.
+
+You should first check for an exact match with first name, last name, date of birth and postcode.
+
+If no match, transpose first name and any middle names. You may still need to use additional attributes to increase confidence in the match.
+
+If no match with transposition, try looking for an exact match with unverified first name(s).
+
+If no match with unverified first name(s), try using a list of synonyms. These lists will contain common synonyms, for example, William and Bill.
+
+If no match, you may decide to apply your fuzzy matching rules or ask a member of your organisation to contact the user for more attributes.
+
+### Audit and testing
+
+You should regularly audit matching requests and their outcome to help your refine your matching strategy.
+
+
+<%= partial "partials/links" %>
