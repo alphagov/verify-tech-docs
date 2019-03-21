@@ -1,12 +1,90 @@
 ---
-title: Plan your connection
-weight: 20
+title: Development steps
+weight: 15
 ---
 
-# Plan your connection
+# Development steps
 
-Before starting the development work to integrate GOV.UK Verify into your service, you should choose the technologies to help you do this.
+Find out more about the steps involved in connecting your service to GOV.UK Verify to help you establish a roadmap for the development work your team has to do.
 
-Find out more about the [development steps][development-steps] involved in connecting your service to GOV.UK Verify to help you establish a roadmap for the development work your team has to do.
+Before starting the development phase, you should have already decided how to [store and manage your encryption and signing keys][pki].
+
+## Local development phase
+
+In this phase, you are setting up the Verify Service Provider and testing that your service can handle all the responses form the GOV.UK Verify Hub. You can do all all of this on a development machine using a placeholder for the GOV.UK Verify Hub.
+
+When your service can successfully handle all the responses form the GOV.UK Verify Hub, you can move on to deploying and testing in the Integration environment. This is a secure test environment containing a full-scale deployment of the GOV.UK Verify Hub.
+
+### Set up your Verify Service Provider
+
+1. [Send an authentication request to the GOV.UK Verify hub][vsp-guide-request].
+1. [Handle the response from the GOV.UK Verify hub][vsp-guide-response].
+
+Outcome: you’re ready to run SAML compliance tests.
+
+For more information, see [How SAML works with GOV.UK Verify][saml] and the [Identity Assurance Hub Service SAML 2.0 Profile][saml-spec].
+
+### Test your Verify Service Provider
+
+You should [use the Compliance Tool to test] that your Verify Service Provider handles all the required scenarios correctly.
+
+Outcome: your Verify Service Provider can consume and produce valid SAML.
+
+For more information, see [How SAML works with GOV.UK Verify][saml].
+
+## Development in the test environment
+
+### Request access to the Integration environment.
+
+
+1. [Obtain signed certificates][get-certs-test] for the Integration environment from the IDAP test certificate authority
+1. [Fill in the ‘Request access to an environment‘ form][[env-request-form]]
+
+Outcome: you’re ready to connect your service to the Integration environment.
+
+For more information, see [How a PKI works][pki].
+
+### Connect your Verify Service Provider to the Integration environment
+
+To do this:
+
+1. [Download the VSP][vsp-release].
+2. [Configure the VSP for the Integration environment][vsp-config].
+
+Outcome: you’re ready to run end-to-end testing with test users.
+
+### Run end-to-end testing of all your user journeys in the Integration environment.
+
+To do this:
+
+1. Set up authentication to manage test users.
+1. Create test users.
+1. Run end-to-end tests.
+
+Outcome: your service can handle all the possible outcomes of end-to-end user journeys.
+
+
+## Connect to Production and go live
+
+### Request access to the production environment.
+
+To do this:
+
+1. Obtain [signed certificates][get-certs-prod] for the production environment from the IDAP certificate authority.
+1. [Fill in the ‘Request access to an environment‘ form][env-request-form].
+
+Outcome: you’re ready to connect your Verify Service Provider to the Production environment.
+
+For more information, see [How a PKI works][pki].
+
+## Maintenance
+
+### Rotate your keys.
+
+When the certificates containing your public keys are due to expire, [replace your keys and certificates][rotate-keys].
+
+Outcome: the encryption and signing certificates for your Verify Service Provider are up to date.
+
+For more information, see [How a PKI works][pki].
 
 <%= partial "partials/links" %>
