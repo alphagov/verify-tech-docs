@@ -1,13 +1,19 @@
 ---
-title: Matching
+title: Decide how to use GOV.UK Verify data
 weight: 20
 ---
 
-# Matching
-
-When a verified user needs to access your service, you will trust the user’s identity, but may need to check if the user’s identity can be linked to information held by your service. This process, known as ‘matching’, helps you to be sure that the John Smith trying to use your service is the same John Smith you already have on file.
+# Decide how to use GOV.UK Verify data
 
 Your service may need to handle the data from GOV.UK Verify even if you don’t want to match identities against the data you hold. For example, you could collect the data now to use it later or store the information as part of an audit requirement.
+
+Your service might not need to handle user attributes at all. An identity confirmation might be enough for your users to access your service.
+
+**Remember you must clearly explain to end users why you are collecting the data and what it will be used for.**
+
+## Matching
+
+When a verified user needs to access your service, you will trust the user’s identity, but may need to check if the user’s identity can be linked to information held by your service. This process, known as ‘matching’, helps you to be sure that the John Smith trying to use your service is the same John Smith you already have on file.
 
 Because there’s no unique identifier for citizens, finding the record involves matching verified information about the user (such as name, address, and date of birth) to a record in a local datastore(s) with a local identifier. For example, if you run an NHS service, the local identifier may be an NHS number.
 
@@ -21,6 +27,6 @@ To mitigate these risks, your service must:
 - [decide your matching strategy][matching-strategy]
 - [prepare your local data source(s)][prepare-local-datasources]
 
-Remember you must clearly explain to end users why you are collecting the data and what it will be used for.
+
 
 <%= partial "partials/links" %>
