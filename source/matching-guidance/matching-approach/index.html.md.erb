@@ -24,19 +24,18 @@ You can also try synonym matching against forename and last name combinations su
 
 ## Filter candidates with postcode
 
-**FIXME formatting and Cycles**
-
 If the search returns multiple possible records, use the postcode to remove false positives. A verified postcode might not be the current postcode of a user, but is more valuable for matching than an unverified current postcode. If a set of user attributes does not contain any address, it is likely to be from an EU member state.
 
 If you cannot find a match with the postcode, you can:
 
-ignore it, try to get sufficient matches on another attributes and move to Cycle 3 for disambiguation
-ask the user to provided further attributes to be able to use Cycle 3
-If you choose to request other attributes from the user, you should consider how best to capture the information. For example, whether to ask a user to return online and provide more information or if someone from your organisation can collect the information in a telephone call.
+- ignore it, try to get sufficient matches on other attributes and move to the user input match for disambiguation
+- ask the user to provide further attributes to be able to use the user input match
+
+If you choose to request other attributes from the user to do a [user input match][user-input-match], you should consider how best to capture the information. For example, whether to ask a user to return online and provide more information or if someone from your organisation can collect the information in a telephone call.
 
 ## Build confidence in a single record
 
-Once the matching service returns a single record, you should aim to increase your confidence score in the match.
+Once the matching process returns a single record, you should aim to increase your confidence score in the match.
 
 You should first check for an exact match with first name, last name, date of birth and postcode.
 
@@ -50,6 +49,6 @@ If no match, you may decide to apply your fuzzy matching rules or ask a member o
 
 ## Audit and testing
 
-You should regularly audit matching requests and their outcome to help your refine your matching strategy and iterate your matching service.
+You should regularly audit matching requests and their outcome to help your refine your matching strategy.
 
 <%= partial "partials/links" %>
