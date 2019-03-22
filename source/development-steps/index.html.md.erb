@@ -30,9 +30,13 @@ You should [use the Compliance Tool to test] that your Verify Service Provider h
 
 Outcome: your Verify Service Provider can consume and produce valid SAML.
 
-For more information, see [How SAML works with GOV.UK Verify][saml].
+Test that you can handle the identities...
 
-## Development in the test environment
+For more information, see [How SAML works with GOV.UK Verify][saml] - link to Message flow.
+
+**Link to API docs.**
+
+## End-to-end testing
 
 ### Request access to the Integration environment.
 
@@ -51,6 +55,9 @@ To do this:
 1. [Download the VSP][vsp-release].
 2. [Configure the VSP for the Integration environment][vsp-config].
 
+set environment variable to VERIFY_ENVIRONMENT
+put the right keys and certs in
+
 Outcome: you’re ready to run end-to-end testing with test users.
 
 ### Run end-to-end testing of all your user journeys in the Integration environment.
@@ -64,7 +71,7 @@ To do this:
 Outcome: your service can handle all the possible outcomes of end-to-end user journeys.
 
 
-## Connect to Production and go live
+## Go live
 
 ### Request access to the production environment.
 
@@ -79,7 +86,7 @@ For more information, see [How a PKI works][pki].
 
 ## Maintenance
 
-### Rotate your keys.
+### Rotate your keys
 
 When the certificates containing your public keys are due to expire, [replace your keys and certificates][rotate-keys].
 
