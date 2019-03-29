@@ -5,15 +5,21 @@ weight: 10
 
 # Data from GOV.UK Verify
 
-**Introduction about what comes back in an IDENTITY_VERIFIED response**
+When a user's identity is [successfully verified][vsp-guide-response], the response from the GOV.UK Verify Hub will contain:
 
-## Personal identifier
+- the [level of assurance][loa] the user's identity was verified at
+- a persistent identifier assigned by the identity provider
+- a set of attributes about the verified user from the identity provider
+
+## Persistent identifier
 
 When an identity provider verifies a user’s identity, they assign a unique persistent identifier (PID) to that user. The PID is a unique identifier that refers to a user and the identity provider that verified the user’s identity. It’s a pseudo-random value that has no resemblance to any real information from a user, for example their email address or name.
 
 If a user verifies using multiple identity providers, that user will have multiple PIDs.
 
 The Verify Service Provider will hash the PID to make it specific to each service (and meaningless to other services) before sending it on to your service.
+
+## Attributes
 
 The set of attributes contains verified information about a user including their:
 
@@ -25,7 +31,7 @@ It may also include additional data such as historical addresses and gender.
 
 You must not use the user attributes for anything other than matching. If you do, you may be in violation of the [General Data Protection Regulation][GDPR] [external link].
 
-## European identities and eIDAS
+### European identities and eIDAS
 
 The [eIDAS regulation][eidas-regulation] [external link] says that European citizens must be able to use their national electronic IDs to access public services provided by another EU member state.
 
@@ -50,7 +56,7 @@ The UK uses addresses as an extra attribute to establish identity and help with 
 
 If you [configure your VSP to accept EU identities][vsp-config] [external link], make sure your matching strategy does not rely on receiving an `addresses` attribute for all identities. EU identities won’t have an `addresses` attribute. GOV.UK Verify identities will have at least one verified `addresses` attribute that you can use in your matching strategy.
 
-## Unverified attributes
+### Unverified attributes
 
 The identity provider may offer some unverified attributes to help you disambiguate between similar records. Any unverified attributes will be clearly labelled.
 
