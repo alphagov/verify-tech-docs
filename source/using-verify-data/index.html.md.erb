@@ -3,17 +3,29 @@ title: Decide how to use GOV.UK Verify data
 weight: 20
 ---
 
-# Decide how to use GOV.UK Verify data
+# Decide how to use data from GOV.UK Verify
 
-When a user's identity is successfully verified, the response from the GOV.UK Verify Hub will have [information about that user](/using-verify-data/data-from-verify/#data-from-gov-uk-verify).
+When a user's identity is successfully verified, the response from the GOV.UK Verify Hub will contain information about that user.
 
-Services often need to link this information with user data they already hold. If this use case applies to your service, find out more about linking the information you get from GOV.UK Verify Hub with
+**Describe this better**
+You should decide how your service will handle this data. Your decision and its technical implementation are separate from connecting to GOV.UK Verify. 
 
-Your service may need to handle the data from GOV.UK Verify even if you don’t want to link users to data you already have. For example, you could be collecting the data as part of an audit requirement or to forward it to a case worker.
+Your use case for this information depends on your service's needs. You might need to:
 
-Your service might not need to handle information about users at all. An identity confirmation might be enough for your users to access your service.
+- link the user information with user data your service already holds
+- store information as part of an audit requirement
+- forward it to a case worker
 
 **Remember you must clearly explain to end users why you are collecting the data and what it will be used for.**
 
+Your service might not need to handle information about users at all. Identity confirmation might be enough for your users to access your service.
+
+Find out more about:
+
+- [what data your service gets from GOV.UK Verify][data-from-verify]
+- [linking user information with data your service already holds][matching-intro]
+
+[data-from-verify]: /using-verify-data/data-from-verify/#data-from-gov-uk-verify)
+[matching-intro]: /using-verify-data/about-matching/#introduction-to-matching
 
 <%= partial "partials/links" %>
