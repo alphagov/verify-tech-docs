@@ -29,15 +29,15 @@ The set of attributes contains verified information about a user including their
 
 It may also include additional data such as historical addresses and gender.
 
-You must not use the user attributes for anything other than matching. If you do, you may be in violation of the [General Data Protection Regulation][GDPR] [external link].
+You must not use the user attributes for anything other than matching. If you do, you may be in violation of the [General Data Protection Regulation][GDPR] .
 
 ### European identities and eIDAS
 
-The [eIDAS regulation][eidas-regulation] [external link] says that European citizens must be able to use their national electronic IDs to access public services provided by another EU member state.
+The [eIDAS regulation][eidas-regulation] says that European citizens must be able to use their national electronic IDs to access public services provided by another EU member state.
 
 In practice, this means European citizens will be able to use their national online identity schemes to confirm their identity and access UK government services.
 
-If your service needs to be able to process EU identities, you need to [configure your VSP][vsp-config] [external link] to do this.
+If your service needs to be able to process EU identities, you need to [configure your VSP][vsp-config] to do this.
 
 Once configured, both European identities and GOV.UK Verify identities you receive will always be in the format of the [universal JSON matching schema](LINK).
 
@@ -54,7 +54,7 @@ For names using non-Latin characters, both the non-Latin as well as a Latin equi
 
 The UK uses addresses as an extra attribute to establish identity and help with matching. Other countries can use a personal identification number or similar. Both approaches meet identity assurance standards.
 
-If you [configure your VSP to accept EU identities][vsp-config] [external link], make sure your matching strategy does not rely on receiving an `addresses` attribute for all identities. EU identities won’t have an `addresses` attribute. GOV.UK Verify identities will have at least one verified `addresses` attribute that you can use in your matching strategy.
+If you [configure your VSP to accept EU identities][vsp-config] , make sure your matching strategy does not rely on receiving an `addresses` attribute for all identities. EU identities won’t have an `addresses` attribute. GOV.UK Verify identities will have at least one verified `addresses` attribute that you can use in your matching strategy.
 
 ### Unverified attributes
 

@@ -56,7 +56,7 @@ You can minimise false negatives by thoroughly testing your matching strategy on
 
 ### Fuzzy matching
 
-As well as looking for exact matches, you should consider looking for records that are an approximate match. The process for finding approximate matches is known as [fuzzy or probabilistic matching][record-linkage] [external link].
+As well as looking for exact matches, you should consider looking for records that are an approximate match. The process for finding approximate matches is known as [fuzzy or probabilistic matching][record-linkage] .
 
 Much like finding exact matches, you will need to decide the rules for this matching process. The more relaxed your rules, the more ‘fuzzy’ your matching. You’ll be more likely to receive false positives. The tighter your rules, the less ‘fuzzy’ your matching. You’ll be more likely to receive false negatives.
 
@@ -71,7 +71,7 @@ There are several fuzzy matching techniques you can use to search for matches, i
 
 #### Levenshtein
 
-It can also be useful to assess how much the record and data from the identity provider disagree. You can do this by measuring the number of changes that need to be made to a string for it to match with another. The number of changes is known as the edit or [Levenshtein distance][levenshtein-distance] [external link].
+It can also be useful to assess how much the record and data from the identity provider disagree. You can do this by measuring the number of changes that need to be made to a string for it to match with another. The number of changes is known as the edit or [Levenshtein distance][levenshtein-distance] .
 
 The higher the Levenshtein distance, the greater the difference between the 2 strings.
 
@@ -81,7 +81,7 @@ If you want to reduce the risk of false positives, you might choose to restrict 
 
 #### Phonetic algorithms
 
-You can use phonetic algorithms such as [Metaphone][metaphone] [external link] and [Soundex][soundex] [external link] help to identify words or names that sound similar.
+You can use phonetic algorithms such as [Metaphone][metaphone]  and [Soundex][soundex]  help to identify words or names that sound similar.
 
 These algorithms can help encode homophones in the same way so they can be matched by your matching service. For example, Metaphone transforms words with a ‘ck’ sound to ‘k’.
 

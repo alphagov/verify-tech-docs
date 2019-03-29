@@ -18,7 +18,7 @@ The guide uses a GOV.UK Verify-hosted testing service as a placeholder for the G
 
 ## Before you start
 
-You need VSP 2.0.0 or above to follow instructions on this page. See [the latest VSP release][vsp-release] [external link].
+You need VSP 2.0.0 or above to follow instructions on this page. See [the latest VSP release][vsp-release].
 
 ## Using the VSP with the testing service
 
@@ -30,7 +30,7 @@ To connect your VSP to the testing service, start the VSP using the `development
 
 The example sets `http://localhost:8080` as the endpoint where the testing service sends the SAML responses.
 
-Read more about the development command and other [commands available for the VSP][vsp-run] [external link] in the VSP's README file.
+Read more about the development command and other [commands available for the VSP][vsp-run] in the VSP's README file.
 
 ## Send a request
 
@@ -73,7 +73,7 @@ You must store the `requestId` securely and link it to the user's session. For e
 
 ### Send the authentication request to the testing service
 
-After receiving the authentication request, your service sends that request to the testing service through the browser. To do this, render an HTML form containing JavaScript to auto-submit the form, as described by [SAML HTTP Post Binding](https://en.wikipedia.org/wiki/SAML_2.0#HTTP_POST_Binding) [external link]:
+After receiving the authentication request, your service sends that request to the testing service through the browser. To do this, render an HTML form containing JavaScript to auto-submit the form, as described by [SAML HTTP Post Binding](https://en.wikipedia.org/wiki/SAML_2.0#HTTP_POST_Binding) :
 
 ```html
 <!-- The form containing the SAML authentication request
