@@ -101,7 +101,7 @@ You should test your matching rules and confidence scores regularly and iterate 
 
 The matching process typically consists of several stages, also known as matching cycles:
 
-1. personal identifier match
+1. persistent identifier match
 1. user attribute match
 1. alternative trusted source match
 1. user input match
@@ -110,9 +110,9 @@ Your service should run each cycle in turn to attempt to match the user to the c
 
 If your service doesn't find a match after completing the matching cycles, you can decide if you want to create a new account for the user.
 
-### Personal identifier match
+### Persistent identifier match
 
-This first cycle is applicable if the user has previously verified their identity with the same identity provider. When doing a personal identifier (PID) match, the user’s hashed PID is matched against an existing hashed PID in your datastore(s).
+This first cycle is applicable if the user has previously verified their identity with the same identity provider. When doing a persistent identifier (PID) match, the user’s hashed PID is matched against an existing hashed PID in your datastore(s).
 
 [Find out more about the PID][pid].
 
@@ -124,7 +124,7 @@ The matching service you build can take the user attributes and attempt to find 
 
 If your service finds a single match, it should create a correlation between the hashed PID and the existing record in the local datastore(s).
 
-The hashed PID should then be written to your datastore(s) so the next time the user attempts to use the service with the same identity provider, their record will be found during the personal identifier match.
+The hashed PID should then be written to your datastore(s) so the next time the user attempts to use the service with the same identity provider, their record will be found during the persistent identifier match.
 
 Stop the matching process if the user attribute match:
 
