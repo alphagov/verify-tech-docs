@@ -99,64 +99,64 @@ You should test your matching rules and confidence scores regularly and iterate 
 
 ## Matching stages
 
-The matching process typically consists of several stages, also known as matching cycles:
+The matching process typically consists of several stages, also known as matching cycles. To have an efficient matching process, you should match by:
 
-1. persistent identifier match
-1. user attribute match
-1. alternative trusted source match
-1. user input match
+1. Persistent identifier
+1. User attributes
+1. Information from other trusted sources
+1. User input
 
-Your service should run each cycle in turn to attempt to match the user to the correct record in the local data source. Each matching cycle uses an increasing number of attributes to search for a match.
+Your service should go through the stages to try to match the user with the correct record in the local data source. Each matching stage uses an increasing number of user attributes to search for a match.
 
-If your service doesn't find a match after completing the matching cycles, you can decide if you want to create a new account for the user.
+If your service does not find a match after going through all stages, you can decide if you want to create a new account for the user.
 
-### Persistent identifier match
+### Matching by persistent identifier
 
-This first cycle is applicable if the user has previously verified their identity with the same identity provider. When doing a persistent identifier (PID) match, the user’s hashed PID is matched against an existing hashed PID in your datastore(s).
+This stage is applicable if the user has previously verified their identity with the same identity provider. When doing a persistent identifier (PID) match, the user’s hashed PID is matched against an existing hashed PID in your datastore(s).
 
 [Find out more about the PID][pid].
 
-### User attribute match
+### Matching by user attributes
 
 If the PID match does not return a result, you should use the user attributes from the identity provider to check for possible matches.
 
-The matching service you build can take the user attributes and attempt to find a match between the user and their existing record. Your service’s matching rules should specify which details to use. For example, you should use historical verified data if offered by the identity provider and then use unverified historical data to tell the difference between candidate records.
+The matching service you build can take the user attributes and attempt to find a match between the user and their existing record. Your service’s matching rules should specify which details to use. For example, you should use verified historical data if offered by the identity provider and then use unverified historical data to tell the difference between candidate records.
 
 If your service finds a single match, it should create a correlation between the hashed PID and the existing record in the local datastore(s).
 
-The hashed PID should then be written to your datastore(s) so the next time the user attempts to use the service with the same identity provider, their record will be found during the persistent identifier match.
+Your service should then write the hashed PID to your datastore(s) so the next time the user attempts to use the service with the same identity provider, their record will be found during the persistent identifier match.
 
 Stop the matching process if the user attribute match:
 
-- fails to find a match and no additional attributes are available
-- finds multiple matches and no additional attributes are available
+- fails to find a match and no additional user attributes are available
+- finds multiple matches and no additional user attributes are available
 
-If the user attribute match finds multiple matches and additional attributes are available, continue to the next stage.
+If the user attribute match finds multiple matches and additional user attributes are available, continue to the next stage.
 
-### Alternative trusted source match
+### Matching using information from other trusted sources
 
-This stage uses additional attributes related to identity from another source such as a credit referencing agency or other government department to help the matching process. For example, an additional attribute could be whether the user qualifies for a Blue Badge.
+This stage uses additional user attributes related to identity from another source such as a credit referencing agency or other government department to help the matching process. For example, an additional user attribute could be whether the user qualifies for a Blue Badge.
 
-### User input match
+### Matching using input from the user
 
 At this stage, your service asks the user for some additional information, for example driving licence number. Your service then uses this information to refine the match. If your service finds a match, it should save the hashed PID in your datastore(s).
 
-This cycle is defined in the government service policy and may not be needed for all matches. You should clearly define what information your service asks the user for and how to use it for matching. For example, you decide how many pieces of additional information to request. If you request 2 pieces of information and the user can only provide 1 of them, your matching rules should specify whether to match this user.
+You should clearly define what information your service asks the user for and how to use it for matching. For example, you decide how many pieces of additional information to request. If you request 2 pieces of information and the user can only provide 1 of them, your matching rules should specify whether to match this user.
 
 Use the user input match to enhance the user attribute match and not as an alternative to it.
 
-Although it might seem more productive to run the user input match straight away with the greatest number of attributes, it’s often less effective. Using the user input match in place of earlier stages can result fewer possible matching records and incorrect records if one or more of the input attributes are incorrect.
+Although it might seem more productive to run the user input match straight away with the greatest number of user attributes, it’s often less effective. Using the user input match in place of earlier stages can result fewer possible matching records and incorrect records if one or more of the input user attributes are incorrect.
 
 ## Matching approach
 
 One of the most effective matching approaches is to start with a wide search to make sure that any relevant record is found. If no records return, you can:
 
-- widen the search by using fewer attributes to find candidate records
-- do multiple searches with more attributes but smaller query clusters
+- widen the search by using fewer user attributes to find candidate records
+- do multiple searches with more user attributes but smaller query clusters
 
-To run multiple searches you could break down a query with first name, surname and date of birth and run a series of searches with just 2 of those attributes.
+To run multiple searches you could break down a query with first name, surname and date of birth and run a series of searches with just 2 of those user attributes.
 
-Once you have a number of possible matching records, run further checks with additional attributes to deduplicate until you are confident in the match.
+Once you have a number of possible matching records, run further checks with additional user attributes to deduplicate until you are confident in the match.
 
 ### First search with last name and date of birth
 
