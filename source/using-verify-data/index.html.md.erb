@@ -1,0 +1,30 @@
+---
+title: Decide how to use GOV.UK Verify data
+weight: 20
+---
+
+# Decide how to use data from GOV.UK Verify
+
+When an identity provider successfully verifies a user’s identity, the response from the GOV.UK Verify Hub will contain information about that user.
+
+Your use case for this information depends on your service's needs. You might need to:
+
+- link the user information with user data your service already holds
+- store information as part of an audit requirement
+- forward it to a case worker
+
+<newline>
+
+<%= warning_text('You must clearly explain to your users why you are collecting the data and what it will be used for.') %>
+
+Your service might not need to handle information about users at all. Identity confirmation might be enough for your users to access your service.
+
+Find out more about:
+
+- [what data your service gets from GOV.UK Verify][data-from-verify]
+- [linking user information with data your service already holds][matching-intro]
+
+[data-from-verify]: /using-verify-data/data-from-verify/#data-from-gov-uk-verify)
+[matching-intro]: /using-verify-data/about-matching/#introduction-to-matching
+
+<%= partial "partials/links" %>

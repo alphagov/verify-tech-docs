@@ -1,0 +1,59 @@
+---
+title: Development steps
+weight: 15
+---
+
+# Development steps
+
+This is a summary of the technical steps involved in connecting your service to GOV.UK Verify. This summary will help set a roadmap for your team's development work.
+
+Before starting development, you should have already decided how to:
+
+- [use the data you get from the GOV.UK Verify Hub][decide-data]
+- [store and manage your encryption and signing keys][pki].
+
+## Local development
+
+In this phase, you're setting up the Verify Service Provider to generate  authentication requests and translate responses.
+
+Make sure your service correctly uses the Verify Service Provider to handle:
+
+- [successful verification responses][successful-verification]
+- [possible failure scenarios][vsp-guide-failure]
+
+You should also test that your service can handle [your use case for data from the GOV.UK Verify Hub][decide-data].
+
+For a detailed description of the Verify Service Provider's API, see:
+
+- the [API reference documentation][vsp-api]
+- the [OpenAPI v3 description][vsp-openapi3]
+
+## End-to-end testing
+
+In this phase, you're doing end-to-end testing of user journeys in a secure test environment. The environment known as 'Integration' contains a full-scale deployment of the GOV.UK Verify Hub.
+
+To access the test environment:
+
+1. [Obtain signed certificates][get-certs-test] for the test environment.
+1. [Fill in the 'Request access to an environment' form][env-request-form].
+1. [Configure the VSP][vsp-config-readme] for the test environment.
+
+Once connected to the test environment, [run end-to-end testing][test-in-integration] on all your user journeys.
+
+## Go live
+
+To access the production environment:
+
+1. [Obtain signed certificates][get-certs-prod] for the production environment.
+1. [Fill in the 'Request access to an environment' form][env-request-form].
+1. [Configure the VSP][vsp-config-readme] for the production environment.
+
+You’re ready to connect your Verify Service Provider to the production environment.
+
+## Maintenance
+
+To keep your service connected to the GOV.UK Verify Hub, your certificates must be up to date. Make sure you [update your certificates][rotate-keys] when they are due to expire.
+
+Make sure you're running an up-to-date [release of the Verify Service Provider][vsp-release].
+
+<%= partial "partials/links" %>
