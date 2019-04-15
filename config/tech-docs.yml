@@ -45,4 +45,4 @@ api_path:
 
 # Set default slack workspace and owner
 owner_slack_workspace: gds
-default_owner_slack: '#bot-testing'
+default_owner_slack: '#verify-developers'
