@@ -3,4 +3,16 @@ title: Update your VSP signing key
 weight: 10
 ---
 
-# Update
+# Update your VSP signing key and certificate
+
+These instructions apply to you if you're using the Verify Service Provider (VSP). If you're not using the VSP, [see the instructions on updating your service provider signing key and certificate][sp-signing].
+
+1. Generate a new self-signed signing certificate for your VSP.
+1. [Upload your new signing certificate to the GOV.UK Verify Service Admin tool](https://connecting-to-verify-prototype.herokuapp.com/self-serve/before-you-start-vsp-signing).
+1. Receive e-mail confirmation that the GOV.UK Verify team have deployed your signing certificate.
+1. Replace the old signing key under `samlSigningKey` in the VSP configuration with the new key.
+1. Restart the VSP to implement the configuration changes. The VSP now signs SAML messages with the new key.
+
+The GOV.UK Verify hub now trusts SAML messages signed with your new VSP signing key.
+
+<%= partial "partials/links" %>

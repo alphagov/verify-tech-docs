@@ -3,4 +3,35 @@ title: Update your MSA encryption key
 weight: 60
 ---
 
-# Update
+# Update your MSA encryption key and certificate
+
+These instructions apply to you if you're using the legacy setup with a Matching Service Adapter (MSA).
+
+1. Generate a new self-signed encryption certificate for your MSA.
+1. Add a second list item containing the details for your new key and self-signed certificate under `encryptionKeys` in your [MSA configuration][msa-config], for example:
+
+    ```yaml
+    encryptionKeys:
+    - publicKey:
+        certFile: msa_encryption_2016.crt
+        name: MSA Encryption 2016
+      privateKey:
+        keyFile: msa_encryption_2016.pk8
+    - publicKey:
+        certFile: msa_encryption_2017.crt
+        name: MSA Encryption 2017
+      privateKey:
+        keyFile: msa_encryption_2017.pk8
+    ```
+
+1. Restart the MSA to implement the configuration changes. The MSA can now use both the new and old keys to decrypt SAML messages.
+1. [Upload your new encryption certificate to the GOV.UK Verify Service Admin tool](https://connecting-to-verify-prototype.herokuapp.com/self-serve/before-you-start-msa-encryption).
+1. Receive e-mail confirmation that the GOV.UK Verify team have deployed your encryption certificate.
+1. Delete the old encryption key and certificate.
+1. Restart the MSA to implement the configuration changes.
+
+The MSA now uses the new encryption key to decrypt SAML messages, and the GOV.UK Verify hub now uses your new self-signed encryption certificate to encrypt SAML messages for your service.
+
+> While both keys are in use, you may see error messages in the logs with the description `Unwrapping failed`. These messages appear because the MSA attempts to decrypt the SAML message using each key in turn. You can safely ignore these messages. However, do not ignore any other error messages related to SAML decryption.
+
+<%= partial "partials/links" %>

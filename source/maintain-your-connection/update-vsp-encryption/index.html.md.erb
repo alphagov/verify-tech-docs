@@ -3,4 +3,16 @@ title: Update your VSP encryption key
 weight: 20
 ---
 
-# Update
+# Update your VSP encryption key and certificate
+
+These instructions apply to you if you're using the Verify Service Provider (VSP). If you're not using the VSP, [see the instructions on updating your service provider encryption key and certificate][sp-encryption].
+
+1. Generate a new self-signed encryption certificate for your VSP.
+1. Add your new VSP private encryption key to the `samlSecondaryEncryptionKey` field in the VSP configuration file.
+1. Restart the VSP to implement the configuration changes. The VSP can now use both the new and old keys to decrypt SAML messages.
+1. [Upload your new self-signed encryption certificate to the GOV.UK Verify Service Admin tool](https://connecting-to-verify-prototype.herokuapp.com/self-serve/before-you-start-vsp-encryption).
+1. Receive e-mail confirmation that the GOV.UK Verify team have deployed your encryption certificate.
+1. Replace the key in `samlPrimaryEncryptionKey` with the key from `samlSecondaryEncryptionKey` and leave `samlSecondaryEncryptionKey` empty for the next key update.
+1. Restart the VSP to implement the configuration changes.
+
+Your service now uses the new VSP encryption key to decrypt SAML messages.
