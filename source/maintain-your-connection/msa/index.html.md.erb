@@ -5,39 +5,45 @@ weight: 20
 
 # Matching Service Adapter
 
-These instructions apply to you if you're using the legacy setup with a Matching Service Adapter (MSA).
+If your connection to GOV.UK Verify involves a Matching Service Adapter (MSA), you are responsible for keeping its encryption and signing certificates up to date.
 
-<%= partial "partials/get-self-signed-certificates" %>
+You must update the certificates containing your MSA's public keys before they expire. If you don't, your users wont be able to access your service using GOV.UK Verify.
 
 ## Update the encryption key and certificate
 
-### Step 1. Add the new encryption key pair to your MSA configuration
+### Step 1. Get a new self-signed encryption certificate
+
+<%= partial("partials/get-self-signed-certificates") %>
+
+### Step 2. Add the new encryption key pair to your MSA configuration
 
 Add a second list item containing the details for your new key and self-signed certificate under `encryptionKeys` in your [MSA configuration][msa-config], for example:
 
-    ```yaml
-    encryptionKeys:
-    - publicKey:
-        certFile: msa_encryption_2016.crt
-        name: MSA Encryption 2016
-      privateKey:
-        keyFile: msa_encryption_2016.pk8
-    - publicKey:
-        certFile: msa_encryption_2017.crt
-        name: MSA Encryption 2017
-      privateKey:
-        keyFile: msa_encryption_2017.pk8
-    ```
+```yaml
+encryptionKeys:
+- publicKey:
+    certFile: msa_encryption_2016.crt
+    name: MSA Encryption 2016
+  privateKey:
+    keyFile: msa_encryption_2016.pk8
+- publicKey:
+    certFile: msa_encryption_2017.crt
+    name: MSA Encryption 2017
+  privateKey:
+    keyFile: msa_encryption_2017.pk8
+```
 
 Restart the MSA to implement the configuration changes. The MSA can now use both the new and old keys to decrypt SAML messages.
 
-### Step 2. Upload the new encryption certificate
+### Step 3. Upload the new encryption certificate
 
-Upload your new encryption certificate to the GOV.UK Verify Service Admin tool.
+To make GOV.UK Verify Hub use your new encryption self-signed certificate, upload it to the [GOV.UK Verify Service Admin tool][manage-certs].
 
-You will receive e-mail confirmation that the GOV.UK Verify team have deployed your encryption certificate.
+Uploading your new certificate causes a configuration change for GOV.UK Verify Hub.
 
-### Step 3. Delete the old encryption key pair
+You will receive e-mail confirmation when thee deployment of your new certificate is complete. Wait for this confirmation before moving to the next step.
+
+### Step 4. Delete the old encryption key pair
 
 Delete the old encryption key and certificate.
 
@@ -49,13 +55,19 @@ The MSA now uses the new encryption key to decrypt SAML messages, and the GOV.UK
 
 ## Update the signing keys and certificate
 
-### Step 1. Upload the new signing certificate
+### Step 1. Get a new self-signed signing certificate
 
-Upload your new signing certificate to the GOV.UK Verify Service Admin tool.
+<%= partial("partials/get-self-signed-certificates") %>
+
+### Step 2. Upload the new signing certificate
+
+To make GOV.UK Verify Hub use your new encryption self-signed certificate, upload it to the [GOV.UK Verify Service Admin tool][manage-certs].
+
+Uploading your new certificate causes a configuration change for GOV.UK Verify Hub.
 
 You will get an e-mail confirmation when the GOV.UK Verify team have deployed your new signing certificate. In the meantime, you can move on to adding the new signing key and certificate to your MSA configuration.
 
-### Step 2. Add the new signing key pair to your MSA configuration
+### Step 3. Add the new signing key pair to your MSA configuration
 
 Add your new signing key and self-signed certificate to `signingKeys.secondary` in your MSA configuration, for example:
 
@@ -79,7 +91,7 @@ Restart the MSA to publish the new signing certificate to its metadata. You must
 
 If you’re using the VSP, wait for it to load the MSA metadata. The VSP periodically refreshes its metadata and will log when it has finished. Once it loads the new metadata, the VSP trusts assertions signed with the new MSA signing key.
 
-### Step 3. Delete the old signing key pair
+### Step 4. Delete the old signing key pair
 
 Wait for e-mail confirmation that the GOV.UK Verify team have deployed your new signing certificate before.
 
