@@ -1,6 +1,16 @@
 Use your preferred method to generate the new private key and self-signed certificate pair, but make sure the files are:
 
-- PKCS#8 formatted keys `.pk8`
+- PKCS#8 formatted keys `.pk8` **TODO: IS THIS STILL A REQUIREMENT??**
 - PEM encoded X509 certificates `.crt`
 
 We recommend you establish a naming convention for all your PKI files. Typically, this includes the name of the component and an incremental version number.
+
+For example, you can use OpenSSL to generate your keys and self-signed certificates. Most Linux distributions and Mac OS versions have OpenSSL installed.
+
+You can then generate your private key and self-signed certificate:
+
+```sh
+openssl req -x509 -newkey rsa:4096 -keyout vsp-signing-2020.key -out vsp-signing-2020.crt -days 365
+```
+
+The command generates an RSA private key named `vsp-signing-2020.key` and an X509 self-signed certificate valid for 1 year named `vsp-signing-2020.crt`.
