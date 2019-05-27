@@ -1,61 +1,25 @@
 ---
-title: Verify Service Provider
+title: VSP signing
 weight: 10
 ---
 
-# Verify Service Provider
+# Update your Verify Service Provider signing key and certificate
 
 If you're using the Verify Service Provider to connect to GOV.UK Verify, you are responsible for keeping its encryption and signing certificates up to date.
 
 If you're using a custom service provider, [go to the section about updating service provider keys][sp-keys].
 
-## Update the encryption key and certificate
-
-### Step 1. Get a new self-signed encryption certificate
+## Step 1. Get a new self-signed signing certificate
 
 <%= partial("partials/get-self-signed-certificates") %>
 
-### Step 2. Add the new encryption key pair the configuration
-
-Add your new VSP private encryption key to the `samlSecondaryEncryptionKey` field in the VSP configuration file.
-
-Restart the VSP to implement the configuration changes. The VSP can now use both the new and old keys to decrypt SAML messages.
-
-### Step 3. Upload the new encryption certificate
-
-To make GOV.UK Verify Hub use your new encryption self-signed certificate, upload it to the [GOV.UK Verify Service Admin tool][manage-certs].
-
-You will receive e-mail confirmation that the GOV.UK Verify team have deployed your encryption certificate. Wait for this confirmation before moving to the next step.
-
-### Step 4. Remove the old encryption key
-
-Once you receive the e-mail confirmation, you can be sure that GOV.UK Verify Hub uses your new certificate to encrypt messages for your service. This means it's safe to remove the old encryption key from your VSP configuration.
-
-<newline>
-
-<%= warning_text('Wait for the deployment confirmation e-mail from the GOV.UK Verify Team before removing the old encryption key.') %>
-
-To remove the old encryption key from the VSP configuration:
-
-1. Replace the key in `samlPrimaryEncryptionKey` with the key from `samlSecondaryEncryptionKey`.
-1. Leave `samlSecondaryEncryptionKey` empty for the next update.
-1. Restart the VSP to implement the configuration changes.
-
-Your VSP now uses the new encryption key to decrypt SAML messages from GOV.UK Verify Hub.
-
-## Update the signing key and certificate
-
-### Step 1. Get a new self-signed signing certificate
-
-<%= partial("partials/get-self-signed-certificates") %>
-
-### Step 2. Upload the new signing certificate
+## Step 2. Upload the new signing certificate
 
 To make GOV.UK Verify Hub use your new signing self-signed certificate, upload it to the [GOV.UK Verify Service Admin tool][manage-certs].
 
 You will get an e-mail confirmation when the GOV.UK Verify team have deployed your new signing certificate. Wait for this confirmation before moving to the next step.
 
-### Step 3. Replace the old signing key
+## Step 3. Replace the old signing key
 
 Once you receive the e-mail confirmation, you can be sure that GOV.UK Verify Hub trusts messages signed with your new VSP signing key. This means it's safe to remove the old signing key from your VSP configuration.
 
