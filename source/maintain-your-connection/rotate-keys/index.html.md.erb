@@ -134,6 +134,8 @@ The MSA publishes its certificates containing the public keys in its own metadat
 
     If you’re using the VSP, wait for it to load the MSA metadata. The VSP periodically refreshes its metadata and will log when it has finished. Once it loads the new metadata, the VSP trusts assertions signed with the new MSA signing key.
 
+1. Receive confirmation from the GOV.UK Verify team that they have deployed your new MSA signing certificate.
+
 1. Delete the `signingKeys.primary` section and rename `signingKeys.secondary` to `signingKeys.primary` - the MSA now signs the assertions with the new  key.
 
 1. Restart the MSA to update its metadata to contain only the new signing certificate.
