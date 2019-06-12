@@ -1,5 +1,5 @@
 ---
-title: MSA encryption
+title: Matching Service Adapter encryption
 weight: 20
 ---
 
@@ -9,11 +9,13 @@ If your connection to GOV.UK Verify involves a Matching Service Adapter (MSA), y
 
 You must update the certificates containing your MSA's public keys before they expire. If you don't, your users wont be able to access your service using GOV.UK Verify.
 
-## Step 1. Get a new self-signed encryption certificate
+## Update your Matching Service Adapter encryption key and certificate
+
+### Step 1. Get a new self-signed encryption certificate
 
 <%= partial("partials/get-self-signed-certificates") %>
 
-## Step 2. Add the new encryption key pair to your MSA configuration
+### Step 2. Add the new encryption key pair to your MSA configuration
 
 Add a second list item containing the details for your new key and self-signed certificate under `encryptionKeys` in your [MSA configuration][msa-config], for example:
 
@@ -33,7 +35,7 @@ encryptionKeys:
 
 Restart the MSA to implement the configuration changes. The MSA can now use both the new and old keys to decrypt SAML messages.
 
-## Step 3. Upload the new encryption certificate
+### Step 3. Upload the new encryption certificate
 
 To make GOV.UK Verify Hub use your new encryption self-signed certificate, upload it to the GOV.UK Verify Service Admin tool.
 
@@ -41,7 +43,7 @@ Uploading your new certificate causes a configuration change for GOV.UK Verify H
 
 You will receive e-mail confirmation when thee deployment of your new certificate is complete. Wait for this confirmation before moving to the next step.
 
-## Step 4. Delete the old encryption key pair
+### Step 4. Delete the old encryption key pair
 
 Delete the old encryption key and certificate.
 
