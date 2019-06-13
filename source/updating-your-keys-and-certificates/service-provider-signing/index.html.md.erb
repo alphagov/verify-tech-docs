@@ -3,23 +3,25 @@ title: Service provider signing
 weight: 30
 ---
 
-# Update your service provider signing key and certificate
+# Service provider signing
 
 If you built your own service provider to connect to GOV.UK Verify, you are responsible for keeping its encryption and signing certificates up to date.
 
 If you're using the Verify Service Provider, [see how to update your Verify Service Provider keys][vsp-keys].
 
-## Step 1. Get a new self-signed signing certificate
+## Update your service provider signing key and certificate
+
+### Step 1. Get a new self-signed signing certificate
 
 <%= partial("partials/get-self-signed-certificates") %>
 
-## Step 2. Upload the new signing certificate
+### Step 2. Upload the new signing certificate
 
 Upload your new signing certificate to the GOV.UK Verify Service Admin tool.
 
 You will get an e-mail confirmation when the GOV.UK Verify team have deployed your new signing certificate. Wait for this confirmation before moving to the next step.
 
-## Step 3. Replace the old signing key pair
+### Step 3. Replace the old signing key pair
 
 Replace the old private signing key with the new key on your service endpoint - your service provider now signs SAML messages with the new key.
 

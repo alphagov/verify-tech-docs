@@ -1,25 +1,27 @@
 ---
-title: VSP signing
+title: Verify Service Provider signing
 weight: 10
 ---
 
-# Update your Verify Service Provider signing key and certificate
+# Verify Service Provider signing
 
 If you're using the Verify Service Provider to connect to GOV.UK Verify, you are responsible for keeping its encryption and signing certificates up to date.
 
 If you're using a custom service provider, [go to the section about updating service provider keys][sp-keys].
 
-## Step 1. Get a new self-signed signing certificate
+## Update your VSP signing key and certificate
+
+### Step 1. Get a new self-signed signing certificate
 
 <%= partial("partials/get-self-signed-certificates") %>
 
-## Step 2. Upload the new signing certificate
+### Step 2. Upload the new signing certificate
 
 To make GOV.UK Verify Hub use your new signing self-signed certificate, upload it to the GOV.UK Verify Service Admin tool.
 
 You will get an e-mail confirmation when the GOV.UK Verify team have deployed your new signing certificate. Wait for this confirmation before moving to the next step.
 
-## Step 3. Replace the old signing key
+### Step 3. Replace the old signing key
 
 Once you receive the e-mail confirmation, you can be sure that GOV.UK Verify Hub trusts messages signed with your new VSP signing key. This means it's safe to remove the old signing key from your VSP configuration.
 
