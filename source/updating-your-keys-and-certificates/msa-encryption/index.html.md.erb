@@ -33,6 +33,12 @@ encryptionKeys:
     keyFile: msa_encryption_2017.pk8
 ```
 
+| Field name | Description                                                                                       |
+| ---------- | ------------------------------------------------------------------------------------------------- |
+| `certFile` | The name of the `.crt` file containing your certificate                                                |
+| `name`     | A meaningful name for your certificate which is published in your MSA's metadata |
+| `keyFile`  |  The name of the `.pk8` file containing yout private key                                                                                                |
+
 Restart the MSA to implement the configuration changes. The MSA can now use both the new and old keys to decrypt SAML messages.
 
 ### Step 3. Upload the new encryption certificate

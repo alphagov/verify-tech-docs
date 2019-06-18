@@ -44,6 +44,13 @@ signingKeys:
       keyFile: msa_signing_2017.pk8
 ```
 
+| Field name | Description                                                                                       |
+| ---------- | ------------------------------------------------------------------------------------------------- |
+| `certFile` | The name of the `.crt` file containing your certificate                                                |
+| `name`     | A meaningful name for your certificate which is published in your MSA's metadata |
+| `keyFile`  |  The name of the `.pk8` file containing yout private key                                                                                                |
+
+
 Restart the MSA to publish the new signing certificate to its metadata. You must do this because the MSA publishes its certificates containing the public keys in its own metadata at run time. The service provider you’re using reads this metadata and uses the MSA's signing certificate to trust assertions signed by the MSA.
 
 If you’re using the VSP, wait for it to load the MSA metadata. The VSP periodically refreshes its metadata and will log when it has finished. Once it loads the new metadata, the VSP trusts assertions signed with the new MSA signing key.
