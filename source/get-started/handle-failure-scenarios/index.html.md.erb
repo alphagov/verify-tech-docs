@@ -14,7 +14,7 @@ There are 2 scenarios when the user does not successfully complete the verificat
 | Scenario                 | Description |
 | ------------------------ | ----------- |
 | `NO_AUTHENTICATION`      | The user chose to cancel at some point in their journey.           |
-| `AUTHENTICATION_FAILURE` | The identity provider could not verify the user's identity.          |
+| `AUTHENTICATION_FAILED` | The identity provider could not verify the user's identity.          |
 
 Find out how to handle these failure scenarios, including how to:
 
@@ -109,23 +109,23 @@ An `HTTP 200 OK` response confirms the VSP translated the SAML response successf
 
 When the translated SAML response contains the `NO_AUTHENTICATION` scenario, your service should redirect the user to a page offering them other ways to use your service. This could be another way of proving their identity online or in person.
 
-## AUTHENTICATION_FAILURE scenario
+## AUTHENTICATION_FAILED scenario
 
-If the identity provider cannot verify the user's identity, GOV.UK Verify Hub sends an `AUTHENTICATION_FAILURE` response.
+If the identity provider cannot verify the user's identity, GOV.UK Verify Hub sends an `AUTHENTICATION_FAILED` response.
 
 ### Run the NO_AUTHENTICATION scenario
 
 1. Submit [an authentication request to the testing service][send-request].
 2. Go to the `responseGeneratorLocation` URL in the [response from the testing service][scenario-list].
-3. Select the `executeUri` for the `AUTHENTICATION_FAILURE` scenario.
+3. Select the `executeUri` for the `AUTHENTICATION_FAILED` scenario.
 
-This is an example of a `AUTHENTICATION_FAILURE` JSON object::
+This is an example of a `AUTHENTICATION_FAILED` JSON object::
 
 ```json
 {
   "executeUri" : "https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk:443/rp-test/_6817b389-4924-479c-9851-db089c4e639c/test-non-matching/10",
   "id" : 14,
-  "title" : "AUTHENTICATION_FAILURE",
+  "title" : "AUTHENTICATION_FAILED",
   "description" : "The identity provider could not verify the user's identity."
 },
 ```
@@ -136,7 +136,7 @@ If the `responseGeneratorLocation` or `executeUri` you generated do not work, re
 
 ### Receive the SAML response from the testing service
 
-Visiting the `executeUri` for the `AUTHENTICATION_FAILURE` scenario causes the testing service to generate a SAML response for this scenario.
+Visiting the `executeUri` for the `AUTHENTICATION_FAILED` scenario causes the testing service to generate a SAML response for this scenario.
 
 The testing service sends the SAML response inside an HTML form, through the browser. The SAML response is base64 encoded within the `SAMLResponse` form parameter:
 
@@ -178,10 +178,10 @@ An `HTTP 200 OK` response confirms the VSP translated the SAML response successf
 > Content-Type: application/json
 >
 {
-    "scenario": "AUTHENTICATION_FAILURE"
+    "scenario": "AUTHENTICATION_FAILED"
 }
 ```
 
-When the translated SAML response contains the `AUTHENTICATION_FAILURE` scenario, your service should redirect the user to a page offering them other ways to use your service. This could be another way of proving their identity online or in person.
+When the translated SAML response contains the `AUTHENTICATION_FAILED` scenario, your service should redirect the user to a page offering them other ways to use your service. This could be another way of proving their identity online or in person.
 
 <%= partial "partials/links" %>
