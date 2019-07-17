@@ -1,45 +1,50 @@
 ---
-title: Handle failure scenarios
+title: Handling failure scenarios
 weight: 20
 last_reviewed_on: 2019-06-04
 review_in: 3 months
 ---
 
-# Handle failure scenarios
+# Handling failure scenarios
 
-After [setting up the successful verification journey][successful-verification], you can choose to customise how your service handles failure scenarios.
+After [setting up the successful verification journey][successful-verification],
+you should consider how your service handles scenarios when your user
+does not successfully complete the verification journey. The reson for these failure scenarios could be:
 
-By default, when users's identity cannot be verified or they choose to cancel their journey, they are sent back to the Hub where they are:
+- the identity provider could not verify the user's identity
+- the user's session timed out
 
-- informed that their identity could not be verified
-- provided alternative ways to access the service
+By default, failure responses are handled by the Hub. If an identity provider canot verify the user's identity, 
+the user sees an [error page](https://www.verify.service.gov.uk/design-your-service/)
 
-If you would like your users's to be sent to a different location, such as being returned to your service, you need to contact the Verify team. 
+If the session times out, the user sees a timeout page which gives users a link back to your service start page.
 
-%Identity providers can be inconsistant in the information they provide the Hub for failure scenarios. Users who cancel their journey, or who cannot be verified for another reason, may be identified as having failed authentication.
+If you would like to customise how your service handles these scenarios, you need to [contact the Verify team][support].
+
+
+
+
 
 --
+
+
+
+## Customising failure scenarios
 
 There are 2 scenarios when the user does not successfully complete the verification journey:
 
 | Scenario                 | Description |
 | ------------------------ | ----------- |
 | `NO_AUTHENTICATION`      | The user chose to cancel at some point in their journey.           |
-| `AUTHENTICATION_FAILED` | The identity provider could not verify the user's identity.          |
-
-Find out how to handle these failure scenarios, including how to:
-
-- recognise failure responses
-- respond to users whose identity was not verified
-
-The guide uses a GOV.UK Verify-hosted testing service as a placeholder for the GOV.UK Verify Hub. This means you can follow the instructions on this page using your local VSP setup, without any additional backing services.
-
-## Before you start
+| `AUTHENTICATION_FAILED`  | The identity provider could not verify the user's identity.        |
 
 To follow instructions on this page, you must have already:
 
 - downloaded [the latest VSP release][vsp-release] from GitHub
 - familiarised yourself with or implemented [the successful verification scenario][successful-verification]
+
+The guide uses a GOV.UK Verify-hosted testing service as a placeholder for the GOV.UK Verify Hub.
+This means you can follow the instructions on this page using your local VSP setup, without any additional backing services.
 
 This guide continues from the ['Response from the testing service' section][response-from-testing-service].
 
