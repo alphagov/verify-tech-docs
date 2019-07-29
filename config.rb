@@ -7,3 +7,5 @@ GovukTechDocs::SourceUrls.class_eval do
 end
 
 GovukTechDocs.configure(self)
+
+redirect "get-started/handle-failure-scenarios/index.html", to: "get-started/handling-failure-scenarios/index.html"
