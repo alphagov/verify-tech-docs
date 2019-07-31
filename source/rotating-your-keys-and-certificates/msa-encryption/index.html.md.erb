@@ -9,13 +9,13 @@ If your connection to GOV.UK Verify involves a Matching Service Adapter (MSA), y
 
 You must update the certificates containing your MSA's public keys before they expire. If you don't, your users wont be able to access your service using GOV.UK Verify.
 
-## Update your MSA encryption key and certificate
+## Rotate your MSA encryption key and certificate
 
-### Step 1. Get a new self-signed encryption certificate
+### Step 1. Create a new self-signed encryption certificate
 
 <%= partial("partials/get-self-signed-certificates") %>
 
-### Step 2. Add the new encryption key pair to your MSA configuration
+### Step 2. Add the new encryption key and certificate to your MSA configuration
 
 Add a second list item containing the details for your new key and self-signed certificate under `encryptionKeys` in your [MSA configuration][msa-config], for example:
 
@@ -37,19 +37,22 @@ encryptionKeys:
 | ---------- | ------------------------------------------------------------------------------------------------- |
 | `certFile` | The name of the `.crt` file containing your certificate                                                |
 | `name`     | A meaningful name for your certificate which is published in your MSA's metadata |
-| `keyFile`  |  The name of the `.pk8` file containing yout private key                                                                                                |
+| `keyFile`  |  The name of the `.pk8` file containing your private key                                                                                                |
 
 Restart the MSA to implement the configuration changes. The MSA can now use both the new and old keys to decrypt SAML messages.
 
 ### Step 3. Upload the new encryption certificate
 
-To make GOV.UK Verify Hub use your new encryption self-signed certificate, upload it to the GOV.UK Verify Service Admin tool.
+Upload your new encryption certificate to the GOV.UK Verify Manage certificates service.
 
-Uploading your new certificate causes a configuration change for GOV.UK Verify Hub.
+This starts a deployment process to replace your old MSA encryption certificate with the new one in the GOV.UK Verify Hub configuration.
+When the deployment is complete, the GOV.UK Verify Hub will be using your new certificate to encrypt messages for your service.
 
-You will receive e-mail confirmation when thee deployment of your new certificate is complete. Wait for this confirmation before moving to the next step.
+The deployment process takes approximately 1 hour. You will receive e-mail confirmation when the GOV.UK Verify Hub starts using your new encryption certificate. You can also check the deployment status on the [GOV.UK Verify Manage certificates service dashboard][dashboard].
 
-### Step 4. Delete the old encryption key pair
+Wait for deployment confirmation before moving to the next step.
+
+### Step 4. Delete the old encryption key and certificate
 
 Delete the old encryption key and certificate.
 
