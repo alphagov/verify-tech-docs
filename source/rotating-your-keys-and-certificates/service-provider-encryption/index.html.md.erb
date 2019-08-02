@@ -1,0 +1,41 @@
+---
+title: Service provider encryption
+weight: 30
+---
+
+# Service provider encryption
+
+If you built your own service provider to connect to GOV.UK Verify, you are responsible for keeping its encryption and signing certificates up to date.
+
+If your service provider does not support dual running for your encryption keys, there will be an outage when you replace the encryption key. Find out more about the process in the [instructions for running service providers that cannot dual run][sp-no-dual-run].
+
+If you're using the Verify Service Provider, [see how to update your Verify Service Provider keys][vsp-keys].
+
+## Rotate your service provider encryption key and certificate
+
+### Step 1. Create a new self-signed encryption certificate
+
+<%= partial("partials/get-self-signed-certificates") %>
+
+### Step 2. Add the new encryption key and certificate
+
+Add your new service provider private encryption key to your service provider. Your service can now use both the new and old keys to decrypt SAML messages.
+
+### Step 3. Upload the new encryption certificate
+
+Upload your new encryption certificate to the GOV.UK Verify Manage certificates service.
+
+This starts a deployment process to replace your old service provider encryption certificate with the new one in the GOV.UK Verify Hub configuration.
+When the deployment is complete, the GOV.UK Verify Hub will be using your new certificate to encrypt messages for your service.
+
+The deployment process takes approximately 1 hour. You will receive e-mail confirmation when the GOV.UK Verify Hub starts using your new encryption certificate. You can also check the deployment status on the [GOV.UK Verify Manage certificates service dashboard][dashboard].
+
+Wait for deployment confirmation before moving to the next step.
+
+### Step 4. Delete the old encryption key and certificate
+
+Remove your old encryption key from your service provider configuration.
+
+Your service provider now uses the new encryption key to decrypt SAML messages.
+
+<%= partial "partials/links" %>

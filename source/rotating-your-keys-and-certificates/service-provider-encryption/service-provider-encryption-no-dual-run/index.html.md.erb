@@ -1,0 +1,41 @@
+---
+title: Service provider without dual running
+weight: 30
+---
+
+# Service provider without dual running
+
+If you built your own service provider to connect to GOV.UK Verify, you are responsible for keeping its encryption and signing certificates up to date.
+
+Because your service provider does not support dual running for your encryption keys, there will be a small outage when you update the encryption key. To minimise disruption to your users, it's recommended you do the update during periods of low traffic for your service.
+
+If you're using the Verify Service Provider, [see how to update your Verify Service Provider keys][vsp-keys].
+
+## Replace your service provider encryption key and certificate
+
+### Step 1. Create a new self-signed encryption certificate
+
+<%= partial("partials/get-self-signed-certificates") %>
+
+### Step 2. Upload the new encryption certificate
+
+Upload your new encryption certificate to the GOV.UK Verify Manage certificates service.
+
+This starts a deployment process to replace your old service provider encryption certificate with the new one in the GOV.UK Verify Hub configuration.
+When the deployment is complete, the GOV.UK Verify Hub will be using your new certificate to encrypt messages for your service.
+
+<newline>
+
+<%= warning_text('Your connection to GOV.UK Verify will break once your new encryption certificate is deployed to the GOV.UK Verify Hub. Restore your connection in the next step.') %>
+
+The deployment process takes approximately 1 hour. You will receive e-mail confirmation when the GOV.UK Verify Hub starts using your new encryption certificate. You can also check the deployment status on the [GOV.UK Verify Manage certificates service dashboard][dashboard].
+
+### Step 3. Replace the old encryption key
+
+Replace your old service provider private encryption key with the new one.
+
+Your connection to GOV.UK Verify is restored once your new service provider encryption key is live.
+
+Once your new encryption key is live, your service provider will be using it to decrypt messages from GOV.UK Verify Hub.
+
+<%= partial "partials/links" %>
