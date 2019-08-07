@@ -14,22 +14,26 @@ Use your preferred method to generate a new private key and self-signed certific
   <div class="govuk-details__text">
   You can use [OpenSSL][openssl-github] to generate your keys and self-signed certificates. Most Linux distributions and Mac OS versions have OpenSSL installed.
 
-  You can then generate your private key and self-signed certificate:
+  Generate your private key and self-signed certificate valid for 1 year:
 
   ```sh
-  openssl req -x509 -newkey rsa:2048 -keyout component-encryption-key-4.pk8 -out component-encryption-cert-4.crt -days 365 -nodes -sha256 -subj "/C=GB/ST=County/L=City/O=DepartmentName/OU=DigitalUnit/CN=service-production-component-encryption-4"
+  openssl req -x509 -newkey rsa:2048 -keyout <private-key-file-name>.pk8 -out <certificate-file-name>.crt -days 365 -nodes -sha256 -subj "/C=GB/ST=County/L=City/O=Organisation/OU=Service/CN=service-production-component-encryption-4"
   ```
 
-  The command generates:
+  where:
 
-  * a private key named `component-encryption-key-4.pk8`
-  * a self-signed certificate, `component-encryption-cert-4.crt`, valid for 1 year
+  * `C` is your 2-letter country code, for example `GB` for Great Britain
+  * `ST` is your county, for example Swansea
+  * `L` is your city or town, for example Swansea
+  * `O` is the name of your organisation, for example DVLA
+  * `OU` is the name of your service, for example 'View your driving licence'
+  * `CN` is the common name for your certificate
 
-  The common name (`CN`) is the part of the certificate metadata that helps you identify that certificate more easily. For example, `CN` comes up in the user interface when checking if you uploaded the right certificate to the GOV.UK Verify Service Admin tool.
+  The common name, `CN`, is the part of the certificate metadata that helps you identify that certificate more easily. For example, you can see your value for `CN` in the user interface for the GOV.UK Verify Service Admin tool when you check if you uploaded the right certificate.
 
-  When choosing the `CN` for your certificate, make sure you don't use underscores.
+  `CN` must not contain underscores.
 
-  There is no mandatory naming convention, but you may find it useful to include:
+  There is no mandatory naming convention for `CN`, but you may find it useful to include:
 
   * the name of your service
   * the name of the component the certificate is for
