@@ -7,7 +7,7 @@ weight: 65
 
 This page has guidance about what to do in situations that can break or compromise your service's connection to GOV.UK Verify.
 
-## Handle a private key leak
+## If there is a private key leak
 
 If you have reasons to believe that any of the private keys securing your connection to GOV.UK Verify have been compromised, you are having a security incident. In addition to following your organisation's procedure, you must:
 
@@ -16,12 +16,13 @@ If you have reasons to believe that any of the private keys securing your connec
 
 You need to stop using the compromised keys as soon as possible. The quickest way to do this is by rotating your keys and certificates using the [GOV.UK Verify Manage certificates service][manage-certs].
 
-## When uploading the wrong certificate
+## If you uploaded the wrong encryption certificate
 
 Your connection to GOV.UK Verify can break if you upload the wrong certificate to the GOV.UK Verify Self Service Admin tool.
 
 If you've uploaded the wrong certificate to the GOV.UK Verify Self Service Admin tool, replace it by uploading the correct certificate.
 
 Make sure the new certificate matches its corresponding private key in your configuration.
+## If you uploaded the wrong signing certificate
 
 <%= partial "partials/links" %>
