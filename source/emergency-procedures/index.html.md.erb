@@ -18,11 +18,18 @@ You must stop using the compromised keys as soon as possible. The quickest way t
 
 ## If you uploaded the wrong encryption certificate
 
-Your connection to GOV.UK Verify can break if you upload the wrong certificate to the GOV.UK Verify Self Service Admin tool.
+Your connection to GOV.UK Verify will break if you upload an encryption certificate that doesn’t match any of your private encryption keys. This is because your component won’t be able to use the private encryption keys to decrypt messages from the GOV.UK Verify Hub.
 
-If you've uploaded the wrong certificate to the GOV.UK Verify Self Service Admin tool, replace it by uploading the correct certificate.
+To restore your connection to GOV.UK Verify, replace the wrong certificate by [uploading the encryption certificate][manage-certs] corresponding to your new encryption key.
 
-Make sure the new certificate matches its corresponding private key in your configuration.
 ## If you uploaded the wrong signing certificate
+
+
+If you uploaded a signing certificate that doesn’t match your new private signing key, you must remove that certificate from the GOV.UK Verify Manage certificates service and then upload the correct one.
+
+1. Go to the [GOV.UK Verify Manage certificates service dashboard][dashboard].
+2. Select the signing certificate that doesn’t match your new private key.
+3. Select **Stop using this certificate**.
+4. Upload the correct cert using the [GOV.UK Verify Manage certificates service][manage-certs]
 
 <%= partial "partials/links" %>
