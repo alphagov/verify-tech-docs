@@ -43,9 +43,9 @@ For example, you should check:
 * **Common name** for information about the intended use for the certificate
 * **Environment** to see which GOV.UK Verify environment uses your certificate
 
-If the uploaded certificate is the right certificate, go to [Step 4][troubleshooting-4] to continue troubleshooting your connection.
+#### If the uploaded certificate is the right one
 
-If the uploaded certificate is the wrong one, you can replace it with the right one. If you don't have the right certificate, start the rotation from the beginning, by generating a new key and self-signed certificate.
+If the information in the **Common name** matches the environment and component of the uploaded certificate, go to [Step 4][troubleshooting-4] to continue troubleshooting your connection.
 
 #### If you uploaded the wrong encryption certificate
 
@@ -57,7 +57,6 @@ To restore your connection to GOV.UK Verify, replace the wrong certificate with 
 2. Select the encryption certificate that doesn’t match your new private key.
 3. Select **Replace certificate** and follow the instructions.
 
-by [uploading the encryption certificate][manage-certs] corresponding to your new encryption key.
 
 #### If you uploaded the wrong signing certificate
 
@@ -68,7 +67,10 @@ If you uploaded a signing certificate that doesn’t match your new private sign
 3. Select **Stop using this certificate**.
 4. Upload the correct certificate using the [GOV.UK Verify Manage certificates service][manage-certs].
 
+#### If you don't have the right certificate
+
 If you don't have the right certificate, [start a new key rotation process][rotating-keys-certs].
+
 
 ### 4. Check that the uploaded certificate matches your new key
 
