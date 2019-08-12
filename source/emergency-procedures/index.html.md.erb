@@ -16,11 +16,11 @@ If any of the private keys securing your connection to GOV.UK Verify have been c
 
 You must stop using the compromised keys as soon as possible. The quickest way to do this is by rotating your keys and certificates using the [GOV.UK Verify Manage certificates service][manage-certs].
 
-## If your connection breaks during a rotation
+## If your connection breaks during a key rotation
 
 These steps will help you find out:
 
-* what caused your connection to break during the rotation
+* what caused your connection to break during the key rotation
 * how to restore your connection
 
 ### 1. Restart your component
@@ -29,7 +29,7 @@ Make sure your component is using the new key, and certificate, if applicable. F
 
 ### 2. Apply configuration changes to all instances
 
-Make sure you restart all instances of the component you're doing the rotation for. This ensures all instances are using the new keys in their configuration.
+Make sure you restart all instances of the component you're doing the key rotation for. This ensures all instances are using the new keys in their configuration.
 
 ### 3. Check that the uploaded certificate is the right one
 
@@ -68,6 +68,7 @@ If you uploaded a signing certificate that doesn’t match your new private sign
 3. Select **Stop using this certificate**.
 4. Upload the correct certificate using the [GOV.UK Verify Manage certificates service][manage-certs].
 
+If you don't have the right certificate, [start a new key rotation process][rotating-keys-certs].
 
 ### 4. Check that the uploaded certificate matches your new key
 
@@ -80,6 +81,6 @@ openssl x509 -noout -modulus -in <certificate>.crt | openssl md5
 openssl rsa -noout -modulus -in <private-key>.key | openssl md5
 ```
 
-If the private key and certificate don't match, you should replace the private key with the correct match. If the correct match is not available or has been compromised, start the rotation from the beginning, by generating a new key and self-signed certificate.
+If the private key and certificate don't match, you should replace the private key with the correct match. If the correct match is not available or has been compromised, [start a new key rotation process][rotating-keys-certs].
 
 <%= partial "partials/links" %>
