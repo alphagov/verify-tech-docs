@@ -10,15 +10,17 @@ These steps will help you find out:
 * what caused your connection to break during the key rotation
 * how to restore your connection
 
-## 1. Restart your component
+## Step 1. Restart your component
 
 Make sure your component is using the new key, and certificate, if applicable. For example, you must restart the Verify Service Provider after a configuration change for it to start using the new key.
 
-## 2. Apply configuration changes to all instances
+## Step 2. Apply changes to all instances
 
 Make sure you restart all instances of the component you're doing the key rotation for. This ensures all instances are using the new keys in their configuration.
 
-## 3. Check that the uploaded certificate is the right one
+## Step 3. Check the uploaded certificate
+
+is the right one
 
 1. Go to the [GOV.UK Verify Manage certificates service][manage-certs].
 2. Select the certificate you want to investigate.
@@ -32,7 +34,7 @@ For example, you should check:
 
 ### If the uploaded certificate is the right one
 
-If the information in the **Common name** matches the environment and component of the uploaded certificate, go to [Step 4][troubleshooting-4] to continue troubleshooting your connection.
+If the information in the **Common name** matches the environment, component, and type of uploaded certificate, go to [Step 4. Check the uploaded certificate matches your new key][troubleshooting-4] to continue troubleshooting your connection.
 
 ### If you uploaded the wrong encryption certificate
 
@@ -59,9 +61,9 @@ If you uploaded a signing certificate that doesn’t match your new private sign
 If you don't have the right certificate, [start a new key rotation process][rotating-keys-certs].
 
 
-## 4. Check that the uploaded certificate matches your new key
+## Step 4. Check the uploaded certificate matches your new key
 
-If the uploaded certificate you checked in Step 3 is the right one, you should make sure it matches the new private key your component is using.
+If the uploaded certificate you checked in [Step 3 Check the uploaded certificate][troubleshooting-3] is the right one, you should make sure it matches the new private key your component is using.
 
 For example, you can use `openssl` to check if the certificate you uploaded matches the new private key your component is using. A private key matches a certificate if their 'modulus' sections are identical. Create an MD5 hash for the modulus if you are comparing the output strings by eye.
 
