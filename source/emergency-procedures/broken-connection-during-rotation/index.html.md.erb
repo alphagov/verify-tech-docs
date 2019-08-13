@@ -20,21 +20,15 @@ Make sure you restart all instances of the component you're doing the key rotati
 
 ## Step 3. Check the uploaded certificate
 
-is the right one
+Check the details of certificate you last uploaded to the [GOV.UK Verify Manage certificates service][manage-certs]. The **Common name** of the certificate should have information about the intended use for the certificate. Use this information to check that the certificate is:
 
-1. Go to the [GOV.UK Verify Manage certificates service][manage-certs].
-2. Select the certificate you want to investigate.
-3. Use the certificate details to figure out if this is the certificate you intended to use.
-
-For example, you should check:
-
-* that the certificate was uploaded to the correct component
-* **Common name** for information about the intended use for the certificate
-* **Environment** to see which GOV.UK Verify environment uses your certificate
+* linked to the right component
+* in the right GOV.UK Verify environment, for example Integration or Production
+* of the correct type, for example signing or encryption
 
 ### If the uploaded certificate is the right one
 
-If the information in the **Common name** matches the environment, component, and type of uploaded certificate, go to [Step 4. Check the uploaded certificate matches your new key][troubleshooting-4] to continue troubleshooting your connection.
+If the information in the **Common name** matches the details of the uploaded certificate, go to [Step 4. Check the uploaded certificate matches your new key][troubleshooting-4] to continue troubleshooting your connection.
 
 ### If you uploaded the wrong encryption certificate
 
