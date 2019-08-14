@@ -17,7 +17,7 @@ If you're using a custom service provider, [go to the section about updating ser
 
 ### Step 2. Add the new encryption key to the VSP configuration
 
-Add your new VSP private encryption key to the `samlSecondaryEncryptionKey` field in the VSP configuration file.
+Add your new VSP private encryption key to `samlSecondaryEncryptionKey` in the VSP configuration file. 
 
 Restart the VSP to implement the configuration changes. The VSP can now use both the new and old keys to decrypt SAML messages.
 
@@ -37,8 +37,8 @@ The e-mail from the GOV.UK Verify team confirms that GOV.UK Verify Hub is now us
 
 To remove the old encryption key from the VSP configuration:
 
-1. Replace the key in `samlPrimaryEncryptionKey` with the key from `samlSecondaryEncryptionKey`.
-1. Leave `samlSecondaryEncryptionKey` empty for the next update.
+1. Remove the key in `samlPrimaryEncryptionKey` and replace it with the key from `samlSecondaryEncryptionKey`.
+1. Leave `samlSecondaryEncryptionKey` empty for the next rotation.
 1. Restart the VSP to implement the configuration changes.
 
 Your VSP now uses the new encryption key to decrypt SAML messages from GOV.UK Verify Hub.
