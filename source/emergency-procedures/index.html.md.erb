@@ -5,31 +5,11 @@ weight: 65
 
 # Emergency procedures
 
-This page has guidance about what to do in situations that can break or compromise your service's connection to GOV.UK Verify.
+This section has guidance about what to do in situations when your connection to GOV.UK Verify is broken or compromised.
 
-## If there is a private key leak
+Find out what to do in case of a:
 
-If any of the private keys securing your connection to GOV.UK Verify have been compromised, you are having a security incident. In addition to following your organisation's procedure, you must:
-
-* [replace the compromised keys][rotate-keys] immediately
-* [let the GOV.UK Verify team know][support] so they can help reduce the impact of the incident and run fraud and security checks
-
-You must stop using the compromised keys as soon as possible. The quickest way to do this is by rotating your keys and certificates using the [GOV.UK Verify Manage certificates service][manage-certs].
-
-## If you uploaded the wrong encryption certificate
-
-Your connection to GOV.UK Verify will break if you upload an encryption certificate that doesn’t match any of your private encryption keys. This is because your component won’t be able to use the private encryption keys to decrypt messages from the GOV.UK Verify Hub.
-
-To restore your connection to GOV.UK Verify, replace the wrong certificate by [uploading the encryption certificate][manage-certs] corresponding to your new encryption key.
-
-## If you uploaded the wrong signing certificate
-
-
-If you uploaded a signing certificate that doesn’t match your new private signing key, you must remove that certificate from the GOV.UK Verify Manage certificates service and then upload the correct one.
-
-1. Go to the [GOV.UK Verify Manage certificates service dashboard][dashboard].
-2. Select the signing certificate that doesn’t match your new private key.
-3. Select **Stop using this certificate**.
-4. Upload the correct cert using the [GOV.UK Verify Manage certificates service][manage-certs]
+* [private key leak][private-key-leak]
+* [broken connection during key rotation][broken-connection-rotation]
 
 <%= partial "partials/links" %>
