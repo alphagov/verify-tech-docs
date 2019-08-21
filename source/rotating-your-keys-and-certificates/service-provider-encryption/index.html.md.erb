@@ -26,6 +26,7 @@ Add your new service provider private encryption key to your service provider. Y
 Upload your new encryption certificate to the GOV.UK Verify Manage certificates service.
 
 This starts a deployment process to replace your old service provider encryption certificate with the new one in the GOV.UK Verify Hub configuration.
+During the deployment the GOV.UK Verify Hub will continue to use your old certificate.
 When the deployment is complete, the GOV.UK Verify Hub will be using your new certificate to encrypt messages for your service.
 
 The deployment process takes approximately 10 minutes. You will receive e-mail confirmation when the GOV.UK Verify Hub starts using your new encryption certificate. You can also check the deployment status on the [GOV.UK Verify Manage certificates service dashboard][dashboard].
@@ -35,6 +36,8 @@ Wait for deployment confirmation before moving to the next step.
 ### Step 4. Delete the old encryption key and certificate
 
 Remove your old encryption key from your service provider configuration.
+
+Restart your service provider to make sure it uses the new encryption key.
 
 Your service provider now uses the new encryption key to decrypt SAML messages.
 
