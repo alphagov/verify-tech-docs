@@ -18,6 +18,8 @@ When the deployment is complete, the GOV.UK Verify Hub will be using your new ce
 
 <% if component == "service provider" and dual_running == "no" %>
 
+This will break your connection to GOV.UK Verify. Your connection will remain broken until you complete step 3.
+
 <newline>
 
 <%= warning_text('Your connection to GOV.UK Verify will break once your new encryption certificate finishes deploying to the GOV.UK Verify Hub. Restore your connection in the next step.') %>
