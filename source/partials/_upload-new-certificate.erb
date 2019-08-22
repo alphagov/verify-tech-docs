@@ -1,0 +1,30 @@
+Upload your new <%= type %> certificate to the GOV.UK Verify Manage certificates service.
+
+<% if type == "signing" %>
+
+This starts a deployment process that adds your new <%= component %> <%= type %> certificate to the GOV.UK Verify Hub configuration.
+When the deployment is complete, the GOV.UK Verify Hub will be using both your new and your old certificate to check the signature on messages coming from your service.
+
+<% end %>
+
+<% if type == "encryption" %>
+
+This starts a deployment process to replace your old <%= component %> encryption certificate with the new one in the GOV.UK Verify Hub configuration. When the deployment is complete, the GOV.UK Verify Hub will be using your new certificate to encrypt messages for your service.
+
+<% end %>
+
+<% if component == "service provider" and dual_running == "no" %>
+
+<newline>
+
+<%= warning_text('Your connection to GOV.UK Verify will break once your new encryption certificate is deployed to the GOV.UK Verify Hub. Restore your connection in the next step.') %>
+
+<% end %>
+
+The deployment process takes approximately 10 minutes. You will receive an e-mail confirmation when the GOV.UK Verify Hub starts using your new <%= type %> certificate. You can also check the deployment status on the [GOV.UK Verify Manage certificates service dashboard][dashboard].
+
+<% if dual_running == "yes" %>
+
+Wait for deployment confirmation before moving to the next step.
+
+<% end %>

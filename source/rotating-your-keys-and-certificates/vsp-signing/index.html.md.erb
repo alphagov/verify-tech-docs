@@ -3,6 +3,10 @@ title: Verify Service Provider signing
 weight: 10
 ---
 
+<%# Define the local variables - these will be used to customise the content in the partial files called in this file. %>
+<% locals = { component: "VSP", type: "signing", action: "sign", dual_running: "yes" } %>
+<%# The markdown content for this page starts below. %>
+
 # Verify Service Provider signing
 
 If you're using the Verify Service Provider (VSP) to connect to GOV.UK Verify, you are responsible for keeping its encryption and signing certificates up to date.
@@ -13,42 +17,21 @@ If you're using a custom service provider, [go to the section about updating ser
 
 ### Step 1. Create a new self-signed signing certificate
 
-<%= partial("partials/get-self-signed-certificates") %>
+  <%= partial "partials/get-self-signed-certificates" %>
 
 ### Step 2. Upload the new signing certificate
 
-Upload your new signing certificate to the GOV.UK Verify Manage certificates service.
-
-This starts a deployment process that adds your new VSP signing certificate to the GOV.UK Verify Hub configuration.
-When the deployment is complete, the GOV.UK Verify Hub will be using both your new and your old certificate to check the signature on messages coming from your service.
-
-The deployment process takes approximately 10 minutes. You will receive e-mail confirmation when the GOV.UK Verify Hub starts using your new encryption certificate. You can also check the deployment status on the [GOV.UK Verify Manage certificates service dashboard][dashboard].
-
-Wait for this confirmation before moving to the next step.
+  <%= partial "partials/upload-new-certificate", locals: locals %>
 
 ### Step 3. Replace the old signing key
 
-The e-mail from the GOV.UK Verify team confirms that GOV.UK Verify Hub now trusts messages signed with your new VSP signing key. This means you can replace the old signing key from your VSP configuration.
-
-<newline>
-
-<%= warning_text('Wait for the deployment confirmation e-mail from the GOV.UK Verify Team before replacing the old signing key.') %>
-
-To replace the old encryption key from the VSP configuration:
-
-1. Replace the old signing key under `samlSigningKey` in the VSP configuration with the new key.
-1. Restart the VSP to implement the configuration changes.
-
-Your VSP now signs messages for the GOV.UK Verify Hub using your new signing key.
+  <%= partial "partials/replace-old-key", locals: locals %>
 
 ### Step 4. Remove your old certificate from the GOV.UK Verify Hub configuration
 
-To make sure the GOV.UK Verify Hub doesn't trust messages signed with your old  key, you must also remove your old certificate from the GOV.UK Verify Hub configuration.
+  <%= partial "partials/remove-old-certificate", locals: locals %>
 
-1. Go to the [GOV.UK Verify Manage certificates service dashboard][dashboard].
-1. Select the VSP signing certificate due to expire.
-1. Select **Stop using this certificate**.
 
-The GOV.UK Verify Hub now only trusts messages signed with your new VSP signing key.
+<%#= Add in the link label definitions %>
 
 <%= partial "partials/links" %>

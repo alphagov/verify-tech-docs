@@ -1,7 +1,11 @@
 ---
 title: Verify Service Provider encryption
-weight: 10
+weight: 20
 ---
+
+<%# Define the local variables - these will be used to customise the content in the partial files called in this file. %>
+<% locals = { component: "VSP", type: "encryption", action: "encrypt", dual_running: "yes" } %>
+<%# The markdown content for this page starts below. %>
 
 # Verify Service Provider encryption
 
@@ -13,34 +17,21 @@ If you're using a custom service provider, [go to the section about updating ser
 
 ### Step 1. Create a new self-signed encryption certificate
 
-<%= partial("partials/get-self-signed-certificates") %>
+  <%= partial "partials/get-self-signed-certificates" %>
 
 ### Step 2. Add the new encryption key to the VSP configuration
 
-Add your new VSP private encryption key to `samlSecondaryEncryptionKey` in the VSP configuration file. 
+  <%= partial "partials/add-new-key", locals: locals %>
 
-Restart the VSP to implement the configuration changes. The VSP can now use both the new and old keys to decrypt SAML messages.
+### Step 3: Upload the new encryption certificate
 
-### Step 3. Upload the new encryption certificate
-
-To make GOV.UK Verify Hub use your new encryption self-signed certificate, upload it to the GOV.UK Verify Manage certificates service.
-
-You will receive e-mail confirmation that the GOV.UK Verify team have deployed your encryption certificate. Wait for this confirmation before moving to the next step.
+  <%= partial "partials/upload-new-certificate", locals: locals %>
 
 ### Step 4. Remove the old encryption key
 
-The e-mail from the GOV.UK Verify team confirms that GOV.UK Verify Hub is now using your new certificate to encrypt messages for your service. This means you can remove the old encryption key from your VSP configuration.
+  <%= partial "partials/remove-old-key", locals: locals %>
 
-<newline>
 
-<%= warning_text('Wait for the deployment confirmation e-mail from the GOV.UK Verify Team before removing the old encryption key.') %>
-
-To remove the old encryption key from the VSP configuration:
-
-1. Remove the key in `samlPrimaryEncryptionKey` and replace it with the key from `samlSecondaryEncryptionKey`.
-1. Leave `samlSecondaryEncryptionKey` empty for the next rotation.
-1. Restart the VSP to implement the configuration changes.
-
-Your VSP now uses the new encryption key to decrypt SAML messages from GOV.UK Verify Hub.
+<%#= Add in the link label definitions %>
 
 <%= partial "partials/links" %>

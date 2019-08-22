@@ -1,7 +1,11 @@
 ---
 title: Service provider without dual running
-weight: 30
+weight: 70
 ---
+
+<%# Define the local variables - these will be used to customise the content in the partial files called in this file. %>
+<% locals = { component: "service provider", type: "encryption", action: "encrypt", dual_running: "no" } %>
+<%# The markdown content for this page starts below. %>
 
 # Service provider without dual running
 
@@ -11,31 +15,21 @@ Because your service provider does not support dual running for your encryption 
 
 If you're using the Verify Service Provider, [see how to update your Verify Service Provider keys][vsp-keys].
 
-## Replace your service provider encryption key and certificate
+## Rotate your service provider encryption key and certificate
 
 ### Step 1. Create a new self-signed encryption certificate
 
-<%= partial("partials/get-self-signed-certificates") %>
+  <%= partial "partials/get-self-signed-certificates" %>
 
 ### Step 2. Upload the new encryption certificate
 
-Upload your new encryption certificate to the GOV.UK Verify Manage certificates service.
-
-This starts a deployment process to replace your old service provider encryption certificate with the new one in the GOV.UK Verify Hub configuration.
-When the deployment is complete, the GOV.UK Verify Hub will be using your new certificate to encrypt messages for your service.
-
-<newline>
-
-<%= warning_text('Your connection to GOV.UK Verify will break once your new encryption certificate is deployed to the GOV.UK Verify Hub. Restore your connection in the next step.') %>
-
-The deployment process takes approximately 10 minutes. You will receive e-mail confirmation when the GOV.UK Verify Hub starts using your new encryption certificate. You can also check the deployment status on the [GOV.UK Verify Manage certificates service dashboard][dashboard].
+  <%= partial "partials/upload-new-certificate", locals: locals %>
 
 ### Step 3. Replace the old encryption key
 
-Replace your old service provider private encryption key with the new one.
+  <%= partial "partials/restore-connection", locals: locals %>
 
-Your connection to GOV.UK Verify is restored once your new service provider encryption key is live.
 
-Once your new encryption key is live, your service provider will be using it to decrypt messages from GOV.UK Verify Hub.
+<%# Add in the link label definitions %>
 
 <%= partial "partials/links" %>
