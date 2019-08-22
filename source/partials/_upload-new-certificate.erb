@@ -3,13 +3,16 @@ Upload your new <%= type %> certificate to the GOV.UK Verify Manage certificates
 <% if type == "signing" %>
 
 This starts a deployment process that adds your new <%= component %> <%= type %> certificate to the GOV.UK Verify Hub configuration.
+During deployment the GOV.UK Verify Hub will continue to use your old certificate.
 When the deployment is complete, the GOV.UK Verify Hub will be using both your new and your old certificate to check the signature on messages coming from your service.
 
 <% end %>
 
 <% if type == "encryption" %>
 
-This starts a deployment process to replace your old <%= component %> encryption certificate with the new one in the GOV.UK Verify Hub configuration. When the deployment is complete, the GOV.UK Verify Hub will be using your new certificate to encrypt messages for your service.
+This starts a deployment process to replace your old <%= component %> encryption certificate with the new one in the GOV.UK Verify Hub configuration. 
+During deployment the GOV.UK Verify Hub will continue to use your old certificate.
+When the deployment is complete, the GOV.UK Verify Hub will be using your new certificate to encrypt messages for your service.
 
 <% end %>
 
@@ -17,7 +20,7 @@ This starts a deployment process to replace your old <%= component %> encryption
 
 <newline>
 
-<%= warning_text('Your connection to GOV.UK Verify will break once your new encryption certificate is deployed to the GOV.UK Verify Hub. Restore your connection in the next step.') %>
+<%= warning_text('Your connection to GOV.UK Verify will break once your new encryption certificate finishes deploying to the GOV.UK Verify Hub. Restore your connection in the next step.') %>
 
 <% end %>
 
