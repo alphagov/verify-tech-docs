@@ -11,7 +11,8 @@ When the deployment is complete, the GOV.UK Verify Hub will be using both your n
 <% if type == "encryption" %>
 
 This starts a deployment process to replace your old <%= component %> encryption certificate with the new one in the GOV.UK Verify Hub configuration. 
-During deployment the GOV.UK Verify Hub will continue to use your old certificate.
+During deployment the GOV.UK Verify Hub will continue to use your old certificate.  The deployment process doesn't cause any connection downtime.
+
 When the deployment is complete, the GOV.UK Verify Hub will be using your new certificate to encrypt messages for your service.
 
 <% end %>
