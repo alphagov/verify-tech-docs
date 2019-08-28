@@ -3,7 +3,7 @@ Upload your new <%= type %> certificate to the GOV.UK Verify Manage certificates
 <% if type == "signing" %>
 
 This starts a deployment process that adds your new <%= component %> <%= type %> certificate to the GOV.UK Verify Hub configuration.
-During deployment the GOV.UK Verify Hub will continue to use your old certificate.
+During deployment the GOV.UK Verify Hub will continue to use your old certificate. The deployment process doesn't cause any connection downtime.
 When the deployment is complete, the GOV.UK Verify Hub will be using both your new and your old certificate to check the signature on messages coming from your service.
 
 <% end %>
