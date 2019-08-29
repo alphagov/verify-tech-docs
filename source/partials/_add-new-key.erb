@@ -7,7 +7,11 @@ Restart the <%= component %> to implement the configuration changes. The <%= com
 
 <% if component == "MSA" and type == "encryption" %>
 
-Add a second list item containing the details for your new key and self-signed certificate under `encryptionKeys` in your [MSA configuration][msa-config], for example:
+Add a second list item containing the details for your new key and self-signed certificate under `encryptionKeys` in your [MSA configuration][msa-config]. 
+
+Remember to restart your MSA after making the configuration changes.
+
+For example:
 
 ```yaml
 encryptionKeys:
@@ -36,7 +40,11 @@ Restart the MSA to implement the configuration changes. The MSA can now use both
 
 <% if component == "MSA" and type == "signing" %>
 
-Add your new signing key and self-signed certificate to `signingKeys.secondary` in your MSA configuration, for example:
+Add your new signing key and self-signed certificate to `signingKeys.secondary` in your MSA configuration.
+
+Remember to restart your MSA after making the configuration changes.
+
+For example:
 
 ```yaml
 signingKeys:
