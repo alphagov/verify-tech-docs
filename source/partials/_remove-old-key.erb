@@ -36,13 +36,13 @@ Once you've removed the old <%= type %> key, your <%= component %> only uses the
 
 <% if component == "MSA" and type == "signing" %>
 
-The e-mail from the GOV.UK Verify team confirms that GOV.UK Verify Hub now trusts messages signed with your new VSP signing key. This means you can replace the old signing key from your VSP configuration.
+The e-mail from the GOV.UK Verify team confirms that GOV.UK Verify Hub now trusts messages signed with your new <%= component %> signing key. This means you can replace the old signing key from your <%= component %> configuration.
 
 <newline>
 
 <%= warning_text('Wait for the deployment confirmation e-mail from the GOV.UK Verify Team before deleting the old signing key.') %>
 
-To remove the old encryption key from the VSP configuration:
+To remove the old signing key from the MSA configuration:
 
 1. Delete the `signingKeys.primary` section.
 1. Rename `signingKeys.secondary` to `signingKeys.primary`. The MSA now signs the assertions with the new  key.
