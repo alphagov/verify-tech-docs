@@ -26,13 +26,8 @@ Remember to restart the <%= component %> to implement the configuration changes.
 While both old and new keys are in use, you may see error messages in the logs with the description `Unwrapping failed`. These messages appear because the MSA attempts to decrypt the SAML message using each key in turn. You can safely ignore these messages. However, do not ignore any other error messages related to SAML decryption.
 
 <% end %>
-  
-  
-<% if component == "service provider" %>
-  
-Remember to restart the <%= component %> to implement the configuration changes.
-  
-<% end %>
+
+
 
 Once you've removed the old <%= type %> key, your <%= component %> only uses the new encryption key to decrypt messages from GOV.UK Verify Hub.
 
