@@ -1,11 +1,15 @@
 Use your preferred method to generate a new private key and self-signed certificate pair.
 
-Make sure the private key is [PKCS #8](https://tools.ietf.org/html/rfc5208) formatted.
+<% if component == "MSA" %>
+  Make sure the private key is [PKCS #8](https://tools.ietf.org/html/rfc5208) formatted and DER encoded.
+<% else %>
+  Make sure the private key is [PKCS #8](https://tools.ietf.org/html/rfc5208) formatted and PEM encoded.
+<% end %>
 
 The self-signed certificate must be:
 
 - valid for one year
-- in [X.509](https://tools.ietf.org/html/rfc4158) format and PEM encoded with a `.crt` extension
+- in [X.509](https://tools.ietf.org/html/rfc4158) format and PEM encoded
 
 <%= partial "partials/details-tag-style" %>
 
@@ -19,7 +23,6 @@ The self-signed certificate must be:
  You can use [OpenSSL][openssl-github] to generate your keys and self-signed certificates. Most Linux distributions and Mac OS versions have OpenSSL installed.
 
 <% if component == "MSA" %>
-
 
 ```sh
 # generate your key and self-signed certificate
