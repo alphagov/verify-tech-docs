@@ -1,6 +1,6 @@
 Use your preferred method to generate a new private key and self-signed certificate pair.
 
-Make sure the private key is [PKCS #8](https://tools.ietf.org/html/rfc5208) formatted with a `.pk8` extension.
+Make sure the private key is [PKCS #8](https://tools.ietf.org/html/rfc5208) formatted.
 
 The self-signed certificate must be:
 
@@ -18,12 +18,29 @@ The self-signed certificate must be:
   <div class="govuk-details__text">
  You can use [OpenSSL][openssl-github] to generate your keys and self-signed certificates. Most Linux distributions and Mac OS versions have OpenSSL installed.
 
+<% if component == "MSA" %>
+
+Generate your private key and self-signed certificate and convert the key to DER format:
+
+```sh
+# generate your key and self-signed certificate
+openssl req -x509 -newkey rsa:2048 -days 365 -nodes -sha256 \
+   -keyout <private-key>.key -out <certificate>.crt
+
+# convert your key to DER format (as required by MSA)
+openssl pkcs8 -topk8 -nocrypt \ 
+   -in <private-key>.key -out <private-key>.pk8 -outform DER
+```
+
+<% else %>
 Generate your private key and self-signed certificate:
 
 ```sh
 openssl req -x509 -newkey rsa:2048 -days 365 -nodes -sha256 \
-   -keyout <private-key>.pk8 -out <certificate>.crt
+   -keyout <private-key>.key -out <certificate>.crt
 ```
+
+<% end %>
 
 The terminal will prompt you for information. You must provide a `Common Name`. All other information is optional.
 
