@@ -26,7 +26,7 @@ The self-signed certificate must be:
 openssl req -x509 -newkey rsa:2048 -days 365 -nodes -sha256 \
    -keyout <private-key>.key -out <certificate>.crt
 
-# convert your key to DER format (as required by MSA)
+# convert your MSA key to use DER encoding
 openssl pkcs8 -topk8 -nocrypt \ 
    -in <private-key>.key -out <private-key>.pk8 -outform DER
 ```
