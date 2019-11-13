@@ -19,13 +19,13 @@ You must update the certificates containing your MSA's public keys before they e
 
   <%= partial "partials/get-self-signed-certificates", locals: locals %>
 
-### Step 2. Upload the new signing certificate
-
-  <%= partial "partials/upload-new-certificate", locals: locals %>
-
-### Step 3. Add the new signing key and certificate to your MSA configuration
+### Step 2. Add the new signing key and certificate to your MSA configuration
 
   <%= partial "partials/add-new-key", locals: locals %>
+
+### Step 3. Upload the new signing certificate
+
+  <%= partial "partials/upload-new-certificate", locals: locals %>
 
 ### Step 4. Delete the old MSA signing key and certificate
 
