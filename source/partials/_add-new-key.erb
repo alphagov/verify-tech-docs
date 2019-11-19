@@ -71,8 +71,6 @@ signingKeys:
 
 Restarting the MSA publishes the new signing certificate to the MSA's metadata. The service provider you’re using reads this metadata and uses the MSA's signing certificate to trust assertions signed by the MSA.
 
-If you’re using the VSP, wait for it to load the MSA metadata. The VSP periodically refreshes its metadata and will log when it has finished. Once it loads the new metadata, the VSP trusts assertions signed with the new MSA signing key.
-
 <% end %>
 
 
