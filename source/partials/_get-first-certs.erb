@@ -1,0 +1,25 @@
+<%# Define the local variables - these will be used to customise the content in the partial files called in this file. %>
+<% locals = { component: "VSP" } %>
+<%# The markdown content for this page starts below. %>
+
+# Get certificates
+
+To use the <%= env %> environment, you must generate self-signed certificates for your Verify Service Provider (VSP). You must generate separate self-signed certificates for:
+
+- encryption
+- signing
+
+## Generating self-signed certificates
+
+<%= partial "partials/get-self-signed-certificates", locals: locals %>
+
+## Storing private keys
+
+You must store private key files in a secure environment. Typical controls include:
+
+- restricting private key access to approved staff
+- storing files in encrypted format
+- storing files offline, for example, on an encrypted USB memory stick kept in a safe
+- never sharing private keys outside the environment where you created them
+
+For more information, see the [guidance from the National Cyber Security Centre (NCSC)][ncsc].
