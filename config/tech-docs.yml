@@ -2,19 +2,22 @@
 host: https://www.docs.verify.service.gov.uk
 
 # Header-related options
-show_govuk_logo: false
-service_name: GOV.UK Verify Self Service Tool
+show_govuk_logo: true
+service_name: Verify
 service_link: https://www.verify.service.gov.uk/
-phase: PROTOTYPE
+phase:
 
 # Links to show on right-hand-side of header
 header_links:
   Connecting: https://www.verify.service.gov.uk/connecting/
   Documentation: /
   Support: https://www.verify.service.gov.uk/support/
+# Links to show in the page footer
+footer_links:
+  Accessibility: /accessibility-statement
 
 # Tracking ID from Google Analytics (e.g. UA-XXXX-Y)
-ga_tracking_id:
+ga_tracking_id: UA-26179049-26
 
 # Table of contents depth – how many levels to include in the table of contents.
 # If your ToC is too long, reduce this number and we'll only show higher-level
@@ -27,7 +30,7 @@ show_contribution_banner: true
 github_repo: alphagov/verify-tech-docs/
 
 # Prevent robots from indexing (e.g. whilst in development)
-prevent_indexing: true
+prevent_indexing: false
 
 # Enable multipage navigation in the sidebar
 multipage_nav: true
