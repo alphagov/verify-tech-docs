@@ -3,7 +3,7 @@ Upload your new <%= type %> certificate to the GOV.UK Verify Manage certificates
 <% if type == "signing" %>
 
 This starts a deployment process that adds your new <%= component %> <%= type %> certificate to the GOV.UK Verify Hub configuration.
-During deployment the GOV.UK Verify Hub will continue to use your old certificate. The deployment process doesn't cause any connection downtime.
+During deployment the GOV.UK Verify Hub will continue to use your old certificate. The deployment process does not cause any connection downtime.
 When the deployment is complete, the GOV.UK Verify Hub will be using both your new and your old certificate to check the signature on messages coming from your service.
 
 <% end %>
@@ -11,7 +11,7 @@ When the deployment is complete, the GOV.UK Verify Hub will be using both your n
 <% if type == "encryption" %>
 
 This starts a deployment process to replace your old <%= component %> encryption certificate with the new one in the GOV.UK Verify Hub configuration. 
-During deployment the GOV.UK Verify Hub will continue to use your old certificate.  The deployment process doesn't cause any connection downtime.
+During deployment the GOV.UK Verify Hub will continue to use your old certificate.  The deployment process does not cause any connection downtime.
 
 When the deployment is complete, the GOV.UK Verify Hub will be using your new certificate to encrypt messages for your service.
 
@@ -27,7 +27,7 @@ This will break your connection to GOV.UK Verify. Your connection will remain br
 
 <% end %>
 
-The deployment process takes approximately 10 minutes. You will receive an e-mail confirmation when the GOV.UK Verify Hub starts using your new <%= type %> certificate. You can also check the deployment status on the [GOV.UK Verify Manage certificates service dashboard][dashboard].
+The deployment process takes approximately 10 minutes. You will receive an email confirmation when the GOV.UK Verify Hub starts using your new <%= type %> certificate. You can also check the deployment status on the [GOV.UK Verify Manage certificates service dashboard][dashboard].
 
 <% if dual_running == "yes" %>
 
