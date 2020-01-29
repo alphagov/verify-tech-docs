@@ -53,6 +53,6 @@ default_owner_slack: '#verify-developers'
 # Define redirects
 
 redirects:
-  technology-overview/public-key-infrastructure/index.html: technology-overview/trust-model/index.html
+  technology-overview/public-key-infrastructure/index.html: technology-overview/securing-message-exchange/index.html
   maintain-your-connection/index.html: rotating-your-keys-and-certificates/index.html
   maintain-your-connection/rotate-keys/index.html: rotating-your-keys-and-certificates/index.html

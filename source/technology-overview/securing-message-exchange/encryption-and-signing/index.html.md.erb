@@ -47,7 +47,7 @@ By encrypting a message, the sender makes sure that only the intended receiver c
 
 For example, the GOV.UK Verify Hub encrypts responses for your service using your self-signed encryption certificate. Your VSP then uses your private encryption key to decrypt the response from the GOV.UK Verify Hub. Only your VSP can decrypt the response from the GOV.UK Verify Hub using your private encryption key.
 
-Your VSP doesn't need to encrypt requests for the GOV.UK Verify Hub because the request body is empty. However, the VSP does sign the empty request so the GOV.UK Verify Hub can check where the request came from.
+Your VSP does not need to encrypt requests for the GOV.UK Verify Hub because the request body is empty. However, the VSP does sign the empty request so the GOV.UK Verify Hub can check where the request came from.
 
 ## Message signing
 
