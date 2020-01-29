@@ -1,10 +1,10 @@
 <% if type == "encryption" %>
 
-The e-mail from the GOV.UK Verify team confirms that GOV.UK Verify Hub is now using your new certificate to encrypt messages for your service. This means you can remove the old encryption key from your <%= component %> configuration.
+The email from the GOV.UK Verify team confirms that GOV.UK Verify Hub is now using your new certificate to encrypt messages for your service. This means you can remove the old encryption key from your <%= component %> configuration.
 
 <newline>
 
-<%= warning_text('Wait for the deployment confirmation e-mail from the GOV.UK Verify Team before removing the old encryption key.') %>
+<%= warning_text('Wait for the deployment confirmation email from the GOV.UK Verify Team before removing the old encryption key.') %>
 
   <% if component == "VSP" %>
 
@@ -21,7 +21,7 @@ The e-mail from the GOV.UK Verify team confirms that GOV.UK Verify Hub is now us
 
     Delete the old encryption key and certificate from your <%= component %>'s configuration.
 
-    Remember to restart the <%= component %> to implement the configuration changes.
+    Restart the <%= component %> to implement the configuration changes.
 
     While both old and new keys are in use, you may see error messages in the logs with the description `Unwrapping failed`. These messages appear because the MSA attempts to decrypt the SAML message using each key in turn. You can safely ignore these messages. However, do not ignore any other error messages related to SAML decryption.
 
@@ -41,7 +41,7 @@ Once you've removed the old <%= type %> key, your <%= component %> only uses the
 
   If you’re using the VSP, you can check its logs to confirm the VSP refreshed its metadata. Once it has loaded the new MSA metadata, the VSP is using your new MSA <%= type %> certificate to trust messages from your MSA.
 
-  The e-mail from the GOV.UK Verify team confirms that GOV.UK Verify Hub is using your new MSA <%= type %> certificate to trust messages signed with your new <%= component %> signing key. This means you can replace the old signing key from your <%= component %> configuration.
+  The email from the GOV.UK Verify team confirms that GOV.UK Verify Hub is using your new MSA <%= type %> certificate to trust messages signed with your new <%= component %> signing key. This means you can replace the old signing key from your <%= component %> configuration.
 
   <%= warning_text('Make sure both your service provider and the GOV.UK Verify Hub are using the new signing certificate before deleting the old signing key.') %>
 
