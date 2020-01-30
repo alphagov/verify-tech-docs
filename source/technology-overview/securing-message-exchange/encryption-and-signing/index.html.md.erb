@@ -1,6 +1,6 @@
 ---
 title: How GOV.UK Verify uses encryption and signing
-weight: 20
+weight: 10
 last_reviewed_on: 2020-01-27
 review_in: 12 months
 ---
@@ -8,11 +8,11 @@ review_in: 12 months
 # How GOV.UK Verify uses encryption and signing
 
 
-GOV.UK Verify uses a separate pair of private and public keys for encryption and signing. The keys are very long numbers linked such that you can derive the public key from the private key, but not the other way around.
+GOV.UK Verify uses a separate pair of private and public keys for encryption and signing. The keys are very long numbers. You can get the public key from the private key, but not the other way around.
 
-Public keys may be shared publicly but private keys must only be known to the owner. For example, services connected to GOV.UK Verify share their public keys as part of self-signed certificates, but keep their private keys secret.
+Public keys may be shared publicly but private keys must only be known to the owner. Services connected to GOV.UK Verify share their public keys in the self-signed certificates they generate. They keep their private keys secret.
 
-As a service connecting to GOV.UK Verify, you will need to generate your own private keys and self-signed certificates for:
+As a service connecting to GOV.UK Verify, you need to generate your own private keys and self-signed certificates for:
 
 - signing messages
 - encrypting messages
@@ -26,28 +26,29 @@ When you first connect to an environment, you must:
 - share your self-signed encryption and signing certificates with GOV.UK Verify
 - configure your VSP with your private keys
 
-Sharing your self-signed encryption and signing certificates allows the GOV.UK Verify Hub to:
+Sharing your self-signed encryption and signing certificates lets the GOV.UK Verify Hub:
 
 - encrypt responses only your VSP can decrypt
 - recognise your VSP's signature on requests
 - check that requests haven't changed since your VSP signed them
 
-Configuring your VSP with your private keys allows your VSP to:
+Configuring your VSP with your private keys lets your VSP:
 
 - sign requests sent to the GOV.UK Verify Hub
 - decrypt responses from the GOV.UK Verify Hub
 
-Your VSP automatically gets the GOV.UK Verify Hub's signing certificate from the Hub's metadata. This certificate allows your VSP to check responses come from the GOV.UK Verify Hub and that they haven't been tampered with.
+Your VSP automatically gets the GOV.UK Verify Hub's signing certificate from the Hub's metadata. This certificate lets your VSP check responses:
 
-Your self-signed certificates are valid for 1 year. When they are about to expire, you must renew them. Learn more about [service team responsibilities][service-responsibilities] in relation to encryption and signing.
+- are from the GOV.UK Verify hub
+- haven’t been tampered with
+
+Your self-signed certificates are valid for 1 year. You must [keep them up to date][service-responsibilities].
 
 ## Message encryption
 
-By encrypting a message, the sender makes sure that only the intended receiver can see the message. The receiver is the only one who has the private key that can decrypt the message.
+For example, the GOV.UK Verify Hub encrypts responses for your service using your self-signed encryption certificate. Your VSP then uses your private encryption key to decrypt the response from the GOV.UK Verify Hub. Only your VSP can do this because it has your private encryption key.
 
-For example, the GOV.UK Verify Hub encrypts responses for your service using your self-signed encryption certificate. Your VSP then uses your private encryption key to decrypt the response from the GOV.UK Verify Hub. Only your VSP can decrypt the response from the GOV.UK Verify Hub using your private encryption key.
-
-Your VSP does not need to encrypt requests for the GOV.UK Verify Hub because the request body is empty. However, the VSP does sign the empty request so the GOV.UK Verify Hub can check where the request came from.
+Your VSP does not need to encrypt requests for the GOV.UK Verify Hub because the request body is empty. However, your VSP does sign the empty request so the GOV.UK Verify Hub can check where the request came from.
 
 ## Message signing
 

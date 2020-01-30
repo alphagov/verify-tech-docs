@@ -1,0 +1,31 @@
+---
+title: Keep your certificates up to date
+weight: 20
+last_reviewed_on: 2020-01-27
+review_in: 12 months
+---
+
+# Keep your certificates up to date
+
+GOV.UK Verify uses encryption and signing to exchange messages securely.
+
+As a service connected to GOV.UK Verify, you're responsible for keeping signing and encryption certificates up to date
+
+The [Verify Service Provider (VSP)][vsp-intro] handles encryption and signing for your service. You generate your first set of VSP encryption and signing keys and certificates when you first connect to the [Integration][get-cert-test] or [Production][get-cert-prod] environments.
+
+Once connected, you must keep your VSP encryption and signing certificates up to date for each environments you're connected to.
+
+If a VSP certificate expires while in use, your connection to that GOV.UK Verify environment breaks. If your connection to the Production environment breaks, your users will not be able to access your service using GOV.UK Verify.
+
+When a certificate is due to expire, you must renew it by following the corresponding key rotation process. For example, find out how to rotate your:
+
+- [VSP encryption key][rotate-vsp-encryption]
+- [VSP signing key][rotate-vsp-signing]
+
+If your service started connecting to GOV.UK Verify before January 2019, you also need to keep your Matching Service Adapter certificates up to date.
+
+If you’re running a custom service provider instead of the VSP, keep the service provider’s certificates up to date.
+
+Learn more about [how GOV.UK Verify uses encryption and signing][encryption-and-signing].
+
+<%= partial "partials/links" %>
