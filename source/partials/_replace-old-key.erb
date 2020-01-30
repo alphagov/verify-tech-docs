@@ -1,0 +1,26 @@
+
+The email from the GOV.UK Verify team confirms that GOV.UK Verify Hub now trusts messages signed with your new <%= component %> <%= type %> key. This means you can replace the old <%= type %> key from your <%= component %> configuration.
+
+<newline>
+
+<%= warning_text('Wait for the deployment confirmation email from the GOV.UK Verify Team before replacing the old key.') %>
+
+
+<% if component == "VSP" %>
+
+To replace the old <%= type %> key from the <%= component %> configuration:
+
+1. Replace the old <%= type %> key under `samlSigningKey` in the <%= component %> configuration with the new key.
+1. Restart the <%= component %> to implement the configuration changes.
+
+Your <%= component %> now signs messages for the GOV.UK Verify Hub using your new <%= type %> key.
+
+<% end %>
+
+
+
+<% if component == "service provider" %>
+
+Replacing your old private <%= type %> key with the new key means your service now signs messages for the GOV.UK Verify Hub using your new key.
+
+<% end %>

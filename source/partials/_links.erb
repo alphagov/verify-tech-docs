@@ -10,6 +10,11 @@
 
 [loa]: https://www.verify.service.gov.uk/understand-levels-of-assurance/
 
+[manage-certs]: https://connecting-to-verify-prototype.herokuapp.com/self-serve/sign-in
+[openssl-github]: https://github.com/openssl/openssl
+[troubleshooting-4]: /emergency-procedures/broken-connection-during-rotation/#step-4-check-the-uploaded-certificate-matches-your-new-key
+[troubleshooting-3]: /emergency-procedures/broken-connection-during-rotation/#step-3-check-the-uploaded-certificate
+
 [vsp-readme]: https://github.com/alphagov/verify-service-provider/blob/master/README.md
 [vsp-readme-setup]: https://github.com/alphagov/verify-service-provider/blob/master/README.md#setup
 [vsp-run]: https://github.com/alphagov/verify-service-provider/blob/master/README.md#run
@@ -17,6 +22,7 @@
 [vsp-openapi3]: https://github.com/alphagov/verify-service-provider/blob/master/docs/api/verify-service-provider-api.swagger.yml
 [vsp-release]: https://github.com/alphagov/verify-service-provider/releases
 [vsp]: /get-started
+[vsp-intro]: /technology-overview/#verify-service-provider-vsp
 [vsp-config]: https://github.com/alphagov/verify-service-provider/blob/master/verify-service-provider.yml
 [vsp-config-readme]: https://github.com/alphagov/verify-service-provider#configure
 [successful-verification]: /get-started/set-up-successful-verification-journey
@@ -29,26 +35,31 @@
 
 [development-steps]: /development-steps/#development-steps
 
-[pki]: /technology-overview/public-key-infrastructure
-[encryption-and-signing]: /technology-overview/public-key-infrastructure/#data-encryption-and-signing
-[idap-ca]: /technology-overview/public-key-infrastructure/#why-does-gov-uk-verify-use-a-pki
-[about-keys-and-certs]: /technology-overview/public-key-infrastructure/#public-keys-private-keys-and-certificates
-[get-certs-prod]: /connect-to-production/get-certificates/#get-certificates
-[get-certs-test]: /test-in-integration/get-certificates/#get-certificates
+[pki]: /technology-overview/securing-message-exchange
+[encryption-and-signing]: /technology-overview/securing-message-exchange/encryption-and-signing
+[get-first-certs-prod]: /connect-to-production/get-certificates/#get-certificates
+[get-first-certs-test]: /test-in-integration/get-certificates/#get-certificates
 [generate-keys]: /connect-to-production/get-certificates/#generate-private-keys
 [generate-cert-request]: /connect-to-production/get-certificates/#generate-certificate-signing-requests
 [submit-cert-request]: /connect-to-production/get-certificates/#submit-certificate-signing-requests
-[rotate-keys]: /maintain-your-connection/rotate-keys
-[vsp-sign]: /maintain-your-connection/rotate-keys/#rotate-your-vsp-signing-key
-[vsp-enc]: /maintain-your-connection/rotate-keys/#rotate-your-vsp-encryption-key
-[sp-sign]: /maintain-your-connection/rotate-keys/#rotate-your-service-provider-signing-key
-[sp-enc]: /maintain-your-connection/rotate-keys/#rotate-your-service-provider-encryption-key
-[msa-sign]: /maintain-your-connection/rotate-keys/#rotate-your-msa-signing-key
-[msa-enc]: /maintain-your-connection/rotate-keys/#rotate-your-msa-encryption-key
+[rotate-keys]: /updating-your-keys-and-certificates
+
+[dashboard]: https://connecting-to-verify-prototype.herokuapp.com/self-serve/dashboard
+[sp-no-dual-run]: /rotating-your-keys-and-certificates/service-provider-encryption/service-provider-encryption-no-dual-run
+[rotating-keys-certs]: /rotating-your-keys-and-certificates
+
+[service-responsibilities]: /technology-overview/securing-message-exchange/keep-certificates-up-to-date
+[encryption-and-signing]: /technology-overview/securing-message-exchange/encryption-and-signing
+
+[private-key-leak]: /emergency-procedures/private-key-leak
+[broken-connection-rotation]: /emergency-procedures/broken-connection-during-rotation
+
+[public-key cryptography]: https://standards.ieee.org/standard/1363-2000.html
 
 [get-cert-prod]: /connect-to-production/get-certificates
 [get-cert-test]: /test-in-integration/get-certificates
 [get-env-access-test]: /test-in-integration/request-access
+[get-env-access-production]: /connect-to-production/request-access
 
 [decide-data]: /using-verify-data/#decide-how-to-use-gov-uk-verify-data
 
@@ -113,3 +124,8 @@
 [verify-test-rp]: https://github.com/alphagov/verify-test-rp
 [verify-eidas-metadata-aggregator]: https://github.com/alphagov/verify-eidas-metadata-aggregator
 [verify-frontend]: https://github.com/alphagov/verify-frontend
+
+[rotate-vsp-encryption]: /rotating-your-keys-and-certificates/vsp-encryption
+[rotate-vsp-signing]: /rotating-your-keys-and-certificates/vsp-signing
+[rotate-sp-encryption]: /rotating-your-keys-and-certificates/service-provider-encryption
+[rotate-sp-signing]: /rotating-your-keys-and-certificates/service-provider-signing

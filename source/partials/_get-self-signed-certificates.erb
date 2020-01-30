@@ -1,0 +1,64 @@
+Use your preferred method to generate a new private key and self-signed certificate pair.
+
+<% if component == "MSA" %>
+  Make sure the private key is [PKCS #8](https://tools.ietf.org/html/rfc5208) formatted and DER encoded.
+<% else %>
+  Make sure the private key is [PKCS #8](https://tools.ietf.org/html/rfc5208) formatted and PEM encoded.
+<% end %>
+
+The self-signed certificate must be:
+
+- valid for one year
+- in [X.509](https://tools.ietf.org/html/rfc4158) format and PEM encoded
+
+<%= partial "partials/details-tag-style" %>
+
+<details class="govuk-details" data-module="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      See an example
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+ You can use [OpenSSL][openssl-github] to generate your keys and self-signed certificates. Most Linux distributions and Mac OS versions have OpenSSL installed.
+
+<% if component == "MSA" %>
+
+```sh
+# generate your key and self-signed certificate
+openssl req -x509 -newkey rsa:2048 -days 365 -nodes -sha256 \
+   -keyout <private-key>.key -out <certificate>.crt
+
+# convert your MSA key to use DER encoding
+openssl pkcs8 -topk8 -nocrypt \ 
+   -in <private-key>.key -out <private-key>.pk8 -outform DER
+```
+
+<% else %>
+Generate your private key and self-signed certificate:
+
+```sh
+openssl req -x509 -newkey rsa:2048 -days 365 -nodes -sha256 \
+   -keyout <private-key>.key -out <certificate>.crt
+```
+
+<% end %>
+
+The terminal will prompt you for information. You must provide a `Common Name`. All other information is optional.
+
+The `Common Name` is the part of the certificate metadata that helps you identify that certificate more easily. You can use the `Common Name` to check you've uploaded the right certificate when using the GOV.UK Verify Manage certificates service.
+
+There is no mandatory naming convention for `Common Name`, but it's useful during troubleshooting if you include the:
+
+* name of your service
+* name of the component the certificate is for
+* environment name you generated the certificate for
+* certificate type
+* version number for your certificate
+
+`Common Name` must not contain underscores.
+
+For example, the common name could be `Universal-Credit-MSA-integration-signing-01`.
+
+  </div>
+</details>

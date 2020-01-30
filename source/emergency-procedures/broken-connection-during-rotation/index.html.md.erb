@@ -1,0 +1,73 @@
+---
+title: Broken connection during key rotation
+weight: 20
+last_reviewed_on: 2020-01-07
+review_in: 5 months
+---
+
+# Broken connection during key rotation
+
+These steps will help you find out:
+
+* what caused your connection to break during the key rotation
+* how to restore your connection
+
+## Step 1. Restart your component
+
+You must restart your component after making a configuration change so it starts using the new configuration. For example, you must restart the Verify Service Provider for it to start using the new key.
+
+## Step 2. Apply changes to all instances
+
+Make sure you restart all instances of the component you're doing the key rotation for. This ensures all instances are using the new key in their configuration.
+
+## Step 3. Check the uploaded certificate
+
+Check the details of the certificate you last uploaded to the [GOV.UK Verify Manage certificates service][manage-certs]. The **Common name** of the certificate should have information about the intended use for the certificate. Use this information to check that the certificate is:
+
+* linked to the correct component
+* in the correct GOV.UK Verify environment, for example Integration or Production
+* of the correct type, for example signing or encryption
+
+### If you uploaded the correct certificate
+
+If the information in the **Common name** matches the details of the uploaded certificate, go to [Step 4. Check the uploaded certificate matches your new key][troubleshooting-4] to continue troubleshooting your connection.
+
+### If you uploaded the wrong encryption certificate
+
+Your connection to GOV.UK Verify will break if you upload an encryption certificate that does not match any of your private encryption keys. This is because your component will not be able to use the private encryption keys to decrypt messages from the GOV.UK Verify Hub.
+
+To restore your connection to GOV.UK Verify, replace the wrong certificate with the correct one.
+
+1. Go to the [GOV.UK Verify Manage certificates service dashboard][dashboard].
+2. Select the encryption certificate that does not match your new private key.
+3. Select **Replace certificate** and follow the instructions.
+
+
+### If you uploaded the wrong signing certificate
+
+If you uploaded a signing certificate that does not match your new private signing key, you must remove that certificate from the GOV.UK Verify Manage certificates service and then upload the correct one.
+
+1. Go to the [GOV.UK Verify Manage certificates service dashboard][dashboard].
+2. Select the signing certificate that does not match your new private key.
+3. Select **Stop using this certificate**.
+4. Upload the correct certificate using the [GOV.UK Verify Manage certificates service][manage-certs].
+
+### If you do not have the correct certificate
+
+If you do not have the correct certificate, [start a new key rotation process][rotating-keys-certs].
+
+
+## Step 4. Check the uploaded certificate matches your new key
+
+If the uploaded certificate you checked in [Step 3 Check the uploaded certificate][troubleshooting-3] is the correct one, make sure it matches the new private key your component is using.
+
+For example, you can use `openssl` to check if the certificate you uploaded matches the new private key your component is using. A private key matches a certificate if their 'modulus' sections are identical. If you’re not automating the comparison, it’s useful to shorten the modulus by creating an MD5 hash.
+
+```sh
+openssl x509 -noout -modulus -in <certificate>.crt | openssl md5
+openssl rsa -noout -modulus -in <private-key>.key | openssl md5
+```
+
+If the private key and certificate do not match, replace the private key with the correct match. If the correct match is not available or has been compromised, [start a new key rotation process][rotating-keys-certs].
+
+<%= partial "partials/links" %>

@@ -1,0 +1,41 @@
+---
+title: Matching Service Adapter signing
+weight: 30
+last_reviewed_on: 2020-01-17
+review_in: 4 months
+---
+
+<%# Define the local variables - these will be used to customise the content in the partial files called in this file. %>
+<% locals = { component: "MSA", type: "signing", action: "sign", dual_running: "yes" } %>
+<%# The markdown content for this page starts below. %>
+
+# Matching Service Adapter signing
+
+If your connection to GOV.UK Verify involves a Matching Service Adapter (MSA), you are responsible for keeping its encryption and signing certificates up to date.
+
+You must update the certificates containing your MSA's public keys before they expire. If you do not, your users will not be able to access your service using GOV.UK Verify.
+
+## Rotate your MSA signing key and certificate
+
+### Step 1. Create a new self-signed signing certificate
+
+  <%= partial "partials/get-self-signed-certificates", locals: locals %>
+
+### Step 2. Add the new signing key and certificate to your MSA configuration
+
+  <%= partial "partials/add-new-key", locals: locals %>
+
+### Step 3. Upload the new signing certificate
+
+  <%= partial "partials/upload-new-certificate", locals: locals %>
+
+### Step 4. Delete the old MSA signing key and certificate
+
+  <%= partial "partials/remove-old-key", locals: locals %>
+
+### Step 5. Remove your old certificate from the GOV.UK Verify Hub configuration
+
+  <%= partial "partials/remove-old-certificate", locals: locals %>
+
+<%#= Add in the link label definitions - this is makes the URLs on this page work. %>
+<%= partial "partials/links" %>

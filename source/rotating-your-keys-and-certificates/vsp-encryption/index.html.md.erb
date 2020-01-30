@@ -1,0 +1,39 @@
+---
+title: Verify Service Provider encryption
+weight: 20
+last_reviewed_on: 2020-01-27
+review_in: 3 months
+---
+
+<%# Define the local variables - these will be used to customise the content in the partial files called in this file. %>
+<% locals = { component: "VSP", type: "encryption", action: "encrypt", dual_running: "yes" } %>
+<%# The markdown content for this page starts below. %>
+
+# Verify Service Provider encryption
+
+If you're using the Verify Service Provider (VSP) to connect to GOV.UK Verify, you are responsible for keeping its encryption and signing certificates up to date.
+
+If you're using a custom service provider, [go to the section about updating service provider keys][rotate-sp-encryption].
+
+## Rotate your VSP encryption key and certificate
+
+### Step 1. Create a new self-signed encryption certificate
+
+  <%= partial "partials/get-self-signed-certificates", locals: locals %>
+
+### Step 2. Add the new encryption key to the VSP configuration
+
+  <%= partial "partials/add-new-key", locals: locals %>
+
+### Step 3: Upload the new encryption certificate
+
+  <%= partial "partials/upload-new-certificate", locals: locals %>
+
+### Step 4. Remove the old encryption key
+
+  <%= partial "partials/remove-old-key", locals: locals %>
+
+
+<%#= Add in the link label definitions %>
+
+<%= partial "partials/links" %>

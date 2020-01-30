@@ -1,0 +1,41 @@
+---
+title: Service provider encryption
+weight: 60
+last_reviewed_on: 2020-01-27
+review_in: 4 months
+---
+
+<%# Define the local variables - these will be used to customise the content in the partial files called in this file. %>
+<% locals = { component: "service provider", type: "encryption", action: "encrypt", dual_running: "yes" } %>
+<%# The markdown content for this page starts below. %>
+
+# Service provider encryption
+
+If you built your own service provider to connect to GOV.UK Verify, you are responsible for keeping its encryption and signing certificates up to date.
+
+If your service provider does not support dual running for your encryption keys, there will be an outage when you replace the encryption key. Find out more about the process in the [instructions for running service providers that cannot dual run][sp-no-dual-run].
+
+If you're using the Verify Service Provider, [see how to update your Verify Service Provider keys][rotate-vsp-encryption].
+
+## Rotate your service provider encryption key and certificate
+
+### Step 1. Create a new self-signed encryption certificate
+
+  <%= partial "partials/get-self-signed-certificates", locals: locals %>
+
+### Step 2. Add the new encryption key and certificate
+
+  <%= partial "partials/add-new-key", locals: locals %>
+
+### Step 3. Upload the new encryption certificate
+
+  <%= partial "partials/upload-new-certificate", locals: locals %>
+
+### Step 4. Delete the old encryption key
+
+  <%= partial "partials/remove-old-key", locals: locals %>
+
+
+<%# Add in the link label definitions %>
+
+<%= partial "partials/links" %>
