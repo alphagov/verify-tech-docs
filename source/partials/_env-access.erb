@@ -1,49 +1,18 @@
 
 # Get environment access
 
-An environment is a fully-working deployment of the GOV.UK Verify hub. GOV.UK Verify maintains a number of environments for development, testing, and operational purposes. As a government service you need to work in the Integration and Production environments.
-
-GOV.UK Verify provides two identical, secure environments:
-
-- Integration
-- Production
+The <%= env %> environment contains a secure, fully-working deployment of the GOV.UK Verify Hub.
 
 <% if env == "Integration" %>
-Integration allows you to test your prototype service with dummy user data.
+  GOV.UK Verify maintains the <%= env %> environment and it allows you to test your prototype service with dummy user data.
 <% end %>
 
 <% if env == "Production" %>
-Production allows you to host your fully-developed beta or live service with real user data. The production environment is where you deploy your live end-to-end service. It's a restricted environment for security reasons.
+  Production allows you to connect your fully-developed beta or live service with real user data. The production environment is where you deploy your live end-to-end service. It's a restricted environment for security reasons.
 <% end %>
 
-You must complete a short form with information about your service so GOV.UK Verify can set up each environment for you. This can take up to 5 working days.
+You must [complete a short form](https://verify-environment-access.cloudapps.digital/) with information about your service so the GOV.UK Verify team can set up the <%= env %>  environment for you. This can take up to 5 working days.
 
-You’ll need to submit a form for each environment you need.
-
-[Submit form.](https://verify-environment-access.cloudapps.digital/)
-
-## Before you start
-
-The form does not store data between sessions. You must make sure you have all the information available to submit the form within a single session.
-
-To complete the form you’ll need to share URLs for your:
-
-- Verify Service Provider
-- service start point or page
-- [Verify SAML response][verify-saml-response]
-
-You’ll need to provide web content to personalise the Verify Hub for your end users, including:
-
-- your agency or department name (as you need it to appear to the user)
-- a display name for your Verify service (as you need it to appear to the user)
-- contact details for your service
-- a description of other ways users can access your service
-
-You’ll need to provide [valid, signed IDAP X.509 Public certificates][get-cert-test] for:
-
-- Verify Service Provider signature validation
-- Verify Service Provider encryption
-
-For <%= env %> environments, you’ll also need to provide a username and password to manage the test user data.
-
-[Submit form to request an environment.](https://verify-environment-access.cloudapps.digital/)
+<% if env == "Integration" %>
+  You’ll need to submit a separate form when you connect to the Production environment.
+<% end %>

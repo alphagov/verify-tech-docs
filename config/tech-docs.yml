@@ -49,3 +49,10 @@ api_path:
 # Set default slack workspace and owner
 owner_slack_workspace: gds
 default_owner_slack: '#verify-developers'
+
+# Define redirects
+
+redirects:
+  technology-overview/public-key-infrastructure/index.html: technology-overview/securing-message-exchange/index.html
+  maintain-your-connection/index.html: rotating-your-keys-and-certificates/index.html
+  maintain-your-connection/rotate-keys/index.html: rotating-your-keys-and-certificates/index.html
