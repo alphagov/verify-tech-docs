@@ -15,7 +15,7 @@ The MSA handles complex matching requirements. We recommend that you use the MSA
 
 You need to host the MSA so the GOV.UK Verify Hub can make requests to it.
 
-If you do not want to use the MSA, [contact the GOV.UK Verify team](LINK).
+If you do not want to use the MSA, [contact the GOV.UK Verify team][support].
 
 To run the Matching Service Adapter (MSA) you need:
 
@@ -42,22 +42,20 @@ Typically, GOV.UK Verify releases a new version of the MSA every 2 or 3 months. 
 ## Get certificates for your MSA
 
 Your MSA needs a signing certificate and an encryption certificate. You must use different certificates for each environment.
-
 To obtain certificates:
 
-* [generate self-signed certificates](LINK) for the SAML compliance tool
-* [request certificates](LINK) from the IDAP certificate authority for the integration and production environments
-
+Generate self-signed certificates for the different environments
+<%= partial "partials/get-self-signed-certificates", locals: { component: "MSA" } %>
 ## Configure your MSA
 
-When you [start the MSA](LINK), you need to supply a YAML configuration file.
+When you [start the MSA][start-the-MSA], you need to supply a YAML configuration file.
 
 The MSA zip file contains two sample YAML configuration files:
 
 * `test-config.yml` for the SAML compliance tool and the integration environment
 * `prod-config.yml` for the production environment
 
-[Adapt the YAML configuration file](LINK) where required.
+[Adapt the YAML configuration file][configure-your-msa-yaml] where required.
 
 ## Start the Matching Service Adapter
 
@@ -66,9 +64,24 @@ To start using the MSA, run the following command, supplying the path to your co
 ```sh
 java -jar [filename].jar server [path to configuration file].yml
 ```
-You can now run [SAML compliance tests between the hub and your MSA](LINK).
-To help [build your local matching service](LINK),
-you can use the [example of the JSON request](LINK) that the MSA posts to your service.
+You can now run by posting the following JSON to the [SAML compliance tool][testing-service]:
+
+```json
+Content-Type: application/json
+{
+    "serviceEntityId":"[entityID for your service - you can use the same URL as the assertionConsumerServiceUrl]",
+    "assertionConsumerServiceUrl":"[assertion consumer service URL: this is the URL that will consume responses from the GOV.UK Verify hub]",
+    "signingCertificate":"[Base64-encoded X509 signing certificate for your service]",
+    "encryptionCertificate":"[Base64-encoded X509 encryption certificate for your service]",
+    "expectedPID":"[expected persistent identifier: this is the user id that the MSA returns in an assertion]",
+    "matchingServiceEntityId":"[entityID for your MSA]",
+    "matchingServiceSigningPrivateKey":"[Base64-encoded private signing key for the MSA, see below]",
+    "userAccountCreationAttributes":["optional", "list", "of", "attributes", "the", "government", "service", "requires", "for", "new", "user", "account", "creation", "see", "below"]
+}
+```
+
+To help [build your local matching service][build-your-local-matching-service],
+you can use the example of the JSON request that the MSA posts to your service.
 
 ### Error: Signature verification failed
 
@@ -80,7 +93,7 @@ The MSA checks each of the certificates in turn. The MSA will return ‘Signatur
 
 ## Monitoring
 
-When the MSA is installed in your [integration or production environment](LINK), health checks run every 60 seconds to ensure that the MSA is functioning correctly. They test:
+When the MSA is installed in your [integration or production environment][msa-environments], health checks run every 60 seconds to ensure that the MSA is functioning correctly. They test:
 
 * connectivity
 * that the MSA accepts the hub signature
@@ -91,24 +104,6 @@ When the MSA is installed in your [integration or production environment](LINK),
 The MSA supports HTTP and HTTPS proxies configured by Java properties.
 
 For information on configuring HTTPS proxies, refer to the [Java documentation](http://docs.oracle.com/javase/8/docs/technotes/guides/net/proxies.html).
-
-## Secure your MSA
-
-### MSA TLS certificates
-
-The table below shows the root certificate authorities that GOV.UK Verify trusts for HTTPS connections to your matching service in the [integration and production environments](LINK).
-
-| Root certificate authority   | Common name                 | X509v3 subject key identifier                                 |
-| ---                          | ---                         | ---                                                           |
-| AddTrust External CA Root    | AddTrust External CA Root   | AD:BD:98:7A:34:B4:26:F7:FA:C4:26:54:EF:03:BD:E0:24:CB:54:1A   |
-| GeoTrust Global CA           | GeoTrust Global CA          | C0:7A:98:68:8D:89:FB:AB:05:64:0C:11:7D:AA:7D:65:B8:CA:CC:4E   |
-| QuoVadis Root CA 2           | QuoVadis Root CA 2          | 1A:84:62:BC:48:4C:33:25:04:D4:EE:D0:F6:03:C4:19:46:D1:94:6B   |
-
-For the SAML compliance tool, use [self-signed certificates](LINK).
-
-If you want to use a root certificate authority for your matching service that isn’t in the above table, raise a ticket with us by sending an email to `idasupport+onboarding@digital.cabinet-office.gov.uk`. We’ll review your chosen root certificate authority before adding it to this list.
-
-When you raise a ticket, indicate the chain of trust with your SSL/TLS certificate. You'll also need the chain of trust when you configure your server.
 
 ### Connect your MSA to the internet securely
 

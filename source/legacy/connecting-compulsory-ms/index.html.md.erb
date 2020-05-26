@@ -10,8 +10,8 @@ weight: 20
 
 Prerequisites:
 
-- [choose a product and framework](LINK) to integrate your service with GOV.UK Verify
-- decide how to [store and manage keys](LINK) and certificates so you can rotate your keys when needed
+- choose a product and framework to integrate your service with GOV.UK Verify
+- decide how to [store and manage keys][pki] and certificates so you can rotate your keys when needed
 Note
 
 >You only need to deploy your code to a server at the end of the development phase, when you test your matching service with the SAML compliance tool. You can do all development steps until this point on a development machine.
@@ -20,47 +20,48 @@ Note
 
 To do this:
 
-1. [Download and install the Matching Service Adapter](LINK).
-1. [Generate self-signed certificates for the SAML compliance tool](LINK).
-1. [Configure the Matching Service Adapter for the SAML compliance tool](LINK).
+1. [Download and install the Matching Service Adapter][msa-releases].
+1. Generate self-signed certificates for the SAML compliance tool.
+<%= partial "partials/get-self-signed-certificates", locals: { component: "MSA" } %>
+[Configure the Matching Service Adapter for the SAML compliance tool][msa-local-config].
 
 Outcome: you can start building your service.
 
-For more information, see [Install and configure the Matching Service Adapter](LINK).
+For more information, see [Install and configure the Matching Service Adapter][building-a-matching-service].
 
 ### Build a local matching service.
 
 To do this:
 
-1. [Define your matching strategy](LINK) with your service manager.
-1. Use the [example JSON matching request](LINK) and the [JSON schema](LINK) to help build your local matching service.
+1. [Define your matching strategy][matching-strategy] with your service manager.
+1. Use the example JSON matching request and the JSON schema to help build your local matching service.
 
 Outcome: your service can match users’ verified identities to your data sources.
 
-For more information, see [Build a matching service](LINK).
+For more information, see [Build a matching service][build-your-local-matching-service].
 
 ### Build a service that produces and consumes SAML.
 
 To do this:
 
-1. [Connect your service to the Matching Service Adapter metadata](LINK).
-1. [Send an authentication request to the GOV.UK Verify hub](LINK).
-1. [Handle the SAML response from the GOV.UK Verify hub](LINK) .
+1. [Connect your service to the Matching Service Adapter metadata][msa-connect-to-metadata].
+1. Send an authentication request to the GOV.UK Verify hub.
+1. Handle the SAML response from the GOV.UK Verify hub .
 
 Outcome: you’re ready to run SAML compliance tests.
 
-For more information, see [How SAML works with GOV.UK Verify](LINK) and the [Identity Assurance Hub Service SAML 2.0 Profile](LINK).
+For more information, see [How SAML works with GOV.UK Verify][saml] and the [Identity Assurance Hub Service SAML 2.0 Profile][saml-spec].
 
 ### Run SAML compliance tests.
 
 To do this:
 
-1. [Test your service with the SAML compliance tool](LINK).
-1. [Test your matching service with the SAML compliance tool](LINK).
+1. [Test your service with the SAML compliance tool][using-complaince-tool].
+1. [Test your matching service with the SAML compliance tool][using-matching-service].
 
 Outcome: your service and matching service can consume and produce valid SAML.
 
-For more information, see [How SAML works with GOV.UK Verify](LINK).
+For more information, see [How SAML works with GOV.UK Verify][saml].
 
 ## Development in the Integration environment
 
@@ -68,23 +69,23 @@ For more information, see [How SAML works with GOV.UK Verify](LINK).
 
 To do this:
 
-1. [Obtain signed certificates](LINK) for the integration environment from the IDAP test certificate authority.
-1. [Fill in the ‘Request access to an environment‘ form](LINK).
+1. [Generate self-signed certificates][test-in-integration] for the integration environment.
+1. [Request access to an environment][get-env-access-test].
 
 Outcome: you’re ready to connect the Matching Service Adapter and your service to the integration environment.
+For more information, see [GOV.UK Verify environments][env-request-form] and [How a PKI works][pki].
 
-For more information, see [GOV.UK Verify environments](LINK) and [How a PKI works](LINK).
 
 ### Connect the Matching Service Adapter and your service to the integration environment.
 
 To do this:
 
-1. [Download and install the Matching Service Adapter](LINK).
-2. [Configure the Matching Service Adapter for the integration environment](LINK).
+1. [Download and install the Matching Service Adapter][msa-releases].
+2. [Configure the Matching Service Adapter for the integration environment][env-request-form].
 
 Outcome: you’re ready to run end-to-end testing with test users.
 
-For more information, see [Install and configure the Matching Service Adapter](LINK) and [GOV.UK Verify environments](LINK).
+For more information, see [Install and configure the Matching Service Adapter][start-the-MSA] and [GOV.UK Verify environments][env-request-form].
 
 ### Run end-to-end testing of all your user journeys in the integration environment.
 
@@ -96,38 +97,39 @@ To do this:
 
 Outcome: your service can handle all the possible outcomes of end-to-end user journeys.
 
-For more information, see [GOV.UK Verify environments](LINK).
+For more information, see [GOV.UK Verify environments][env-request-form].
 
 ### Request access to the production environment.
 
 To do this:
 
-1. Obtain [signed certificates](LINK) for the production environment from the IDAP certificate authority.
-1. [Fill in the ‘Request access to an environment‘ form](LINK).
+[Generate self-signed certificates](LINK) for the production environment.
+<%= partial "partials/get-self-signed-certificates", locals: { component: "MSA" } %>
+[Fill in the ‘Request access to an environment‘ form][get-env-access-test].
 
 Outcome: you’re ready to connect the Matching Service Adapter and your service to the production environment.
 
-For more information, see [GOV.UK Verify environments](LINK) and [How a PKI works](LINK).
+For more information, see [GOV.UK Verify environments][get-env-access-test] and [How a PKI works][pki].
 
 ### Connect the Matching Service Adapter and your service to the production environment.
 
 To do this:
 
-1. [Download and install the Matching Service Adapter](LINK).
-2. [Configure the Matching Service Adapter for the production environment](LINK).
+1. [Download and install the Matching Service Adapter][msa-releases].
+2. [Configure the Matching Service Adapter for the production environment][get-env-access-production].
 
 Outcome: your service is ready to go live.
 
-For more information, see [Install and configure the Matching Service Adapter](LINK) and [GOV.UK Verify environments](LINK).
+For more information, see [Install and configure the Matching Service Adapter][start-the-MSA] and [GOV.UK Verify environments][env-request-form].
 
 ## Maintenance
 
 ### Rotate your keys.
 
-When the certificates containing your public keys are due to expire, [replace your keys and certificates](LINK).
+When the certificates containing your public keys are due to expire, [replace your keys and certificates][manage-certs].
 
 Outcome: the encryption and signing certificates for your service and Matching Service Adapter are up to date.
 
-For more information, see [How a PKI works](LINK).
+For more information, see [How a PKI works][pki].
 
 <%= partial "partials/links" %>

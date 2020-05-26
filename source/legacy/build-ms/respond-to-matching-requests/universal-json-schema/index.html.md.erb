@@ -7,7 +7,7 @@ weight: 10
 
 Below is the universal [JSON schema](http://json-schema.org/) for a matching request. You can use this schema to validate incoming matching requests and as a reference when developing your local matching service.
 
-The universal JSON matching schema will be used to represent both Verify  identities and European identities. This schema only applies if your [MSA is configured to use European identities](LINK). Otherwise your MSA will use the [legacy JSON matching schema](LINK).
+The universal JSON matching schema will be used to represent both Verify  identities and European identities. This schema only applies if your [MSA is configured to use European identities][msa-eu-identities]. Otherwise your MSA will use the [legacy JSON matching schema][msa-legacy-json-schema].
 
 ```json
   {
@@ -250,9 +250,9 @@ The MSA sends one matching request for both Cycle 0 and Cycle 1 to your local ma
 
 ## Example for Verify cycle 3 matching request
 
-If you're using cycle 3 and your local matching service returned a `no-match` response to the MSA, the MSA sends a cycle 3 matching request.  Below is a formatted example for a GOV.UK Verify identity using [the universal JSON schema](LINK) .
+If you're using cycle 3 and your local matching service returned a `no-match` response to the MSA, the MSA sends a cycle 3 matching request.  Below is a formatted example for a GOV.UK Verify identity using [the universal JSON schema][msa-universal-json-schema] .
 
-A cycle 3 matching request for a [European identity](LINK) , will be formatted as shown below.
+A cycle 3 matching request for a [European identity][msa-eu-identities] , will be formatted as shown below.
 
 ```json
 {
@@ -353,7 +353,7 @@ A cycle 3 matching request for a [European identity](LINK) , will be formatted a
 
 ## Example for European identity cycle 3 matching request
 
-A cycle 3 matching request for a [European identity](LINK) , will be formatted as shown below. If you haven't enabled European identities in your MSA configuration, the matching request will be formatted using [the legacy JSON schema](LINK)
+A cycle 3 matching request for a [European identity][msa-eu-identities] , will be formatted as shown below. If you haven't enabled European identities in your MSA configuration, the matching request will be formatted using [the legacy JSON schema][msa-legacy-json-schema]
 
 ```json
 {
