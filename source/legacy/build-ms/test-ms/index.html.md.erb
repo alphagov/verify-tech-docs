@@ -8,9 +8,9 @@ weight: 30
 You can test your matching service with 2 tools provided by GOV.UK Verify:
 
 * Matching Service Test Tool
-* Complaince Tool
+* Compliance Tool
 
-## Using the Matching Service
+## Using the Matching Service Tool
 
 The [Matching Service Test Tool ](https://github.com/alphagov/verify-matching-service-adapter/tree/master/verify-matching-service-test-tool) is a lightweight tool you can add to your existing testing workflow.
 
@@ -22,13 +22,13 @@ The tool makes sure your Local Matching Service can:
 
 You can also add or amend test scenarios to the tool. Refer to the [Matching Service Test Tool documentation on GitHub ](https://github.com/alphagov/verify-matching-service-adapter/tree/master/verify-matching-service-test-tool) to install and configure the tool.
 
-## Using the Complaince Tool
+## Using the Compliance Tool
 
-The SAML Complaince Tool helps you test your Local Matching Service and Matching Service Adapter (MSA) together. It also helps you to test and configure your MSA before entering the [Integration environment ][integration-environment].
+The SAML Compliance Tool helps you test your Local Matching Service and Matching Service Adapter (MSA) together. It also helps you to test and configure your MSA before entering the [Integration environment ][integration-environment].
 
-The Complaince Tool is hosted by GOV.UK Verify. To test the matching service using the Testing Service, you will need to make sure your MSA is accessible through the internet.
+The Compliance Tool is hosted by GOV.UK Verify. To test the matching service using the Compliance Service, you will need to make sure your MSA is accessible through the internet.
 
-1. To set up the Complaince Tool for matching service tests, POST the following JSON (via cURL or Postman, for example) to the SAML Testing Service URL ([https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk/matching-service-test-run ](https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk/matching-service-test-run)):
+1. To set up the Compliance Tool for matching service tests, POST the following JSON (via cURL or Postman, for example) to the SAML Testing Service URL ([https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk/matching-service-test-run ](https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk/matching-service-test-run)):
 
       ```
       Content-Type: application/json
@@ -139,7 +139,7 @@ The Complaince Tool is hosted by GOV.UK Verify. To test the matching service usi
       * the `uprn` (Unique Property Reference Number) is a unique reference for each property in Great Britain, ensuring accuracy of address data. This is an optional attribute that can contain up to 12 characters and should not have any leading zeros
       * `userAccountCreationAttributes`: provide this only if you want to test [new user account creation ][msa-create-user-accounts] – select from the full list of attributes
 
-4. When the SAML Complaince Tool receives your test matching dataset, it will POST an attribute query to your MSA. This corresponds to step 4 in the [SAML message flow ][msa-saml-flow].
+4. When the SAML Compliance Tool receives your test matching dataset, it will POST an attribute query to your MSA. This corresponds to step 4 in the [SAML message flow ][msa-saml-flow].
 
 5. Your MSA validates the query and sends a POST with a JSON request containing your test matching dataset to your local matching service. This corresponds to step 5 in the [SAML message flow ][msa-saml-flow].
 
