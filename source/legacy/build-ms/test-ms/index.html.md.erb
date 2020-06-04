@@ -26,9 +26,9 @@ You can also add or amend test scenarios to the tool. Refer to the [Matching Ser
 
 The SAML Compliance Tool helps you test your Local Matching Service and Matching Service Adapter (MSA) together. It also helps you to test and configure your MSA before entering the [Integration environment ][integration-environment].
 
-The Compliance Tool is hosted by GOV.UK Verify. To test the matching service using the Compliance Service, you will need to make sure your MSA is accessible through the internet.
+The Compliance Tool is hosted by GOV.UK Verify. To test the matching service using the Compliance Tool, you will need to make sure your MSA is accessible through the internet.
 
-1. To set up the Compliance Tool for matching service tests, POST the following JSON (via cURL or Postman, for example) to the SAML Testing Service URL ([https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk/matching-service-test-run ](https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk/matching-service-test-run)):
+1. To set up the Compliance Tool for matching service tests, POST the following JSON (via cURL or Postman, for example) to the SAML Compliance Tool URL ([https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk/matching-service-test-run ](https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk/matching-service-test-run)):
 
       ```
       Content-Type: application/json
@@ -123,8 +123,8 @@ The Compliance Tool is hosted by GOV.UK Verify. To test the matching service usi
       }
       ```
 
-      If you provide a value for `"userAccountCreationAttributes"` the Testing Service will make a user account creation request to the `"userAccountCreationEndpoint"` configured in the POST request to /matching-service-test-run.
-      If you do not provide a value, the Testing Service will make a matching request to your `"matchingServiceEndpoint"`.
+      If you provide a value for `"userAccountCreationAttributes"` the Compliance Tool will make a user account creation request to the `"userAccountCreationEndpoint"` configured in the POST request to /matching-service-test-run.
+      If you do not provide a value, the Compliance Tool will make a matching request to your `"matchingServiceEndpoint"`.
 
       You only need to test the user account creation requests if your service [creates new user accounts ][msa-create-user-accounts].
 
@@ -137,7 +137,7 @@ The Compliance Tool is hosted by GOV.UK Verify. To test the matching service usi
       * the `addresses` field that holds the current address contains a `fromDate` attribute for the date from which the address is valid; past addresses also contain the `toDate` attribute
       * the `cycle3Dataset` field is only present for a cycle 3 matching attempt
       * the `uprn` (Unique Property Reference Number) is a unique reference for each property in Great Britain, ensuring accuracy of address data. This is an optional attribute that can contain up to 12 characters and should not have any leading zeros
-      * `userAccountCreationAttributes`: provide this only if you want to test [new user account creation ][msa-create-user-accounts] – select from the full list of attributes
+      * `userAccountCreationAttributes`: provide this only if you want to test [new user account creation][msa-create-user-accounts] – select from the full list of attributes
 
 4. When the SAML Compliance Tool receives your test matching dataset, it will POST an attribute query to your MSA. This corresponds to step 4 in the [SAML message flow ][msa-saml-flow].
 
