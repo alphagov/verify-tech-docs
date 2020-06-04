@@ -11,7 +11,7 @@ By default, the GOV.UK Verify Hub handles the 2 following possible failure scena
 - if an identity provider cannot verify the user's identity, the GOV.UK Verify Hub redirects the user to an [error page][error-page-not-verified]
 - if the session ends before the user completes the journey, the GOV.UK Verify Hub redirects the user to a page containing a link back to your service start page
 
-If your service needs to handle these scenarios in a different way, you must [request to be sent failure responses][support] from the GOV.UK Verify Hub. 
+If your service needs to handle these scenarios in a different way, you must [request to be sent failure responses][support] from the GOV.UK Verify Hub.
 Failure responses tell your service which failure scenario your user has encountered, and allow you to customise your user journey.
 
 ## Before you start customising
@@ -34,7 +34,7 @@ If the identity provider cannot verify the user's identity, GOV.UK Verify Hub se
 
 If the session ends before the user completes the verification journey, GOV.UK Verify Hub sends a `NO_AUTHENTICATION` response.
 
-To get the failure responses from the GOV.UK Verify Hub in the Integration or Production environments, you must [contact the GOV.UK Verify team][support].
+To get the failure responses from the GOV.UK Verify Hub in the [Integration or Production environments][integration-environment], you must [contact the GOV.UK Verify team][support].
 
 ## Run the scenario
 

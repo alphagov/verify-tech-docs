@@ -14,20 +14,20 @@ You must host both the MSA and the Local Matching Service on your own infrastruc
 
 ## How matching works with GOV.UK Verify
 
-**figure arch_overview.svg**
+<%= image_tag "msa-arch-overview.svg" %>
 
 When an identity provider has verified a user’s identity, it generates and sends some limited information about that user’s identity to the service via the Verify Hub.
 
-The GOV.UK Verify Hub sends the information, in SAML, to your service where the [Matching Service Adapter (MSA) ](LINK) validates the authenticity of the SAML message and converts it into JSON data.
+The GOV.UK Verify Hub sends the information, in SAML, to your service where the [Matching Service Adapter (MSA)][building-a-matching-service] validates the authenticity of the SAML message and converts it into JSON data.
 
-The MSA then sends the JSON to your [Local Matching Service ](LINK).
+The MSA then sends the JSON to your [Local Matching Service ][local-matching-service].
 
 The Local Matching Service runs a series of checks to find a possible match in your local datastore(s) and will return:
 
 - no unique match (no match at all or more than one match)
 - unique match with one record
 
-Your [matching strategy ](LINK) should define what your service should do for each outcome.
+Your [matching strategy ][matching-strategy] should define what your service should do for each outcome.
 
 You must host both the MSA and the Local Matching Service. Together they are known as a ‘matching service’.
 

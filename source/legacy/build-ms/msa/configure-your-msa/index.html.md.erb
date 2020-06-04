@@ -143,16 +143,15 @@ Enter the URI for your MSA in `externalUrl`.
 
 Enter the URI for your local matching service in `matchUrl`.
 
-If you're creating new user accounts when a match isn't found (see [create new user accounts](LINK)), enter the user account creation URI in `accountCreationUrl`.
+If you're creating new user accounts when a match isn't found (see [create new user accounts][msa-create-user-accounts], enter the user account creation URI in `accountCreationUrl`.
 
 ### `signingKeys`
 
 Enter the paths of the primary SAML signing keys and certificates for your MSA in `primary`.
 
-For the compliance tool, [generate self-signed certificates](LINK).
 
-You'll use different keys and certificates for the integration and production environments - see [pkiRequestCert](LINK).
-
+You'll use different keys and self signed certificates for the integration and production environments.
+<%= partial "partials/get-self-signed-certificates", locals: { component: "MSA" } %>
 To convert a private key to PKCS#8 DER format, run the following command:
 
 ```
@@ -186,8 +185,8 @@ Optionally, if you need to override the `hub` and `idp` truststore path for test
 Configure according to the needs of your service.
 
 If your service needs to consume European identities, set `enabled: true`.
-You also need to configure the URLs for the environments you want to use, for example integration or production. Enabling your service to consume European identities also implies that it will be using [the universal JSON matching schema](LINK). The schema will apply to datasets from both European countries, as well as GOV.UK Verify identity providers.
+You also need to configure the URLs for the environments you want to use, for example integration or production. Enabling your service to consume European identities also implies that it will be using [the universal JSON matching schema][msa-universal-json-schema]. The schema will apply to datasets from both European countries, as well as GOV.UK Verify identity providers.
 
-If if you need to disable European identities, set `enabled: false` in this section. This setting also implies your MSA will be using [the legacy JSON matching schema](LINK).
+If if you need to disable European identities, set `enabled: false` in this section. This setting also implies your MSA will be using [the legacy JSON matching schema][msa-legacy-json-schema].
 
 <%= partial "partials/links" %>
