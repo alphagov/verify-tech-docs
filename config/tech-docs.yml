@@ -48,7 +48,7 @@ api_path:
 
 # Set default slack workspace and owner
 owner_slack_workspace: gds
-default_owner_slack: '#verify-developers'
+default_owner_slack: '#verify-tech-notifications'
 
 # Define redirects
 
