@@ -11,9 +11,9 @@ Your service must respond to JSON matching requests from the Matching Service Ad
 * `localMatchingService:` `accountCreationUrl:` (if you're [creating new user accounts][msa-create-user-accounts] when a match is not found)
 
 
-The MSA sends one matching request for both Cycle 0 and Cycle 1 to your local matching service. Below is a formatted example for a GOV.UK Verify identity using the [msa-universal-json-schema].
+The MSA sends one matching request for both Cycle 0 and Cycle 1 to your local matching service. Below is a formatted example for a GOV.UK Verify identity using the [universal JSON schema][msa-universal-json-schema].
 
-The matching request for a [European identity][msa-eu-identities], will be formatted according to the [universal JSON schema][msa-universal-json-schema]. If you haven't enabled European identities in your MSA configuration, the matching request will be formatted using [the legacy JSON schema][msa-legacy-json-schema].
+The matching request for a European identity will be formatted according to the [universal JSON schema][msa-universal-json-schema]. If you haven't enabled European identities in your MSA configuration, the matching request will be formatted using [the legacy JSON schema][msa-legacy-json-schema]. [Find out more about European identities and eIDAS][msa-eu-identities].
 
 Your local matching service first runs cycle 0. If no match is found, it runs cycle 1. It then sends either a `match` or a `no-match` response to the MSA. This response corresponds to step 6 in the [SAML message flow][msa-saml-flow].
 
