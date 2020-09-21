@@ -15,7 +15,7 @@ header_links:
 # Links to show in the page footer
 footer_links:
   GOV.UK Verify Website Accessibility: https://www.verify.service.gov.uk/accessibility/
-  Technical Documentation Accessibility: /accessibility.html
+  Technical Documentation Accessibility: /accessibility-statement
 
 # Tracking ID from Google Analytics (e.g. UA-XXXX-Y)
 ga_tracking_id: UA-26179049-26
