@@ -1,18 +1,19 @@
 ---
 title: Handling failure scenarios
 weight: 20
-last_reviewed_on: 2019-07-23
-review_in: 12 months
+last_reviewed_on: 2020-12-31
+review_in: 18 months
 ---
 # Handling failure scenarios
 
-By default, the GOV.UK Verify Hub handles the 2 following possible failure scenarios:
+By default, the GOV.UK Verify Hub handles the following failure scenarios on behalf of your service:
 
 - if an identity provider cannot verify the user's identity, the GOV.UK Verify Hub redirects the user to an [error page][error-page-not-verified]
 - if the session ends before the user completes the journey, the GOV.UK Verify Hub redirects the user to a page containing a link back to your service start page
 
-If your service needs to handle these scenarios in a different way, you must [request to be sent failure responses][support] from the GOV.UK Verify Hub.
-Failure responses tell your service which failure scenario your user has encountered, and allow you to customise your user journey.
+If you'd like your service to handle these scenarios in a different way, you can [ask us][support] to enable the "continue on failed registration" feature for your service.
+Failure responses can tell your service which failure scenario your user has encountered, and allow you to customise your user journey.
+Please note that the GOV.UK Verify Hub is not currently able to return a failure response in every situation where the user fails to prove their identity.
 
 ## Before you start customising
 
