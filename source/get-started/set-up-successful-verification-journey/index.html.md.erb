@@ -38,6 +38,13 @@ Once a user starts a GOV.UK Verify journey from their browser, your service must
 
 ![](/images/vsp-request-sequence-diagram.svg)
 
+1. Your user starts the journey from their browser.
+1. Your service sends a request to the VSP to generate a SAML authentication request.
+1. The VSP returns a SAML authentication request to your service.
+1. Your service sends an HTML form with the authentication request to your user’s browser.
+1. Your user submits the HTML form in their browser to the testing service.
+
+
 ### Generate an authentication request
 
 Make an HTTP POST request to the VSP's `/generate-request` endpoint to generate an authentication request message:
@@ -122,6 +129,12 @@ If the status is not `PASSED`, you may need to restart the VSP using the `develo
 Your service needs to be able to receive an HTML form containing the SAML response. The testing service sends the form through the browser. After receiving the form, your service translates the SAML response into JSON using the VSP. Depending on the scenario in the SAML message, your service should offer appropriate messaging to help the user continue.
 
 ![](/images/vsp-response-sequence-diagram.svg)
+
+1. The testing service sends a SAML response in an HTML form to your user’s browser.
+1. Your user submits the HTML form in their browser to your service.
+1. Your service sends a request to the VSP to translate the SAML response into JSON.
+1. The VSP returns the JSON to your service.
+1. Your service shows a result page in your user’s browser.
 
 
 ### Run the IDENTITY_VERIFIED response scenario
