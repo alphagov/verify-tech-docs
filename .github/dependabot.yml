@@ -1,0 +1,31 @@
+version: 2
+updates:
+- package-ecosystem: bundler
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "03:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: govuk_tech_docs
+    versions:
+    - 2.1.0
+    - 2.1.1
+    - 2.2.0
+    - 2.2.1
+    - 2.2.2
+  - dependency-name: activesupport
+    versions:
+    - 5.2.4.4
+    - 5.2.4.5
+  - dependency-name: nokogiri
+    versions:
+    - 1.11.1
+    - 1.11.2
+  - dependency-name: rack
+    versions:
+    - 2.2.3
+  - dependency-name: kramdown
+    versions:
+    - 2.3.0
+    - 2.3.1
