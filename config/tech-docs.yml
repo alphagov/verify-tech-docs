@@ -9,7 +9,6 @@ phase:
 
 # Links to show on right-hand-side of header
 header_links:
-  Connecting: https://www.verify.service.gov.uk/connecting/
   Documentation: /
   Support: https://www.verify.service.gov.uk/support/
 # Links to show in the page footer
