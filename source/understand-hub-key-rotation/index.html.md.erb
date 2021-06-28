@@ -1,0 +1,59 @@
+---
+title: Understand GOV.UK Verify hub key rotation
+weight: 61
+---
+
+# Understand GOV.UK Verify’s hub key rotation
+
+GOV.UK Verify’s hub key rotation is a separate process from [rotating your own keys and certificates](https://www.docs.verify.service.gov.uk/rotating-your-keys-and-certificates/#rotating-your-keys-and-certificates).
+
+If you are a government service connected to GOV.UK Verify, you do not need to do anything unless we tell you otherwise.
+
+## How GOV.UK Verify uses keys and certificates
+
+GOV.UK Verify uses cryptographic private keys to sign and decrypt user attributes. We publish the corresponding public keys in our metadata as certificates. A user attribute is information like a first name, or an address. Using public and private keys, GOV.UK Verify securely sends and receives user attributes to verify identities.
+
+1. Identity providers use GOV.UK Verify’s public signing key to encrypt user attributes.
+1. Identity providers send user attributes to GOV.UK Verify.
+1. GOV.UK Verify decrypts user attributes with our private encryption key.
+1. GOV.UK Verify signs user attributes with our private signing key.
+1. GOV.UK Verify sends user attributes to government services.
+1. Government services validate user attributes using GOV.UK Verify's public signing key.
+
+GOV.UK Verify’s metadata contains signing and encryption certificates, and backups of signing certificates. When we rotate a signing key, we also switch to the backup signing certificate in our metadata. We then add a new backup signing certificate for the next rotation.
+
+When we rotate an encryption key, we also switch to the new encryption certificate in our metadata. This tells identity providers to use the new certificate to encrypt user attributes for us.
+
+If you support a government service, your Matching Service Adapter (MSA) or Verify Service Provider (VSP) will automatically start using the new certificates.
+
+## Why we rotate hub keys
+
+We rotate GOV.UK Verify hub keys regularly to minimise the impact of security problems. If a key is compromised, it will only be in use for a limited time.
+
+## How often a hub key rotation happens
+
+We rotate GOV.UK Verify hub keys every 3 months. We also send reminder emails before the rotation happens.
+
+## What connected services need to do
+
+If your service uses the latest version of the Matching Service Adapter (MSA) or the Verify Service Provider (VSP), you do not need to do anything.
+
+You'll get notifications throughout the hub key rotation process so you know what's happening. You'll get an email:
+
+* 4 weeks before the rotation
+* 2 weeks before the rotation
+* a few hours before the rotation
+* after the rotation
+
+These emails are to inform you of the process and progress of the hub key rotation. You do not need to do anything unless you notice a problem after the rotation.
+
+### Report a problem after the hub key rotation
+
+[Contact GOV.UK Verify support](https://www.verify.service.gov.uk/support/) if you see either of the following after the hub key rotation:
+
+* errors in your MSA or VSP logs
+* a disruption to your service on the GOV.UK Verify part of the journey
+
+You can also [contact GOV.UK Verify support](https://www.verify.service.gov.uk/support/) if you have any questions about the hub key rotation process.
+
+<%= partial "partials/links" %>
