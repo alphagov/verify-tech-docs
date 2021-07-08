@@ -1,0 +1,173 @@
+---
+title: Handling the identity datset
+weight: 30
+---
+
+# Handling the identity dataset
+
+## Pre-requisites
+
+- You have decided how you will use identity data in your service
+- You have followed [tutorial 1]()
+
+
+## The identity dataset
+
+A user's identity data is supplied in the `attributes` field of the JSON response.
+
+It should contain the following attributes:
+
+- firstname
+- middle names
+- surnames
+- addresses
+- date of birth
+- gender (optional)
+
+Each attribute that is provided will include a `verified` and `value` property:
+
+```json
+"firstName": {
+  "verified":true,
+  "value":"Bob"
+}
+```
+
+Some attributes will provided as a list of values that may be historical:
+
+```json
+"surnames": [
+  {
+    "verified":true,
+    "value":"Jones"
+    "from": "2019-02-14T00:00:00""
+  },
+  {
+    "verified":true,
+    "value":"Davies"
+    "to": "2019-02-14T00:00:00""
+    "from": "2016-02-14T00:00:00"
+  }
+]
+```
+
+If an attribute is provided in a list then some sub-attributes may not all be verified. For example, a user's current address may not be verified, but their recent previous address is.
+
+| Attribute    | JSON property | List or Single | Optional in Verify | Optional in eIDAS |
+| -----------  | ------------- | ---------------| -------------------| ------------------|
+| First Name   | `firstName`   | Single         | Required           | no                |
+| Middlenames  | `middleNames` | List           | Optional           | yes               |
+| Surname      | `surnames`    | List           | Required           | yes               |
+| Date of birth| `dateOfBirth` | List           | Required           | yes               |
+| Gender       | `gender`      | Single         | Optional           | yes               |
+| Address      | `addresses`   | List           | Required           | yes               |
+
+### Example
+```json
+{
+  "firstName": {
+    "verified": true,
+    "value": "Alice"
+  },
+  "middleNames": [
+  {
+      "verified": true,
+      "value": "Lesley"
+    }
+  ],
+  "addresses": [
+    {
+      "verified": true,
+      "value": {
+        "postCode": "E1 8QS",
+        "lines": [
+          "The White Chapel Building",
+          "10 Whitechapel High Street"
+        ]
+        "from": "2015-01-14T00:00:00"
+      }
+    }
+  ],
+  "gender": {
+    "verified": true,
+    "value": "NOT_SPECIFIED"
+  },
+  "surnames": [
+    {
+      "verified": true,
+      "value": "Smith"
+    }
+  ]
+}
+```
+
+<% # TODO: ADD A JSON SCHEMA %>
+
+## Using the identity dataset
+
+Based on your previous decisions you will need to implement some business logic for handling the identity. You should use the attributes provided by the GOV.UK Verify and the VSP.
+
+## Test how you will use identity data
+
+Your service should be able to handle variations on user attributes as well as historical attributes and European identities, if needed.
+
+Yo can use the VSP's development mode to test different types of identity.
+When testing a scenario with the VSP's development mode you can specify the identity data that will be returned by the Verify test service.
+
+Before sending an authentication request, make a POST request to the VSP's `/refresh-identity-dataset` endpoint with a JSON identity dataset you wish to use in your test as the body parameters:
+
+### Example JSON body
+```json
+{
+  "firstName": {
+    "value": "Bob",
+    "verified": true
+  },
+  "middleNames": {
+    "value": "Arthur",
+    "verified": true
+  },
+  "surnames": [
+    {
+      "value": "Smith",
+      "from": "2013-02-22T14:32:14.064",
+      "verified": true
+    },
+    {
+      "value": "Jones",
+      "from": "2015-10-02T09:32:14.967",
+      "to": "2018-03-03T10:20:50.163",
+      "verified": true
+    }
+  ],
+  "gender": {
+    "value": "NOT_SPECIFIED",
+    "verified": true
+  },
+  "dateOfBirth": {
+    "value": "1970-01-01",
+    "verified": true
+  },
+  "addresses": [
+    {
+      "verified": true,
+      "from": "2013-02-22T14:32:14.064",
+      "postCode": "E1 8QS",
+      "lines": [
+        "The White Chapel Building",
+        "10 Whitechapel High Street"
+      ],
+    }
+  ],
+  "persistentId": "ff5de5e2-6070-44e7-985b-2079637b878e"
+}
+```
+
+When starting the VSP in development you can supply an identity dataset on the command line with `-d` flag.
+
+
+<% 'TODO: add schema for CT identity dataset' %>
+[successful-verification]: LINK
+[test-matching]: https://www.docs.verify.service.gov.uk/legacy/build-ms/test-ms/#test-your-matching-service
+
+<%= partial "partials/links" %>
